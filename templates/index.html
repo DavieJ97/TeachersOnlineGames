@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Games</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>Teacher Games</h1>
+        <p>Create engaging classroom review games in seconds.</p>
+    </header>
+
+    <main>
+
+        <section class="game-library">
+
+            <div class="game-card">
+
+                <h2>🐱 Exploding Kittens</h2>
+
+                <p>
+                    Answer classroom questions and earn points by drawing cards.
+                    Push your luck—but don't draw the bomb!
+                </p>
+
+                <a href="{{ url_for('exploding_kittens') }}" class="play-button">
+                    Play Game
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Teacher Games © 2026</p>
+    </footer>
+
+</body>
+</html>

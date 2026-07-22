@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploding Kittens</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">      
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/exploding_kittens.css') }}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <script defer
+            src="{{ url_for('static', filename='js/games/exploding_kittens.js') }}">
+    </script>
+</head>
+
+<body>
+
+<!-- ========================= -->
+<!-- SETUP SCREEN              -->
+<!-- ========================= -->
+
+<section id="setup-screen">
+
+    <h1>🐱 Exploding Kittens</h1>
+
+    <p>Load a lesson pack or create one before starting.</p>
+
+    <div class="setup-box">
+
+        <button id="load-lesson-btn" class="game-button">
+            Load Lesson Pack
+        </button>
+        <input
+            type="file"
+            id="lesson-file"
+            accept=".zip"
+            hidden
+        >
+
+        <button id="new-lesson-btn" class="game-button">
+            Create Lesson Pack
+        </button>
+
+        <br>
+
+        <div id="lesson-info" hidden>
+
+            <h3>Lesson Loaded</h3>
+
+            <p><strong>Grade:</strong> <span id="lesson-grade">-</span></p>
+
+            <p><strong>Lesson:</strong> <span id="lesson-name">-</span></p>
+
+            <p><strong>Questions:</strong> <span id="lesson-question-count">0</span></p>
+
+        </div>
+
+        <br>
+
+        <label for="team-count">
+            Number of Teams
+        </label>
+
+        <br>
+
+        <input
+            type="number"
+            id="team-count"
+            min="2"
+            max="6"
+            value="2">
+
+        <br><br>
+
+        <button id="start-game-btn" class="game-button">
+            Start Game
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- MAIN GAME                 -->
+<!-- ========================= -->
+
+<section id="main-screen" hidden>
+
+    <header>
+
+        <h2>Exploding Kittens</h2>
+
+        <h3 id="current-team">
+            Team 1's Turn
+        </h3>
+
+    </header>
+
+    <div id="scoreboard">
+
+        <!-- JavaScript builds this -->
+
+    </div>
+
+    <div id="question-grid">
+
+        <!-- Letter buttons go here -->
+
+    </div>
+
+</section>
+
+<!-- ========================= -->
+<!-- ANIMATION LAYER           -->
+<!-- ========================= -->
+
+<div id="animation-layer"></div>
+
+
+<!-- ========================= -->
+<!-- QUESTION OVERLAY          -->
+<!-- ========================= -->
+
+<div id="question-overlay">
+
+    <div id="question-card">
+
+        <h2 id="instruction">
+            Instruction
+        </h2>
+
+        <div id="question-box">
+
+            <img id="question-image" hidden>
+
+        </div>
+
+        <div id="answer-box">
+            Answer Here
+        </div>
+
+        <div id="question-buttons">
+
+            <button id="correct-btn" class= "image-btn" "game-button">
+            </button>
+
+            <button id="show-answer-btn" class="image-btn" "game-button" >
+                Show Answer
+            </button>
+
+            <button id="incorrect-btn" class="image-btn" "game-button">
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- REWARD OVERLAY            -->
+<!-- ========================= -->
+
+<div id="reward-overlay">
+
+    <div id="reward-window">
+
+        <h2 id="reward-title">Reward Round</h2>
+
+        <div id="reward-content">
+
+            <div id="reward-display">
+
+                <div id="drawn-cards"></div>
+
+                <div id="score-panel">
+
+                    <h3 id="temporary-score-label">Temporary Score</h3>
+
+                    <div id="temporary-score">0</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="reward-buttons">
+
+            <button id="draw-btn" class="game-button">
+                Draw
+            </button>
+
+            <button id="stop-btn" class="game-button">
+                Stop
+            </button>
+
+        </div>
+
+        <div id="reward-footer">
+
+            <button id="return-btn" class="game-button"></button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ========================= -->
+<!-- SWAP TEAM OVERLAY         -->
+<!-- ========================= -->
+
+<div id="swap-overlay">
+
+    <div id="swap-window">
+
+        <h2>Select a Team to Swap With</h2>
+
+        <div id="swap-team-list">
+
+        </div>
+
+        <button id="cancel-swap-btn" class="game-button">
+            Cancel
+        </button>
+
+    </div>
+
+</div>
+
+</body>
+</html>

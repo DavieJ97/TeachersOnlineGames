@@ -1,0 +1,340 @@
+/*=====================================
+BODY
+=====================================*/
+
+body{
+
+    margin:0;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    /* background-image:url("../images/backgrounds/background.png");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat; */
+
+    font-family:Arial, Helvetica, sans-serif;
+
+}
+
+/*=====================================
+EDITOR WINDOW
+=====================================*/
+
+#editor-window{
+
+    width:1200px;
+
+    height:950px;
+
+    max-width:95%;
+
+    /* background-image:url("../images/backgrounds/question_background.png");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat; */
+
+    border-radius:20px;
+
+    padding:40px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
+
+}
+
+/*=====================================
+TITLE
+=====================================*/
+
+#game-title{
+
+    margin:0;
+
+    text-align:center;
+
+    font-size:2.5rem;
+
+    color:white;
+
+}
+
+/*=====================================
+TOOLBAR
+=====================================*/
+
+#editor-toolbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+}
+
+/*=====================================
+QUESTION COUNTER
+=====================================*/
+
+#question-counter{
+
+    text-align:center;
+
+    font-size:1.2rem;
+
+    color:white;
+
+}
+
+/*=====================================
+INSTRUCTION
+=====================================*/
+
+#instruction-input{
+
+    height:60px;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:0 20px;
+
+    font-size:1.4rem;
+
+    text-align:center;
+
+    /* background-image:url("../images/backgrounds/Top_instructions.png");
+    background-size:100% 100%;
+    background-position:center;
+    background-repeat:no-repeat; */
+
+    color:white;
+
+}
+
+/*=====================================
+NAVIGATION
+=====================================*/
+
+#navigation{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.question-number{
+
+    flex:1;
+
+    text-align:center;
+
+    color:white;
+
+    font-size:1.3rem;
+
+}
+
+/*=====================================
+QUESTION AREA
+=====================================*/
+
+#question-area{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-start;
+
+    align-items:center;
+
+    gap:25px;
+
+    padding:30px;
+
+}
+
+/*=====================================
+QUESTION IMAGE
+=====================================*/
+
+/*=====================================
+QUESTION TEXT
+=====================================*/
+
+/*=====================================
+ANSWER
+=====================================*/
+
+#answer-input{
+
+    height:90px;
+
+    resize:none;
+
+    border:none;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    font-size:1.4rem;
+
+    /* background-image:url("../images/backgrounds/answer_bar.png");
+    background-size:100% 100%;
+    background-position:center;
+    background-repeat:no-repeat; */
+
+    color:white;
+
+    text-align: center;
+
+}
+
+/*=====================================
+INPUTS
+=====================================*/
+
+input,
+textarea{
+
+    outline:none;
+
+    font-family:inherit;
+
+    background-color: dimgrey;
+
+}
+
+input::placeholder,
+textarea::placeholder{
+
+    color:rgba(255, 255, 255, 0.18);
+
+}
+
+/*=====================================
+BUTTON HOVER
+=====================================*/
+
+#editor-toolbar button:hover,
+#navigation button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+.selected{
+
+    outline: 3px solid #3b82f6;
+
+    outline-offset: 3px;
+
+}
+
+.canvas-object{
+
+    position:absolute;
+
+}
+
+.canvas-object.selected{
+
+    outline:2px solid #3b82f6;
+
+}
+
+.resize-handle{
+
+    position:absolute;
+
+    width:14px;
+
+    height:14px;
+
+    right:-7px;
+
+    bottom:-7px;
+
+    background:#3b82f6;
+
+    border:2px solid white;
+
+    border-radius:50%;
+
+    cursor:nwse-resize;
+
+}
+
+.canvas-image{
+
+    width:100%;
+
+    height:100%;
+
+    user-select:none;
+
+    pointer-events:none;
+
+}
+
+.canvas-textbox{
+
+    width:100%;
+
+    height:100%;
+
+    overflow:hidden;
+
+    color: black;
+
+}
+
+#editor-canvas{
+
+    position:relative;
+
+    width:100%;
+
+    height:400px;
+
+    border:3px dashed rgba(255,255,255,.35);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    background-color: white;
+
+}
+
+#font-smaller-btn,
+#font-bigger-btn{
+
+    min-width:60px;
+
+    font-weight:bold;
+
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Lesson Pack</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/review_questions.css') }}">
+
+</head>
+
+<body>
+
+    <div id="editor-window">
+
+        <h1 id="game-title">
+
+            {{ game_name.replace("_", " ").title() }}
+
+        </h1>
+
+        <!-- ========================= -->
+        <!-- TOP TOOLBAR               -->
+        <!-- ========================= -->
+
+        <div id="editor-toolbar">
+
+            <button id="upload-lesson-btn" class="game-button">
+                Upload Lesson
+            </button>
+
+            <button id="save-lesson-btn" class="game-button">
+                Save Lesson
+            </button>
+
+            <button id="delete-question-btn" class="game-button">
+                Delete Question
+            </button>
+
+            <button id="add-img-btn" class="game-button">
+                Add image
+            </button>
+
+            <button id="add-textbox-btn" class="game-button">
+                Add textbox
+            </button>
+
+            <button id="font-smaller-btn" class="game-button">
+                A-
+            </button>
+
+            <button id="font-bigger-btn" class="game-button">
+                A+
+            </button>
+
+            <!-- Hidden Inputs -->
+            <input
+                type="file"
+                id="lesson-file-input"
+                accept=".zip"
+                hidden
+            >
+
+            <input
+                type="file"
+                id="image-file-input"
+                accept="image/*"
+                hidden
+            >
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- NAVIGATION                -->
+        <!-- ========================= -->
+
+        <div id="navigation">
+
+            <button id="previous-question-btn"
+                    class="game-button">
+
+                ◀ Previous
+
+            </button>
+
+            <div id="question-counter" class="question-number">
+
+                Question 1 of 1
+
+            </div>
+
+            <button id="next-question-btn"
+                    class="game-button">
+
+                Next ▶
+
+            </button>
+
+            <button id="add-question-btn"
+                    class="game-button">
+
+                + Add
+
+            </button>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- INSTRUCTION               -->
+        <!-- ========================= -->
+
+        <input
+            type="text"
+            id="instruction-input"
+            placeholder="Instruction..."
+        >
+
+        <!-- ========================= -->
+        <!-- QUESTION AREA             -->
+        <!-- ========================= -->
+
+        <div id="question-area">
+
+            <div id="editor-canvas">
+
+                <div id="canvas-placeholder">
+                    Click "Add Image" or "Add Textbox" to begin
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- ANSWER                    -->
+        <!-- ========================= -->
+
+        <textarea
+            id="answer-input"
+            placeholder="Answer..."
+        ></textarea>
+
+    </div>
+
+    <script>
+
+        const GAME_NAME = "{{ game_name }}";
+
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="{{ url_for('static',
+                filename='js/shared/review_questions.js') }}"></script>
+
+</body>
+
+</html>
