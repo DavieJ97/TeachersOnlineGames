@@ -1,88 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exploding Kittens</title>
+{% extends "base_games.html" %}
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">      
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/exploding_kittens.css') }}">
+{% block title %}
+    Exploding Kittens
+{% endblock %}
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+{% block game_styles %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/exploding_kittens.css') }}">
+{% endblock %}
 
-    <script defer
-            src="{{ url_for('static', filename='js/games/exploding_kittens.js') }}">
-    </script>
-</head>
-
-<body>
+{% block game_content %}
 
 <!-- ========================= -->
 <!-- SETUP SCREEN              -->
 <!-- ========================= -->
 
-<section id="setup-screen">
+{% set game_name = "exploding_kittens" %}
+{% set game_title = "Exploding Kittens" %}
+{% set game_description =
+    "Load a lesson pack or create one before starting."
+%}
 
-    <h1>🐱 Exploding Kittens</h1>
-
-    <p>Load a lesson pack or create one before starting.</p>
-
-    <div class="setup-box">
-
-        <button id="load-lesson-btn" class="game-button">
-            Load Lesson Pack
-        </button>
-        <input
-            type="file"
-            id="lesson-file"
-            accept=".zip"
-            hidden
-        >
-
-        <button id="new-lesson-btn" class="game-button">
-            Create Lesson Pack
-        </button>
-
-        <br>
-
-        <div id="lesson-info" hidden>
-
-            <h3>Lesson Loaded</h3>
-
-            <p><strong>Grade:</strong> <span id="lesson-grade">-</span></p>
-
-            <p><strong>Lesson:</strong> <span id="lesson-name">-</span></p>
-
-            <p><strong>Questions:</strong> <span id="lesson-question-count">0</span></p>
-
-        </div>
-
-        <br>
-
-        <label for="team-count">
-            Number of Teams
-        </label>
-
-        <br>
-
-        <input
-            type="number"
-            id="team-count"
-            min="2"
-            max="6"
-            value="2">
-
-        <br><br>
-
-        <button id="start-game-btn" class="game-button">
-            Start Game
-        </button>
-
-    </div>
-
-</section>
+{% include "components/games/lesson_setup.html" %}
 
 
 <!-- ========================= -->
@@ -91,21 +30,7 @@
 
 <section id="main-screen" hidden>
 
-    <header>
-
-        <h2>Exploding Kittens</h2>
-
-        <h3 id="current-team">
-            Team 1's Turn
-        </h3>
-
-    </header>
-
-    <div id="scoreboard">
-
-        <!-- JavaScript builds this -->
-
-    </div>
+    {% include "components/games/team_scoreboard.html" %}
 
     <div id="question-grid">
 
@@ -126,41 +51,7 @@
 <!-- QUESTION OVERLAY          -->
 <!-- ========================= -->
 
-<div id="question-overlay">
-
-    <div id="question-card">
-
-        <h2 id="instruction">
-            Instruction
-        </h2>
-
-        <div id="question-box">
-
-            <img id="question-image" hidden>
-
-        </div>
-
-        <div id="answer-box">
-            Answer Here
-        </div>
-
-        <div id="question-buttons">
-
-            <button id="correct-btn" class= "image-btn" "game-button">
-            </button>
-
-            <button id="show-answer-btn" class="image-btn" "game-button" >
-                Show Answer
-            </button>
-
-            <button id="incorrect-btn" class="image-btn" "game-button">
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
+{% include "components/games/question_overlay.html" %}
 
 
 <!-- ========================= -->
@@ -193,11 +84,11 @@
 
         <div id="reward-buttons">
 
-            <button id="draw-btn" class="game-button">
+            <button id="draw-btn" class="btn btn-success game-button">
                 Draw
             </button>
 
-            <button id="stop-btn" class="game-button">
+            <button id="stop-btn" class="btn btn-success game-button">
                 Stop
             </button>
 
@@ -205,7 +96,7 @@
 
         <div id="reward-footer">
 
-            <button id="return-btn" class="game-button"></button>
+            <button id="return-btn" class="btn btn-success game-button"></button>
 
         </div>
 
@@ -227,7 +118,7 @@
 
         </div>
 
-        <button id="cancel-swap-btn" class="game-button">
+        <button id="cancel-swap-btn" class="btn btn-success game-button">
             Cancel
         </button>
 
@@ -235,5 +126,65 @@
 
 </div>
 
-</body>
-</html>
+{% endblock %}
+
+{% block help_title %}
+    How to start Exploding Kittens
+{% endblock %}
+
+{% block help_content %}
+<h2 class="fs-6 fw-bold">How to start</h2>
+
+<ol class="mb-0 ps-3">
+    <li>Choose the number of teams, up to six.</li>
+
+    <li>
+        Choose how you want to play:
+
+        <ul class="mt-2 ps-3">
+            <li>
+                Press <strong>Start Game</strong> to play a demo.
+            </li>
+
+            <li>
+                Press <strong>Load Lesson Pack</strong> to use an
+                existing lesson pack.
+            </li>
+
+            <li>
+                Press <strong>Create Lesson Pack</strong> to create
+                a new lesson pack.
+            </li>
+        </ul>
+    </li>
+</ol>
+{% endblock %}
+
+{% block game_scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script defer
+        src="{{ url_for('static',
+        filename='js/shared/lessonLoader.js') }}">
+</script>
+
+<script defer
+        src="{{ url_for('static',
+        filename='js/shared/question_grid.js') }}">
+</script>
+
+<script defer
+        src="{{ url_for('static',
+        filename='js/shared/scoreboard.js') }}">
+</script>
+
+<script defer
+        src="{{ url_for('static',
+        filename='js/shared/ui.js') }}">
+</script>
+
+<script defer
+        src="{{ url_for('static',
+        filename='js/games/exploding_kittens.js') }}">
+</script>
+{% endblock %}

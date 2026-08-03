@@ -26,6 +26,10 @@ const imageFileInput = document.getElementById("image-file-input");
 const editorCanvas = document.getElementById("editor-canvas");
 const editorCanvasPlaceholder = document.getElementById("canvas-placeholder");
 
+const progressOverlay = document.getElementById("save-progress-overlay");
+const progressBar = document.getElementById("save-progress-bar");
+const progressMessage = document.getElementById("save-progress-message");
+
 const MIN_WIDTH = 80;
 const MIN_HEIGHT = 40;
 const MIN_FONT_SIZE = 12;
@@ -385,8 +389,6 @@ function startResizing(event){
     selectedObject = Number(draggedElement.dataset.index);
 
 
-    isResizing = true;
-
     const object =
         lesson.questions[currentQuestion].objects[selectedObject];
 
@@ -395,6 +397,8 @@ function startResizing(event){
         return;
 
     }
+
+    isResizing = true;
 
     resizeStartX = event.clientX;
     resizeStartY = event.clientY;
@@ -421,14 +425,20 @@ function resizeObject(event){
     object.height =
         startHeight + (event.clientY - resizeStartY);
 
-    object.width = Math.min(
-        object.width,
-        editorCanvas.clientWidth - object.x
+    object.width = Math.max(
+        MIN_WIDTH,
+        Math.min(
+            object.width,
+            editorCanvas.clientWidth - object.x
+        )
     );
 
-    object.height = Math.min(
-        object.height,
-        editorCanvas.clientHeight - object.y
+    object.height = Math.max(
+        MIN_HEIGHT,
+        Math.min(
+            object.height,
+            editorCanvas.clientHeight - object.y
+        )
     );
 
     draggedElement.style.width = object.width + "px";
@@ -436,8 +446,6 @@ function resizeObject(event){
 
 
 }
-
-
 
 function addTextbox(){
 
@@ -469,6 +477,7 @@ function addTextbox(){
 }
 
 async function saveLessonPack(){
+    showProgress(lesson.questions.length);
 
     saveCurrentQuestion();
 
@@ -484,6 +493,8 @@ async function saveLessonPack(){
 
     };
 
+    const questionBeforeSaving = currentQuestion;
+
     for(let i = 0; i < lesson.questions.length; i++){
 
         currentQuestion = i;
@@ -494,6 +505,62 @@ async function saveLessonPack(){
         await new Promise(resolve =>
             requestAnimationFrame(resolve)
         );
+
+        const question = lesson.questions[i];
+
+        // Save the editable object data.
+        const savedObjects = [];
+
+        for (
+            let objectIndex = 0;
+            objectIndex < question.objects.length;
+            objectIndex++
+        ) {
+
+            const object = question.objects[objectIndex];
+
+            // Ignore the locked screenshot used by old lesson packs.
+            if (
+                object.type === "image" &&
+                object.isLegacyPreview
+            ) {
+                continue;
+            }
+
+            const savedObject = {
+                type: object.type,
+                x: object.x,
+                y: object.y,
+                width: object.width,
+                height: object.height,
+                locked: object.locked
+            };
+
+            if (object.type === "text") {
+
+                savedObject.text = object.text;
+                savedObject.fontSize = object.fontSize;
+
+            } else if (object.type === "image") {
+
+                // An image file cannot be stored directly in JSON.
+                // Put the original file inside the ZIP instead.
+                if (!object.file) {
+                    continue;
+                }
+
+                const assetPath =
+                    `editor-assets/question${i + 1}-object${objectIndex + 1}`;
+
+                zip.file(assetPath, object.file);
+
+                savedObject.asset = assetPath;
+                savedObject.fileName = object.file.name;
+                savedObject.mimeType = object.file.type;
+            }
+
+            savedObjects.push(savedObject);
+        }
 
         // Take a screenshot of the editor
         const canvas = await html2canvas(editorCanvas);
@@ -512,11 +579,19 @@ async function saveLessonPack(){
 
             answer: lesson.questions[i].answer,
 
-            image: imageName
+            image: imageName,
+
+            objects: savedObjects
 
         });
 
+        updateProgress(i + 1, lesson.questions.length, "Saving");
+
     }
+
+    // Return the teacher to the question they were editing.
+    currentQuestion = questionBeforeSaving;
+    loadQuestion();
 
     zip.file(
 
@@ -535,12 +610,13 @@ async function saveLessonPack(){
     const link = document.createElement("a");
 
     link.href = URL.createObjectURL(blob);
-
-    link.download = `${lesson.game}.zip`;
+    link.download = `${lesson.game} lesson pack.zip`;
 
     link.click();
 
     URL.revokeObjectURL(link.href);
+
+    hideProgress()
 
 }
 
@@ -550,76 +626,147 @@ async function loadLessonPack(){
 
     if(!file) return;
 
-    const zip = await JSZip.loadAsync(file);
+    try{
 
-    const jsonText =
-        await zip.file("lesson.json").async("string");
+        const zip = await JSZip.loadAsync(file);
 
-    const lessonData = JSON.parse(jsonText);
+        const lessonFile = zip.file("lesson.json");
 
-    lesson.game = lessonData.game;
+        if (!lessonFile) {
+            throw new Error("This ZIP does not contain lesson.json.");
+        }
 
-    lesson.questions = [];
+        const jsonText = await lessonFile.async("string");
 
-    for(const question of lessonData.questions){
+        const lessonData = JSON.parse(jsonText);
 
-        const newQuestion = {
+        if (!Array.isArray(lessonData.questions)) {
+            throw new Error("This lesson pack has no questions.");
+        }
 
-            instruction: question.instruction,
+        showProgress(lessonData.questions.length)
 
-            answer: question.answer,
+        lesson.game = lessonData.game || GAME_NAME;
 
-            objects: []
+        lesson.questions = [];
 
-        };
+        for(let i = 0; i < lessonData.questions.length; i++){
+            const savedQuestion = lessonData.questions[i];
 
-        if(question.image){
+            const newQuestion = {
 
-            const imageBlob =
-                await zip.file("images/" + question.image)
-                    .async("blob");
+                instruction: savedQuestion.instruction || "",
 
-            const imageFile = new File(
+                answer: savedQuestion.answer || "",
 
-                [imageBlob],
+                objects: []
 
-                question.image,
+            };
 
-                {
-                    type: imageBlob.type
+            if (Array.isArray(savedQuestion.objects)) {
+
+                for (const savedObject of savedQuestion.objects) {
+
+                    if (savedObject.type === "text") {
+
+                        newQuestion.objects.push({
+                            type: "text",
+                            text: savedObject.text || "",
+                            x: savedObject.x,
+                            y: savedObject.y,
+                            width: savedObject.width,
+                            height: savedObject.height,
+                            fontSize: savedObject.fontSize,
+                            locked: savedObject.locked ?? false
+                        });
+
+                    } else if (savedObject.type === "image") {
+
+                        const assetFile =
+                            zip.file(savedObject.asset);
+
+                        if (!assetFile) {
+                            continue;
+                        }
+
+                        const imageFile =
+                            await LessonLoader.getFile(
+                                zip,
+                                savedObject.asset,
+                                savedObject.fileName || "image",
+                                savedObject.mimeType
+                            );
+
+                        newQuestion.objects.push({
+                            type: "image",
+                            file: imageFile,
+                            x: savedObject.x,
+                            y: savedObject.y,
+                            width: savedObject.width,
+                            height: savedObject.height,
+                            locked: savedObject.locked ?? false
+                        });
+                    }
                 }
 
+            /*
+             * Old lesson packs:
+             * They only contain a screenshot, so it cannot be
+             * restored as individually editable objects.
+             */
+            } else if (savedQuestion.image) {
+
+                const screenshotFile = zip.file(
+                    "images/" + savedQuestion.image
+                );
+
+                if (screenshotFile) {
+
+                    const screenshotImage =
+                        await LessonLoader.getFile(
+                            zip,
+                            "images/" + savedQuestion.image,
+                            savedQuestion.image
+                        );
+
+                    newQuestion.objects.push({
+                        type: "image",
+                        file: screenshotImage,
+                        x: 0,
+                        y: 0,
+                        width: editorCanvas.clientWidth,
+                        height: editorCanvas.clientHeight,
+                        locked: true,
+                        isLegacyPreview: true
+
+                    });
+                }
+
+            }
+            updateProgress(i + 1, lessonData.questions.length, "Loading")
+            await new Promise(resolve =>
+                requestAnimationFrame(resolve)
             );
 
-            newQuestion.objects.push({
-
-                type: "image",
-
-                file: imageFile,
-
-                x: 0,
-
-                y: 0,
-
-                width: editorCanvas.clientWidth,
-
-                height: editorCanvas.clientHeight,
-
-                locked: true,
-
-            });
+            lesson.questions.push(newQuestion);
 
         }
 
-        lesson.questions.push(newQuestion);
+        currentQuestion = 0;
 
+        selectedObject = null;
+
+        loadQuestion();
+
+    } catch (error){
+        console.error(error);
+        alert(
+            "We could not open this lesson pack. " +
+            "Please make sure you selected a valid lesson ZIP file."  
+        );
     }
 
-    currentQuestion = 0;
-
-    selectedObject = null;
-
-    loadQuestion();
+    hideProgress()
 
 }
 
@@ -700,7 +847,48 @@ function decreaseFontSize(){
 
 }
 
+function showProgress(totalQuestions) {
+
+    progressBar.style.width = "0%";
+
+    progressMessage.textContent =
+        `Preparing ${totalQuestions} question${
+            totalQuestions === 1 ? "" : "s"
+        }...`;
+
+    progressOverlay.hidden = false;
+}
+
+function updateProgress(
+    completedQuestions,
+    totalQuestions, 
+    type
+) {
+
+    const percent = Math.round(
+        (completedQuestions / totalQuestions) * 100
+    );
+
+    progressBar.style.width = `${percent}%`;
+
+    progressMessage.textContent =
+        `${type} question ${completedQuestions} of ${totalQuestions}...`;
+}
+
+function hideProgress() {
+    progressOverlay.hidden = true;
+}
+
 document.addEventListener("keydown", event=>{
+    const activeElement = document.activeElement;
+
+    if (
+        activeElement.matches(
+            "input, textarea, [contenteditable='true']"
+        )
+    ) {
+        return;
+    }
 
     if(event.key === "Delete"){
 

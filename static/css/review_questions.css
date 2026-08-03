@@ -2,25 +2,18 @@
 BODY
 =====================================*/
 
-body{
+body.game-app {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-    margin:0;
-
-    min-height:100vh;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    /* background-image:url("../images/backgrounds/background.png");
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat; */
-
-    font-family:Arial, Helvetica, sans-serif;
-
+body.game-app main {
+    min-height: calc(100vh - 48px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
 }
 
 /*=====================================
@@ -74,14 +67,40 @@ TITLE
 TOOLBAR
 =====================================*/
 
-#editor-toolbar{
+.editor-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 1rem;
+}
 
-    display:flex;
+.toolbar-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
 
-    justify-content:space-between;
+.toolbar-section-danger {
+    margin-left: auto;
+}
 
-    gap:20px;
+.toolbar-label {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
 
+@media (max-width: 768px) {
+
+    .toolbar-section-danger {
+        margin-left: 0;
+    }
+
+    .editor-toolbar {
+        align-items: stretch;
+    }
 }
 
 /*=====================================
@@ -115,11 +134,6 @@ INSTRUCTION
     font-size:1.4rem;
 
     text-align:center;
-
-    /* background-image:url("../images/backgrounds/Top_instructions.png");
-    background-size:100% 100%;
-    background-position:center;
-    background-repeat:no-repeat; */
 
     color:white;
 
@@ -174,14 +188,6 @@ QUESTION AREA
     padding:30px;
 
 }
-
-/*=====================================
-QUESTION IMAGE
-=====================================*/
-
-/*=====================================
-QUESTION TEXT
-=====================================*/
 
 /*=====================================
 ANSWER
@@ -337,4 +343,32 @@ BUTTON HOVER
 
     font-weight:bold;
 
+}
+
+#save-progress-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(3px);
+}
+
+.save-progress-card {
+    width: min(100%, 420px);
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1rem;
+    background: #212529;
+    color: white;
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.45);
+}
+
+.save-progress-card .progress {
+    height: 0.85rem;
 }

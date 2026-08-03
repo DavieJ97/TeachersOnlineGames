@@ -1,0 +1,154 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold" href="/">
+            <img src="{{ url_for('static', filename='images/logos/logo.png') }}"
+                alt="Teachers Online Logo"
+                height="45"
+                class="me-2 logo-img">
+            <span class="fw-bold text-brand">Teachers</span><span class="fw-bold text-accent">Online</span>
+        </a>
+
+        <!-- Mobile Button -->
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <!-- Navbar Items -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">
+                        Home
+                    </a>
+                </li>
+
+                <!-- Games -->
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       role="button"
+                       data-bs-toggle="dropdown">
+
+                        <i class="bi bi-controller"></i>
+                        Games
+
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a class="dropdown-item"
+                               href="/games">
+
+                                All Games
+
+                            </a>
+                        </li>
+
+                        <li><hr class="dropdown-divider"></li>
+
+                        <li>
+                            <a class="dropdown-item"
+                               href="/games/exploding-kittens">
+
+                                Exploding Kittens
+
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item disabled"
+                               href="#">
+
+                                Walk the Plank (Coming Soon)
+
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <!-- Worksheets -->
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       role="button"
+                       data-bs-toggle="dropdown">
+
+                        <i class="bi bi-file-earmark-text"></i>
+                        Worksheets
+
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a class="dropdown-item"
+                               href="/worksheets">
+
+                                Worksheet Generator
+
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <!-- PowerPoint -->
+                <li class="nav-item">
+
+                    <a class="nav-link disabled" href="#">
+
+                        <i class="bi bi-easel"></i>
+                        PowerPoint
+
+                    </a>
+
+                </li>
+
+                <!-- Blog -->
+                <li class="nav-item">
+
+                    <a class="nav-link" href="/blog">
+
+                        <i class="bi bi-journal-text"></i>
+                        Blog
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+            <!-- Login -->
+
+            <div class="ms-lg-3">
+
+                <a href="/login"
+                   class="btn btn-outline-primary">
+
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    Login
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>

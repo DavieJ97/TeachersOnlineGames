@@ -1,24 +1,16 @@
-<!DOCTYPE html>
+{% extends "base_games.html" %}
 
-<html lang="en">
+{% block title %}
+    Create Lesson Pack
+{% endblock %}
 
-<head>
+{% block game_styles %}
+<link rel="stylesheet"
+      href="{{ url_for('static',
+      filename='css/review_questions.css') }}">
+{% endblock %}
 
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Create Lesson Pack</title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/review_questions.css') }}">
-
-</head>
-
-<body>
+{% block game_content %}
 
     <div id="editor-window">
 
@@ -32,51 +24,96 @@
         <!-- TOP TOOLBAR               -->
         <!-- ========================= -->
 
-        <div id="editor-toolbar">
+        <div id="editor-toolbar"
+            class="editor-toolbar"
+            role="toolbar"
+            aria-label="Lesson editor toolbar">
 
-            <button id="upload-lesson-btn" class="game-button">
-                Upload Lesson
-            </button>
+            <div class="toolbar-section">
 
-            <button id="save-lesson-btn" class="game-button">
-                Save Lesson
-            </button>
+                <span class="toolbar-label">Lesson</span>
 
-            <button id="delete-question-btn" class="game-button">
-                Delete Question
-            </button>
+                <div class="btn-group" role="group" aria-label="Lesson files">
 
-            <button id="add-img-btn" class="game-button">
-                Add image
-            </button>
+                    <button id="upload-lesson-btn"
+                            class="btn btn-outline-light game-button">
+                        <i class="bi bi-folder2-open"></i>
+                        Upload
+                    </button>
 
-            <button id="add-textbox-btn" class="game-button">
-                Add textbox
-            </button>
+                    <button id="save-lesson-btn"
+                            class="btn btn-outline-light game-button">
+                        <i class="bi bi-download"></i>
+                        Save
+                    </button>
 
-            <button id="font-smaller-btn" class="game-button">
-                A-
-            </button>
+                </div>
 
-            <button id="font-bigger-btn" class="game-button">
-                A+
-            </button>
+            </div>
 
-            <!-- Hidden Inputs -->
-            <input
-                type="file"
+            <div class="toolbar-section">
+
+                <span class="toolbar-label">Add content</span>
+
+                <div class="btn-group" role="group" aria-label="Add content">
+
+                    <button id="add-img-btn"
+                            class="btn btn-outline-light game-button">
+                        <i class="bi bi-image"></i>
+                        Image
+                    </button>
+
+                    <button id="add-textbox-btn"
+                            class="btn btn-outline-light game-button">
+                        <i class="bi bi-fonts"></i>
+                        Text
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="toolbar-section">
+
+                <span class="toolbar-label">Text size</span>
+
+                <div class="btn-group" role="group" aria-label="Text size">
+
+                    <button id="font-smaller-btn"
+                            class="btn btn-outline-light game-button">
+                        A-
+                    </button>
+
+                    <button id="font-bigger-btn"
+                            class="btn btn-outline-light game-button">
+                        A+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="toolbar-section toolbar-section-danger">
+
+                <span class="toolbar-label">Question</span>
+
+                <button id="delete-question-btn"
+                        class="btn btn-outline-danger game-button">
+                    <i class="bi bi-trash3"></i>
+                    Delete
+                </button>
+
+            </div>
+
+            <input type="file"
                 id="lesson-file-input"
                 accept=".zip"
-                hidden
-            >
+                hidden>
 
-            <input
-                type="file"
+            <input type="file"
                 id="image-file-input"
                 accept="image/*"
-                hidden
-            >
-
+                hidden>
         </div>
 
         <!-- ========================= -->
@@ -86,9 +123,9 @@
         <div id="navigation">
 
             <button id="previous-question-btn"
-                    class="game-button">
+                    class="btn btn-success game-button">
 
-                ◀ Previous
+                &larr; Previous
 
             </button>
 
@@ -99,14 +136,14 @@
             </div>
 
             <button id="next-question-btn"
-                    class="game-button">
+                    class="btn btn-success game-button">
 
-                Next ▶
+                Next &rarr;
 
             </button>
 
             <button id="add-question-btn"
-                    class="game-button">
+                    class="btn btn-success game-button">
 
                 + Add
 
@@ -151,16 +188,78 @@
 
     </div>
 
+    <div id="save-progress-overlay"
+        hidden
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="save-progress-title">
+
+        <div class="save-progress-card text-center">
+
+            <div class="spinner-border text-success mb-3"
+                role="status"
+                aria-hidden="true">
+            </div>
+
+            <h2 id="save-progress-title">
+                Working on lesson pack
+            </h2>
+
+            <p id="save-progress-message">
+                Preparing your lesson...
+            </p>
+
+            <div class="progress"
+                role="progressbar"
+                aria-label="Lesson save progress"
+                aria-valuemin="0"
+                aria-valuemax="100">
+
+                <div id="save-progress-bar"
+                    class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                    style="width: 0%">
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block help_title %}
+    How to use the lesson editor
+{% endblock %}
+
+{% block help_content %}
+<ol class="mb-0 ps-3">
+    <li>Create questions with the <strong>+ Add</strong> button.</li>
+    <li>Or add an existing Lesson pack with the <strong>Upload</strong> button.</li>
+    <li>Add images or text with the toolbar.</li>
+    <li>Click an item to move or resize it.</li>
+    <li>Double-click text to edit it.</li>
+    <li>Use Save to download your lesson pack.</li>
+</ol>
+<p class="mb-0">
+    The downloaded lesson pack is a ZIP file. Do not unzip it.
+</p>
+{% endblock %}
+
+{% block game_scripts %}
     <script>
-
         const GAME_NAME = "{{ game_name }}";
-
     </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script defer
+            src="{{ url_for('static',
+            filename='js/shared/lessonLoader.js') }}">
+    </script>
+
     <script src="{{ url_for('static',
-                filename='js/shared/review_questions.js') }}"></script>
-
-</body>
-
-</html>
+                filename='js/shared/review_questions.js') }}">
+    </script>
+{% endblock %}

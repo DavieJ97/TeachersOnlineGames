@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>
+        {% block title %}
+            Teachers Online
+        {% endblock %}
+    </title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- Global CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon"
+        sizes="180x180"
+        href="{{ url_for('static', filename='images/favicon_io/apple-touch-icon.png') }}">
+
+    <link rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="{{ url_for('static', filename='images/favicon_io/favicon-32x32.png') }}">
+
+    <link rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="{{ url_for('static', filename='images/favicon_io/favicon-16x16.png') }}">
+
+    <link rel="icon"
+        href="{{ url_for('static', filename='images/favicon_io/favicon.ico') }}">
+
+    <link rel="manifest"
+        href="{{ url_for('static', filename='images/favicon_io/site.webmanifest') }}">
+    <!-- Page CSS -->
+    {% block styles %}
+    {% endblock %}
+
+</head>
+
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+    <!-- Navigation -->
+    {% include "components/navbar.html" %}
+
+    {% include "components/flash_messages.html" %}
+
+    <!-- Main Content -->
+    <main class="flex-grow-1">
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+    <!-- Footer -->
+    {% include "components/footer.html" %}
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Page Scripts -->
+    {% block scripts %}
+    {% endblock %}
+
+</body>
+
+</html>

@@ -1,45 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Games</title>
+{% extends "base.html" %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
+{% block title %}
+Home
+{% endblock %}
 
-    <header>
-        <h1>Teacher Games</h1>
-        <p>Create engaging classroom review games in seconds.</p>
-    </header>
+{% block content %}
 
-    <main>
+<!-- Hero -->
+    {% include "components/hero.html" %}
 
-        <section class="game-library">
+<!-- Latest Blog -->
+    {% include "components/latest_updates.html" %}
 
-            <div class="game-card">
+<!-- Cards -->
+    {% include "components/tool_cards.html" %}
 
-                <h2>🐱 Exploding Kittens</h2>
+<!-- Why choose us -->
+    {% include "components/why_choose_us.html" %}
 
-                <p>
-                    Answer classroom questions and earn points by drawing cards.
-                    Push your luck—but don't draw the bomb!
-                </p>
+<!-- Sign Up -->
+    {% include "components/signup_banner.html" %}
 
-                <a href="{{ url_for('exploding_kittens') }}" class="play-button">
-                    Play Game
-                </a>
-
-            </div>
-
-        </section>
-
-    </main>
-
-    <footer>
-        <p>Teacher Games © 2026</p>
-    </footer>
-
-</body>
-</html>
+{% endblock %}

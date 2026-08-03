@@ -1,0 +1,165 @@
+<footer class="bg-dark text-light mt-5">
+
+    <div class="container py-5">
+
+        <div class="row">
+
+            <!-- About -->
+
+            <div class="col-lg-4 mb-4">
+
+                <h4>
+
+                    <img src="{{ url_for('static', filename='images/logos/logo-white.png') }}"
+                        alt="Teachers Online Logo"
+                        height="45"
+                        class="me-2 logo-img">
+
+                    Teachers Online
+
+                </h4>
+
+                <p class="text-secondary">
+
+                    Helping ESL teachers create engaging lessons with
+                    interactive games, worksheets and classroom tools.
+
+                </p>
+
+            </div>
+
+            <!-- Tools -->
+
+            <div class="col-lg-2 mb-4">
+
+                <h5>Tools</h5>
+
+                <ul class="list-unstyled">
+
+                    <li>
+                        <a href="/games"
+                           class="text-decoration-none text-secondary">
+
+                            Games
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/worksheets"
+                           class="text-decoration-none text-secondary">
+
+                            Worksheets
+
+                        </a>
+                    </li>
+
+                    <li>
+
+                        <span class="text-secondary">
+
+                            PowerPoint
+
+                        </span>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- Resources -->
+
+            <div class="col-lg-2 mb-4">
+
+                <h5>Resources</h5>
+
+                <ul class="list-unstyled">
+
+                    <li>
+
+                        <a href="/blog"
+                           class="text-decoration-none text-secondary">
+
+                            Blog
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="#"
+                           class="text-decoration-none text-secondary">
+
+                            FAQ
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="#"
+                           class="text-decoration-none text-secondary">
+
+                            Contact
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- Social -->
+
+            <div class="col-lg-4 mb-4">
+
+                <h5>Follow the Project</h5>
+
+                <p class="text-secondary">
+
+                    Follow development updates and new classroom tools.
+
+                </p>
+
+                <a href="#"
+                   class="btn btn-outline-light me-2">
+
+                    <i class="bi bi-github"></i>
+
+                </a>
+
+                <a href="#"
+                   class="btn btn-outline-light me-2">
+
+                    <i class="bi bi-youtube"></i>
+
+                </a>
+
+                <a href="#"
+                   class="btn btn-outline-light">
+
+                    <i class="bi bi-envelope-fill"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="text-center text-secondary">
+
+            © {{ current_year if current_year else 2026 }}
+            Teachers Online.
+            All Rights Reserved.
+
+        </div>
+
+    </div>
+
+</footer>

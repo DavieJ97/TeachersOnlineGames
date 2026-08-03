@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+            Teachers Online Games
+        {% endblock %}
+    </title>
+
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/games.css') }}">
+
+
+    {% block game_styles %}
+    {% endblock %}
+</head>
+
+<body class="game-app">
+
+    <nav class="game-navbar">
+        <a href="{{ url_for('games') }}" class="back-to-games">
+            <i class="bi bi-arrow-left"></i>
+            Back to Games
+        </a>
+
+        <button type="button"
+                class="game-help-button"
+                data-bs-toggle="modal"
+                data-bs-target="#game-help-modal"
+                aria-label="How to use this page"
+                title="How to use this page">
+
+            <i class="bi bi-info-circle"></i>
+
+        </button>
+    </nav>
+
+    <main>
+        {% block game_content %}
+        {% endblock %}
+    </main>
+
+    <div class="modal fade"
+        id="game-help-modal"
+        tabindex="-1"
+        aria-labelledby="game-help-title"
+        aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content bg-dark text-light border-secondary">
+
+                <div class="modal-header border-secondary">
+
+                    <h1 class="modal-title fs-5" id="game-help-title">
+                        {% block help_title %}
+                            How to use this page
+                        {% endblock %}
+                    </h1>
+
+                    <button type="button"
+                            class="btn-close btn-close-white"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+                    {% block help_content %}
+                        <p class="mb-0">
+                            Choose an option to get started.
+                        </p>
+                    {% endblock %}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    {% block game_scripts %}
+    {% endblock %}
+
+</body>
+</html>

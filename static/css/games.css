@@ -1,0 +1,224 @@
+/* ===========================
+   GENERAL
+=========================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body.game-app {
+    min-height: 100vh;
+    background-color: var(--bs-dark);
+    color: var(--bs-light);
+    font-family: var(--bs-font-sans-serif);
+}
+
+/* ===========================
+   HEADER
+=========================== */
+
+header {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #111827;
+    border-bottom: 3px solid #374151;
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #d1d5db;
+}
+
+/* ===========================
+   MAIN
+=========================== */
+
+main {
+    width: 100%;
+}
+
+/* ===========================
+   GAME CARD
+=========================== */
+
+.game-card {
+    background-color: #374151;
+    width: 350px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow: 0px 15px 35px rgba(0,0,0,0.4);
+}
+
+.game-card h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.game-card p {
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    color: #e5e7eb;
+}
+
+/* ===========================
+   SETUP SCREEN
+=========================== */
+
+#setup-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 100vh;
+
+    text-align: center;
+
+    padding: 40px;
+}
+
+#setup-screen h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+#setup-screen p {
+    font-size: 1.2rem;
+    color: #d1d5db;
+    margin-bottom: 40px;
+}
+
+.setup-box {
+
+    width: 100%;
+    max-width: 700px;
+
+    background-color: #374151;
+
+    padding: 40px;
+
+    border-radius: 20px;
+
+    box-shadow: 0 15px 35px rgba(0,0,0,.35);
+
+}
+
+.setup-box label{
+
+    display:block;
+
+    margin-bottom:10px;
+
+    font-size:1.2rem;
+
+    font-weight:bold;
+
+}
+
+.setup-box input{
+
+    width:120px;
+
+    padding:12px;
+
+    font-size:1.2rem;
+
+    text-align:center;
+
+    border:none;
+
+    border-radius:8px;
+
+    outline:none;
+
+    margin-bottom:25px;
+
+}
+
+.game-button{
+
+    font-weight: 600;
+    transition: transform 0.2s ease;
+
+}
+
+.game-button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.game-button:active{
+
+    transform:scale(.97);
+
+}
+
+.game-button:disabled{
+
+    background:#6b7280;
+
+    cursor:not-allowed;
+
+}
+
+.game-navbar {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1.5rem;
+    background-color: rgba(0, 0, 0, 0.35);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.back-to-games {
+    color: var(--bs-light);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.back-to-games:hover {
+    color: var(--bs-warning);
+}
+
+.game-help-button {
+    margin-left: auto;
+    padding: 0;
+
+    border: 0;
+    background: transparent;
+    color: var(--bs-light);
+
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.game-help-button:hover {
+    color: var(--bs-warning);
+}
+
+[hidden] {
+    display: none !important;
+}
+

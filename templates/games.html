@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}
+Games
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/games_page.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+
+<section class="page-hero">
+
+    <div class="container text-center">
+
+        <h1>Teaching Games</h1>
+
+        <p class="lead">
+
+            Interactive classroom games designed to make
+            reviewing fun and engaging.
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- Game Library -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <!-- Exploding Kittens -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card h-100 text-center">
+
+                    <div class="card-body">
+
+                        <i class="bi bi-controller feature-icon"></i>
+
+                        <h4>Exploding Kittens</h4>
+
+                        <p>
+
+                            Answer classroom questions,
+                            earn points and try not to
+                            draw the bomb.
+
+                        </p>
+
+                    </div>
+
+                    <div class="card-footer bg-transparent border-0">
+
+                        <a href="{{ url_for('exploding_kittens') }}"
+                           class="btn btn-brand">
+
+                            Play Game
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

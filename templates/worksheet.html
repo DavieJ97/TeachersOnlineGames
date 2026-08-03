@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Worksheet Generator
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/worksheet.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="worksheet-page">
+    <div class="worksheet-editor">
+
+        <header class="toolbar">
+            <div class="toolbar-group">
+                <span class="toolbar-label">Text</span>
+
+                <div class="toolbar-actions">
+                    <input type="number" id="font-size" min="6" max="72" value="12">
+
+                    <button id="bold-btn" class="btn btn-primary">B</button>
+                    <button id="italic-btn" class="btn btn-primary">I</button>
+                    <button id="underline-btn" class="btn btn-primary">U</button>
+                </div>
+            </div>
+
+            <div class="toolbar-group">
+                <span class="toolbar-label">Worksheet</span>
+
+                <div class="toolbar-actions">
+                    <button id="add-section" class="btn btn-success">
+                        Add Section
+                    </button>
+
+                    <button id="export" class="btn btn-primary">
+                        Export
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="worksheet-body">
+            <aside class="left-panel">
+                <div class="panel-header">
+                    <h3>Sections</h3>
+                </div>
+
+                <ul id="section-outline" class="section-outline">
+                    <li class="outline-empty">No sections yet</li>
+                </ul>
+            </aside>
+
+            <main class="worksheet-main">
+
+                <div class="worksheet-canvas">
+                    <div class="worksheet-header">
+                        <h1>Worksheet Title</h1>
+                        <input type="text" class="title-input">
+                    </div>
+
+                    <div class="header-options">
+                        <label><input type="checkbox"> Name</label>
+                        <label><input type="checkbox"> Date</label>
+                        <label><input type="checkbox"> Class</label>
+                    </div>
+                    <div id="sections-container"></div>
+                </div>
+            </main>
+
+            <aside class="right-panel">
+                <div class="panel-header">
+                    <h3>Inspector</h3>
+                </div>
+
+                <div class="inspector-empty">
+                    Select a section to edit its settings.
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+
+<div id="add-section-modal" class="overlay hidden">
+    <div class="overlay-card">
+        <div class="overlay-header">
+            <h3>Add Sections</h3>
+            <button type="button" class="close-overlay">×</button>
+        </div>
+
+        <div class="overlay-actions">
+            <button class="add-choice" data-section-type="unscramble">Unscramble</button>
+            <button class="add-choice" data-section-type="fill_blank">Fill in the Blanks</button>
+            <button class="add-choice" data-section-type="translation">Translate</button>
+            <button class="add-choice" data-section-type="word_search">Word Search</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/worksheet.js') }}"></script>
+{% endblock %}

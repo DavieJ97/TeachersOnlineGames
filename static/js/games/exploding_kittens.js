@@ -6,7 +6,6 @@ const scoreboard = document.getElementById("scoreboard");
 const currentTeamLabel = document.getElementById("current-team");
 const startButton = document.getElementById("start-game-btn");
 const loadLessonButton = document.getElementById("load-lesson-btn");
-const createLessonButton = document.getElementById("new-lesson-btn")
 const lessonFileInput = document.getElementById("lesson-file");
 const lessonInfo = document.getElementById("lesson-info");
 const lessonGrade = document.getElementById("lesson-grade");
@@ -91,6 +90,8 @@ const REWARD_MODES = {
     NORMAL: "normal",
     SPECIAL: "special"
 };
+const SOUNDPATHS = "/static/audio/sounds/exploding_kittens/";
+const MUSICPATHS = "/static/audio/music/exploding_kittens/";
 
 const swapOverlay = document.getElementById("swap-overlay");
 const swapTeamList = document.getElementById("swap-team-list");
@@ -103,25 +104,25 @@ let rewardActive = false;
 
 const sounds = {
 
-    music: new Audio("/static/audio/music/Battle Theme - Kitty Letter Music EXTENDED (Exploding Kittens Inc & The Oatmeal).mp3"),
+    music: new Audio(MUSICPATHS + "Battle Theme - Kitty Letter Music EXTENDED (Exploding Kittens Inc & The Oatmeal).mp3"),
 
-    draw: new Audio("/static/audio/sounds/wind-swoosh-short-289744.mp3"),
+    draw: new Audio(SOUNDPATHS + "wind-swoosh-short-289744.mp3"),
 
-    bomb: new Audio("/static/audio/sounds/medium-explosion-cat.mp3"),
+    bomb: new Audio(SOUNDPATHS + "medium-explosion-cat.mp3"),
 
-    nuclear: new Audio("/static/audio/sounds/Dan Dan Dannnnnnnn!!! Sound Effect.mp3"),
+    nuclear: new Audio(SOUNDPATHS + "Dan Dan Dannnnnnnn!!! Sound Effect.mp3"),
 
-    correct: new Audio("/static/audio/sounds/correct-6033.mp3"),
+    correct: new Audio(SOUNDPATHS + "correct-6033.mp3"),
 
-    wrong: new Audio("/static/audio/sounds/wrong.mp3"),
+    wrong: new Audio(SOUNDPATHS + "wrong.mp3"),
 
-    loseAll: new Audio("/static/audio/sounds/Oh No (Instrumental) - Kreepa(cut edition).mp3"),
+    loseAll: new Audio(SOUNDPATHS + "Oh No (Instrumental) - Kreepa(cut edition).mp3"),
 
-    swap: new Audio("/static/audio/sounds/tada-military-3-183975.mp3"),
+    swap: new Audio(SOUNDPATHS + "tada-military-3-183975.mp3"),
 
-    special: new Audio("/static/audio/sounds/heavenly-choir-of-angels-322708.mp3"),
+    special: new Audio(SOUNDPATHS + "heavenly-choir-of-angels-322708.mp3"),
 
-    click: new Audio("/static/audio/sounds/button-202966.mp3")
+    click: new Audio(SOUNDPATHS + "button-202966.mp3")
 
 };
 
@@ -166,8 +167,10 @@ const game = {
 
 function showSetupScreen() {
 
-    setupScreen.hidden = false;
-    mainScreen.hidden = true;
+    GameUI.showOnly(
+        setupScreen,
+        [mainScreen]
+    );
 
     game.currentScreen = "setup";
 
@@ -176,8 +179,10 @@ function showSetupScreen() {
 
 function showMainScreen() {
 
-    setupScreen.hidden = true;
-    mainScreen.hidden = false;
+    GameUI.showOnly(
+        mainScreen,
+        [setupScreen]
+    );
 
     game.currentScreen = "main";
 
@@ -238,12 +243,11 @@ async function loadLessonPack(event) {
 
             if (question.image) {
 
-                const imageBlob =
-                    await zip.file("images/" + question.image)
-                             .async("blob");
-
-                question.image = URL.createObjectURL(imageBlob);
-
+                question.image =
+                    await LessonLoader.getObjectUrl(
+                        zip,
+                        "images/" + question.image
+                    );
             }
 
         }
@@ -296,9 +300,7 @@ function startGame() {
 
     game.currentTeam = 0;
 
-    console.log(game);
-
-    createScoreboard();
+    updateScoreboard();
 
     createQuestionGrid();
 
@@ -310,41 +312,14 @@ function startGame() {
 // SCOREBOARD
 // ==============================
 
-function createScoreboard() {
-
-    // Remove any existing scoreboard
-    scoreboard.innerHTML = "";
-
-    game.teams.forEach((team, index) => {
-
-        const teamBox = document.createElement("div");
-
-        teamBox.classList.add("team-box");
-
-        // Highlight the current team
-        if (index === game.currentTeam) {
-            teamBox.classList.add("active-team");
-        }
-
-        teamBox.innerHTML = `
-            <h3>Team ${index + 1}</h3>
-            <p>${team.score}</p>
-        `;
-
-        scoreboard.appendChild(teamBox);
-
-    });
-
-    currentTeamLabel.textContent =
-        `Team ${game.currentTeam + 1}'s Turn`;
-
-}
-
 function updateScoreboard() {
-    
 
-    createScoreboard();
-
+    Scoreboard.render({
+        container: scoreboard,
+        currentTeamLabel: currentTeamLabel,
+        teams: game.teams,
+        currentTeam: game.currentTeam
+    });
 }
 
 function addPoints(points) {
@@ -370,43 +345,17 @@ function nextTeam() {
 }
 
 function createQuestionGrid() {
-
-    questionGrid.innerHTML = "";
-
-    game.questions.forEach((question, index) => {
-
-        const card = document.createElement("div");
-
-        card.classList.add("question-card");
-
-        card.textContent = index + 1;
-
-        card.dataset.index = index;
-
-        if(question.used){
-
-            card.classList.add("used-card");
-
-        }
-
-        card.addEventListener("click", () => {
-
-            sounds.click.play();
-            if(question.used){
-                return;
-            }
-            else{
-                question.used = true;
-            }
-
+    QuestionGrid.render({
+        container: questionGrid,
+        items: game.questions,
+        getLabel: (question, index) => index + 1,
+        isUsed: (question) => question.used,
+        clickSound: sounds.click,
+        onSelect: ({ item, index, card }) => {
+            item.used = true;
             openQuestion(card, index);
-
-        });
-
-        questionGrid.appendChild(card);
-
+        }
     });
-
 }
 
 function openQuestion(card, index) {
@@ -928,13 +877,6 @@ startButton.addEventListener("click", startGame);
 loadLessonButton.addEventListener("click", () => {
 
     lessonFileInput.click();
-
-});
-
-createLessonButton.addEventListener("click", () => {
-
-    window.location.href =
-        "/review_questions/exploding_kittens";
 
 });
 
