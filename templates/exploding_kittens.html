@@ -20,6 +20,7 @@
 {% set game_description =
     "Load a lesson pack or create one before starting."
 %}
+{% set lesson_create_link = url_for('review_questions', game_name=game_name) %}
 
 {% include "components/games/lesson_setup.html" %}
 
@@ -129,35 +130,670 @@
 {% endblock %}
 
 {% block help_title %}
-    How to start Exploding Kittens
+Exploding Kittens — How to Play
 {% endblock %}
 
 {% block help_content %}
-<h2 class="fs-6 fw-bold">How to start</h2>
 
-<ol class="mb-0 ps-3">
-    <li>Choose the number of teams, up to six.</li>
+<div class="exploding-kittens-help">
 
-    <li>
-        Choose how you want to play:
+```
+    <!-- ========================================= -->
+    <!-- GAME OVERVIEW -->
+    <!-- ========================================= -->
 
-        <ul class="mt-2 ps-3">
-            <li>
-                Press <strong>Start Game</strong> to play a demo.
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            💣 What is Exploding Kittens?
+        </h2>
+
+        <p>
+            Exploding Kittens is a team-based review game where students
+            answer questions to earn the chance to draw cards and collect
+            points.
+        </p>
+
+        <p>
+            The game combines English review with a little
+            <strong>risk and reward</strong>. The more cards a team draws,
+            the more points they can earn — but they also increase their
+            chance of drawing a Bomb!
+        </p>
+
+        <p class="mb-0">
+            The goal is simple:
+            <strong>finish the game with as many points as possible!</strong>
+        </p>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- GETTING STARTED -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            🎮 Getting Started
+        </h2>
+
+        <ol class="ps-3">
+
+            <li class="mb-2">
+                Choose the number of teams.
+                You can play with up to <strong>6 teams</strong>.
+            </li>
+
+            <li class="mb-2">
+                Choose how you want to play:
+            </li>
+
+        </ol>
+
+        <ul class="ps-4">
+
+            <li class="mb-2">
+                <strong>Start Game</strong> —
+                starts a demo game so you can try the game immediately.
+            </li>
+
+            <li class="mb-2">
+                <strong>Load Lesson Pack</strong> —
+                loads an existing lesson pack.
             </li>
 
             <li>
-                Press <strong>Load Lesson Pack</strong> to use an
-                existing lesson pack.
+                <strong>Create Lesson Pack</strong> —
+                creates a new lesson pack for your class.
             </li>
 
-            <li>
-                Press <strong>Create Lesson Pack</strong> to create
-                a new lesson pack.
-            </li>
         </ul>
-    </li>
-</ol>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- HOW TO PLAY -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            🃏 How to Play
+        </h2>
+
+        <ol class="ps-3">
+
+            <li class="mb-2">
+                The current team chooses a numbered question card.
+            </li>
+
+            <li class="mb-2">
+                A student answers the question.
+            </li>
+
+            <li class="mb-2">
+                If the answer is correct, the team receives either
+                a <strong>Normal Card Deck</strong> or a
+                <strong>Special Card</strong>.
+            </li>
+
+            <li class="mb-2">
+                If the team receives a Normal Card Deck, they must decide
+                whether to <strong>Draw</strong> or <strong>Stop</strong>.
+            </li>
+
+            <li class="mb-2">
+                If the team receives a Special Card, they must decide
+                whether to take <strong>5 points</strong> or reveal the
+                Special Card and use its effect.
+            </li>
+
+            <li>
+                After the turn is resolved, play moves to the next team.
+            </li>
+
+        </ol>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- NORMAL DECK -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            🃏 The Normal Card Deck
+        </h2>
+
+        <p>
+            The Normal Card Deck contains point cards and dangerous cards.
+            Every time a team chooses <strong>Draw</strong>, the top card
+            of the deck is revealed.
+        </p>
+
+        <div class="card mb-3">
+
+            <div class="card-body">
+
+                <div class = "card-summary-image">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/normal_cards/+1.png') }}"
+                        alt="Normal Deck" class="img-fluid">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/normal_cards/+2.png') }}"
+                        alt="Normal Deck" class="img-fluid">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/normal_cards/+3.png') }}"
+                        alt="Normal Deck" class="img-fluid">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/normal_cards/+4.png') }}"
+                        alt="Normal Deck" class="img-fluid">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/normal_cards/+5.png') }}"
+                        alt="Normal Deck" class="img-fluid">
+                </div>
+
+                <h3 class="fs-6 fw-bold">
+                    💰 Point Cards
+                </h3>
+
+                <p>
+                    Point cards add points to the team's current score.
+                </p>
+
+                <ul class="mb-0">
+
+                    <li><strong>+1 point</strong></li>
+                    <li><strong>+2 points</strong></li>
+                    <li><strong>+3 points</strong></li>
+                    <li><strong>+4 points</strong></li>
+                    <li><strong>+5 points</strong></li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="card mb-3">
+
+            <div class="card-body">
+
+                <div class = "card-summary-image">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/normal_cards/bomb.png') }}"
+                        alt="Normal Deck" class="img-fluid">
+                </div>
+
+                <h3 class="fs-6 fw-bold">
+                    💣 Bomb
+                </h3>
+
+                <p>
+                    Drawing a Bomb is dangerous!
+                </p>
+
+                <p>
+                    When a Bomb is drawn, the current team's score for
+                    the turn becomes <strong>0 points</strong>.
+                </p>
+
+                <p class="mb-0">
+                    The Bomb ends the team's turn and play moves to
+                    the next team.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <div class = "card-summary-image">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/normal_cards/nuclear.png') }}"
+                        alt="Normal Deck" class="img-fluid">
+                </div>
+
+                <h3 class="fs-6 fw-bold">
+                    ☢️ Nuclear Bomb
+                </h3>
+
+                <p>
+                    The Nuclear Bomb is the most dangerous card in the
+                    Normal Deck.
+                </p>
+
+                <p class="mb-0">
+                    When a Nuclear Bomb is drawn,
+                    <strong>all teams' scores are reset to 0</strong>.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- DRAW OR STOP -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            🎲 Draw or Stop?
+        </h2>
+
+        <p>
+            When a team receives the Normal Card Deck, they have an
+            important decision to make:
+            <strong>Draw or Stop?</strong>
+        </p>
+
+
+        <div class="card mb-3">
+
+            <div class="card-body">
+
+                <button class="btn btn-success game-button">
+                    Draw
+                </button>
+
+                <h3 class="fs-6 fw-bold">
+                    🎴 Draw
+                </h3>
+
+                <p>
+                    Choosing <strong>Draw</strong> reveals the top card
+                    from the Normal Deck.
+                </p>
+
+                <p class="mb-0">
+                    The team can earn more points, but there is also a
+                    chance of drawing a Bomb or Nuclear Bomb.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <button class="btn btn-success game-button">
+                    Stop
+                </button>
+
+                <h3 class="fs-6 fw-bold">
+                    🛑 Stop
+                </h3>
+
+                <p>
+                    Choosing <strong>Stop</strong> locks in the points
+                    the team has collected.
+                </p>
+
+                <p class="mb-0">
+                    The team gives up the opportunity to draw another card
+                    and keeps the points they have earned.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="alert alert-warning mt-3 mb-0">
+
+            <strong>Risk vs. Reward:</strong>
+            Drawing more cards can increase your score, but every extra
+            draw gives you another chance to find a Bomb or Nuclear Bomb.
+            Sometimes the safest choice is to stop!
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- SPECIAL CARDS -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            ⭐ Special Cards
+        </h2>
+
+        <p>
+            Sometimes a correct answer rewards the team with a
+            <strong>Special Card</strong> instead of the Normal Card Deck.
+        </p>
+
+        <p>
+            When this happens, the team has two choices:
+        </p>
+
+        <ol class="ps-3">
+
+            <li class="mb-2">
+                Take <strong>5 points</strong> immediately.
+            </li>
+
+            <li>
+                Reveal the Special Card and use its effect.
+            </li>
+
+        </ol>
+
+
+        <div class="card mb-3">
+
+            <div class="card-body">
+                <div class = "card-summary-image">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/special_cards/Lose_all.png') }}"
+                        alt="Special Deck" class="img-fluid">
+                </div>
+
+                <h3 class="fs-6 fw-bold">
+                    💥 Lose All Points
+                </h3>
+
+                <p class="mb-0">
+                    This Special Card causes the current team to
+                    <strong>lose all of its points</strong>.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-body">
+                <div class = "card-summary-image">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/special_cards/change.png') }}"
+                        alt="Special Deck" class="img-fluid">
+                </div>
+
+                <h3 class="fs-6 fw-bold">
+                    🔄 Change Points
+                </h3>
+
+                <p>
+                    This Special Card allows the current team to choose
+                    another team and <strong>switch points with them</strong>.
+                </p>
+
+                <p class="mb-0">
+                    <strong>Important:</strong>
+                    If the Change Points card is revealed, the points
+                    must be changed. There are no exceptions, even if the
+                    current team already has the highest score.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- CARD SUMMARY -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            📋 Card Summary
+        </h2>
+
+        <p>
+            Here is a quick look at every card that can appear in the game.
+        </p>
+
+
+        <div class="card mb-3">
+
+            <div class="card-body">
+                <div class = "card-summary-image">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/normal_cards/+1.png') }}"
+                        alt="Normal Deck" class="img-fluid">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/normal_cards/+2.png') }}"
+                        alt="Normal Deck" class="img-fluid">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/normal_cards/+3.png') }}"
+                        alt="Normal Deck" class="img-fluid">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/normal_cards/+4.png') }}"
+                        alt="Normal Deck" class="img-fluid">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/normal_cards/+5.png') }}"
+                        alt="Normal Deck" class="img-fluid">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/normal_cards/bomb.png') }}"
+                        alt="Normal Deck" class="img-fluid">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/normal_cards/nuclear.png') }}"
+                        alt="Normal Deck" class="img-fluid">
+                </div>
+
+                <h3 class="fs-6 fw-bold">
+                    🃏 Normal Deck
+                </h3>
+
+                <ul class="mb-0">
+
+                    <li>💰 +1 point</li>
+                    <li>💰 +2 points</li>
+                    <li>💰 +3 points</li>
+                    <li>💰 +4 points</li>
+                    <li>💰 +5 points</li>
+                    <li>💣 Bomb — current turn becomes 0 points</li>
+                    <li>☢️ Nuclear Bomb — all teams lose all points</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <div class = "card-summary-image">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/special_cards/change.png') }}"
+                        alt="Special Deck" class="img-fluid">
+                    <img src="{{ url_for('static',
+                        filename='images/games/exploding_kittens/cards/special_cards/Lose_all.png') }}"
+                        alt="Special Deck" class="img-fluid">
+                </div>
+
+                <h3 class="fs-6 fw-bold">
+                    ⭐ Special Cards
+                </h3>
+
+                <ul class="mb-0">
+
+                    <li>
+                        💥 <strong>Lose All Points</strong> —
+                        current team loses all points.
+                    </li>
+
+                    <li>
+                        🔄 <strong>Change Points</strong> —
+                        current team switches points with another team.
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- STRATEGY -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            🧠 Strategy
+        </h2>
+
+        <p>
+            Exploding Kittens is about deciding how much risk your team
+            is willing to take.
+        </p>
+
+        <ul class="ps-4">
+
+            <li class="mb-2">
+                Drawing more cards gives you more opportunities to earn
+                points.
+            </li>
+
+            <li class="mb-2">
+                Stopping protects the points you have already collected.
+            </li>
+
+            <li class="mb-2">
+                A Bomb can destroy the points earned during the turn.
+            </li>
+
+            <li class="mb-2">
+                A Nuclear Bomb can completely change the scoreboard by
+                resetting every team's points.
+            </li>
+
+            <li class="mb-2">
+                A Special Card can be very powerful, but taking the safe
+                5 points may sometimes be the better choice.
+            </li>
+
+            <li>
+                The Change Points card can dramatically change the game,
+                especially when teams have very different scores.
+            </li>
+
+        </ul>
+
+        <p class="mb-0">
+            The big question is always:
+            <strong>Do you keep drawing, or do you stop while you're ahead?</strong>
+        </p>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- TEACHER TIPS -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            👩‍🏫 Tips for Teachers
+        </h2>
+
+        <ul class="ps-4">
+
+            <li class="mb-2">
+                Require a correct answer before allowing the team
+                to receive its cards.
+            </li>
+
+            <li class="mb-2">
+                For speaking practice, require students to answer
+                using a complete sentence.
+            </li>
+
+            <li class="mb-2">
+                Let teammates discuss their answer before responding.
+            </li>
+
+            <li class="mb-2">
+                Encourage students to discuss whether they should
+                <strong>Draw</strong> or <strong>Stop</strong>.
+            </li>
+
+            <li class="mb-2">
+                Use the risk of the Bomb cards to create excitement
+                and encourage students to think about their decisions.
+            </li>
+
+            <li>
+                Remind students that a team can be winning one moment
+                and lose everything after a dangerous card is revealed.
+            </li>
+
+        </ul>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- LESSON PACKS -->
+    <!-- ========================================= -->
+
+    <section>
+
+        <h2 class="fs-5 fw-bold">
+            📚 Lesson Packs
+        </h2>
+
+        <p>
+            Exploding Kittens can use custom lesson packs containing
+            questions prepared for your class.
+        </p>
+
+        <p>
+            Teachers can:
+        </p>
+
+        <ul class="ps-4">
+
+            <li>Load an existing lesson pack</li>
+            <li>Create a new lesson pack</li>
+            <li>Start a demo game</li>
+
+        </ul>
+
+        <p class="mb-0">
+            This allows the game to be adapted for different vocabulary,
+            grammar points, topics, and lessons.
+        </p>
+
+    </section>
+```
+
+</div>
+
 {% endblock %}
 
 {% block game_scripts %}

@@ -1,0 +1,801 @@
+/* ========================================
+   BASE STYLING
+   ======================================== */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+        url("../images/games/classroom_pirates/backgrounds/main_background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    min-height: 100vh;
+}
+
+#game-title {
+    width: min(100%, 1000px);
+    height: 150px;
+    margin: 0 auto 0.25rem;
+    overflow: hidden;
+    text-indent: -9999px;
+    background:
+        url("../images/games/classroom_pirates/other/intro_text.png")
+        center / contain no-repeat;
+}
+
+.game-header {
+    background-color: transparent;
+    border-bottom: none;
+    min-height: auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* ========================================
+   SCOREBOARD
+   ======================================== */
+
+#scoreboard {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 16px 0 0;
+}
+
+.team-box {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 3px solid #d4a574;
+    border-radius: 8px;
+    padding: 8px 12px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.team-box h3 {
+    margin: 0 0 3px;
+    font-size: 1rem;
+    color: #ffd700;
+}
+
+.team-box p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.active-team {
+    border-color: #ffd700;
+    background-color: rgba(255, 215, 0, 0.1);
+    transform: scale(1.05);
+}
+
+/* ========================================
+   GAME BOARD & GRID
+   ======================================== */
+
+#game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.classroom-grid {
+    --board-size: min(calc(100vh - 72px), calc(100vw - 330px));
+    width: 100%;
+    height: min(78vh, 650px);
+    table-layout: fixed;
+    border-collapse: collapse;
+    background: transparent;
+    border: 0;
+}
+
+.classroom-grid th,
+.classroom-grid td {
+    border: 0;
+    padding: 0;
+}
+
+.classroom-grid thead tr,
+.classroom-grid tbody tr {
+    height: calc(100% / 7);
+}
+
+/* Corner header (instructions) */
+.corner-header {
+    position: relative;
+}
+
+.corner-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.corner-header .placeholder-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    color: #fff4d0;
+    font-family: Georgia, serif;
+    font-size: clamp(0.75rem, 1.3vw, 1.35rem);
+    line-height: 1.2;
+    text-shadow: 1px 1px 2px #25160c;
+}
+
+.corner-header img.placeholder {
+    display: none;
+}
+
+/* Column headers */
+.classroom-grid thead th:not(.corner-header) {
+    padding: 5px !important;
+}
+
+.header-cell {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: url("../images/games/classroom_pirates/other/blank_map.png") center / 100% 100% no-repeat;
+}
+
+.header-cell img {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+}
+
+.header-cell .placeholder-text {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+/* Row headers */
+.row-header {
+    position: relative;
+    padding: 5px 12px !important;
+    background: url("../images/games/classroom_pirates/other/plank.png") center / 100% 100% no-repeat;
+}
+
+.row-header-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.row-header .placeholder-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    color: #fff4d0;
+    font-family: Georgia, serif;
+    font-size: clamp(0.85rem, 1.6vw, 1.75rem);
+    text-align: center;
+    text-shadow: 1px 1px 2px #25160c;
+    display: block;
+}
+
+/* Grid cells */
+.grid-cell {
+    padding: 0 !important;
+}
+
+.cell-button {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+}
+
+.cell-button img {
+    position: absolute;
+    inset: 10%;
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    display: block;
+}
+
+.cell-button:hover:not(:disabled) {
+    background-color: rgba(255, 215, 0, 0.18);
+    transform: scale(1.05);
+}
+
+.cell-button:disabled {
+    opacity: 1;
+    cursor: not-allowed;
+}
+
+.cell-button:disabled img {
+    filter: grayscale(100%) brightness(0%);
+}
+
+.cell-button.clicked {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   REWARD OVERLAY
+   ======================================== */
+
+#reward-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: opacity 0.3s;
+}
+
+#reward-overlay.overlay-hidden {
+    display: none;
+}
+
+.reward-window {
+    background-color: rgba(0, 0, 0, 0.9);
+    background-image:  url("../images/games/classroom_pirates/backgrounds/reward_background.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 4px solid #ffd700;
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    position: fixed;
+    width: 70%;
+    height: 70%;
+    animation: slideIn 0.3s ease-out;
+    align-content: center;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.reward-content {
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#exit-reward-btn {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-image: url("../images/games/classroom_pirates/buttons/exit_button.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    color: white;
+    width: 6%;
+    height: 10%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+#exit-reward-btn:hover {
+    background-color: #c82333;
+}
+
+/* ===== COINS REWARD ===== */
+
+.reward-coins-container {
+    width: 100%;
+}
+
+.coins-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    min-height: 200px;
+}
+
+.coin {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 300px;
+    aspect-ratio: 1 / 1;
+    opacity: 0;
+    animation: coinFall 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+@keyframes coinFall {
+    0% {
+        opacity: 0;
+        transform: translateY(-300px) rotateZ(0deg);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateZ(360deg);
+    }
+}
+
+.coin-inner {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 30%, #ffeb3b, #fbc02d, #f57f17);
+    border-radius: 50%;
+    box-shadow: 
+        0 0 20px rgba(255, 215, 0, 0.8),
+        inset -2px -2px 5px rgba(0, 0, 0, 0.3),
+        inset 2px 2px 5px rgba(255, 255, 255, 0.2);
+    position: relative;
+}
+
+.coin-inner::before {
+    content: "🪙";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+}
+
+.coin img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ===== SHIPS REWARD ===== */
+
+.reward-ships-container {
+    width: 100%;
+}
+
+.ships-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    min-height: 200px;
+}
+
+.ship {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 300px;
+    aspect-ratio: 1 / 1;
+    opacity: 0;
+    animation: shipAppear 0.6s ease-out forwards;
+}
+
+@keyframes shipAppear {
+    0% {
+        opacity: 0;
+        transform: scaleY(0);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+        transform: scaleY(1);
+    }
+}
+
+.ship img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ===== TREASURE REWARD ===== */
+
+.reward-treasure-container {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    align-content: center;
+}
+
+.treasure-display {
+    position: relative;
+    width: 90%;
+    height: 90%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.treasure-shine {
+    position: absolute;
+    width: auto;
+    height: auto;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: treasureSpin 3s linear infinite;
+}
+
+@keyframes treasureSpin {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+.treasure-shine img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.treasure-chest {
+    position: absolute;
+    width: auto;
+    height: auto;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
+    animation:
+        treasureAppear 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+        treasureGlow 2s ease-in-out 1.5s infinite;
+}
+
+@keyframes treasureGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
+    }
+    50% {
+        filter: drop-shadow(0 0 50px rgba(255, 215, 0, 1));
+    }
+}
+
+@keyframes treasureAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.treasure-chest img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ===== RESET REWARD ===== */
+
+.reward-reset-container {
+    height:100%;
+    width: 100%;
+    padding: 40px;
+    background-image: url("../images/games/classroom_pirates/backgrounds/background_reset.png");
+    background-size: cover;
+    background-position: center;
+    align-content: center;
+}
+
+.reward-reset-container h3 {
+    font-size: clamp(16px, 8vw, 150px);
+    color: #ff6b6b;
+    text-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
+    animation: resetFlash 0.5s ease-in-out;
+}
+
+
+
+@keyframes resetFlash {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* ========================================
+   FIGHT OVERLAY
+   ======================================== */
+
+#fight-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+#fight-overlay.overlay-hidden {
+    display: none;
+}
+
+.fight-window {
+    background: linear-gradient(135deg, rgba(30, 20, 20, 0.95) 0%, rgba(0, 0, 0, 0.95) 100%);
+    border: 4px solid #ff6b6b;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    width: 50%;
+    height: 50%;
+    animation: slideIn 0.3s ease-out;
+    box-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
+}
+
+.fight-window h2 {
+    font-size: 1.8rem;
+    color: #ffd700;
+    margin: 0 0 15px 0;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 2px 2px 4px rgba(0, 0, 0, 0.8);
+    letter-spacing: 1px;
+}
+
+.fight-window .fight-title {
+    color: #ff6b6b;
+    font-size: clamp(16px, 2vw, 40px);
+    margin-bottom: 25px;
+}
+
+.fight-window p {
+    margin: 15px 0;
+    font-size: 1.1rem;
+    color: #ffd700;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.fight-battle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+    padding: 20px 0;
+    border-top: 2px solid #ff6b6b;
+    border-bottom: 2px solid #ff6b6b;
+    height: 70%;
+}
+
+.fight-character {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 3px solid #ffd700;
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    height: 90%
+}
+
+.fight-character img {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+}
+
+.fight-character span {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 0.95rem;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    word-wrap: break-word;
+}
+
+.fight-character:hover {
+    background: rgba(255, 215, 0, 0.15);
+    border-color: #ff6b6b;
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(255, 107, 107, 0.6);
+}
+
+.fight-character:active {
+    transform: scale(0.98);
+}
+
+.fight-image {
+    width: 30%;
+    height: 50%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.8));
+    animation: fightPulse 1s ease-in-out infinite;
+}
+
+@keyframes fightPulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.8));
+    }
+    50% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 20px rgba(255, 107, 107, 1));
+    }
+}
+
+.fight-result {
+    padding: 20px;
+    background: rgba(255, 107, 107, 0.1);
+    border-radius: 10px;
+    border: 2px solid #ff6b6b;
+}
+
+.fight-result h2 {
+    font-size: clamp(16px, 6vw, 100px);
+    color: #ff6b6b;
+    margin: 0 0 15px 0;
+    text-shadow: 0 0 15px rgba(27, 11, 11, 0.8);
+    animation: victoryPulse 0.6s ease-out;
+}
+
+.fight-result p {
+    font-size: clamp(16px, 2.5vw, 100px);
+    color: #ffd700;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(27, 11, 11, 0.8);
+}
+
+@keyframes victoryPulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+#fight-team-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.btn-steal {
+    background-color: #ff6b6b;
+    border: 2px solid #ff6b6b;
+    color: white;
+    padding: 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-steal:hover {
+    background-color: #ff5252;
+    border-color: #ff5252;
+    transform: translateX(-5px);
+}
+
+#cancel-fight-btn {
+    background-color: #6c757d;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#cancel-fight-btn:hover {
+    background-color: #5a6268;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+#main-screen {
+    min-height: calc(100vh - 48px);
+    display: grid;
+    grid-template-columns: minmax(180px, 250px) minmax(0, 1fr);
+    gap: 20px;
+    align-items: center;
+    padding: 12px 20px;
+    overflow: hidden;
+}
+
+.scoreboard-panel {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    #main-screen {
+        display: flex;
+        min-height: auto;
+        flex-direction: column;
+        overflow: visible;
+    }
+
+    .reward-window,
+    .fight-window {
+        width: 90%;
+    }
+
+    #scoreboard {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .team-box {
+        width: 140px;
+    }
+
+    .classroom-grid {
+        --board-size: min(calc(100vw - 40px), calc(100vh - 250px));
+    }
+}

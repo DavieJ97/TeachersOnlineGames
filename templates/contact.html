@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Contact
+{% endblock %} 
+
+{% block styles %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/contact.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="page-hero">
+
+    <div class="container text-center">
+
+        <h1>Contact Us</h1>
+
+        <p class="lead">
+
+            If you have any questions, suggestions, or feedback, please feel free to reach out to us. 
+            We value your input and are here to assist you.
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- Contact Form -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-8 col-lg-6">
+
+                <div class="card shadow-sm">
+
+                    <div class="card-body">
+
+                        <h4 class="card-title mb-4">Get in Touch</h4>
+
+                        <form method="post" action="{{ url_for('contact') }}">
+
+                            <!-- Honeypot -->
+                            <div class="d-none">
+
+                                <label for="website">
+                                    Website
+                                </label>
+
+                                <input type="text"
+                                    id="website"
+                                    name="website"
+                                    tabindex="-1"
+                                    autocomplete="off">
+
+                            </div>
+
+
+                            <!-- Name -->
+                            <div class="mb-3">
+
+                                <label for="name" class="form-label">
+                                    Name
+                                </label>
+
+                                <input type="text"
+                                    class="form-control"
+                                    id="name"
+                                    name="name"
+                                    maxlength="100"
+                                    required>
+
+                            </div>
+
+
+                            <!-- Email -->
+                            <div class="mb-3">
+
+                                <label for="email" class="form-label">
+                                    Email
+                                </label>
+
+                                <input type="email"
+                                    class="form-control"
+                                    id="email"
+                                    name="email"
+                                    maxlength="254"
+                                    required>
+
+                                <div class="form-text">
+                                    We'll use this address if we need to reply to you.
+                                </div>
+
+                            </div>
+
+
+                            <!-- Reason -->
+                            <div class="mb-3">
+
+                                <label for="reason" class="form-label">
+                                    What can we help you with?
+                                </label>
+
+                                <select class="form-select"
+                                        id="reason"
+                                        name="reason"
+                                        required>
+
+                                    <option value="" selected disabled>
+                                        Select an option
+                                    </option>
+
+                                    <option value="technical">
+                                        Technical Problem / Bug
+                                    </option>
+
+                                    <option value="lesson_pack">
+                                        Lesson Pack
+                                    </option>
+
+                                    <option value="game_question">
+                                        Question About a Game
+                                    </option>
+
+                                    <option value="suggestion">
+                                        Suggestion / Feature Request
+                                    </option>
+
+                                    <option value="feedback">
+                                        General Feedback
+                                    </option>
+
+                                    <option value="other">
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- Game -->
+                            <div class="mb-3">
+
+                                <label for="game" class="form-label">
+                                    Which game is this about?
+                                </label>
+
+                                <select class="form-select"
+                                        id="game"
+                                        name="game">
+
+                                    <option value="" selected>
+                                        Not related to a specific game
+                                    </option>
+
+                                    <option value="classroom_pirates">
+                                        Classroom Pirates
+                                    </option>
+
+                                    <option value="battleship">
+                                        Battleship
+                                    </option>
+
+                                    <option value="exploding_kittens">
+                                        Exploding Kittens
+                                    </option>
+
+                                    <option value="worksheet_generator">
+                                        Worksheet Generator
+                                    </option>
+
+                                    <option value="other">
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- Message -->
+                            <div class="mb-3">
+
+                                <label for="message" class="form-label">
+                                    Message
+                                </label>
+
+                                <textarea class="form-control"
+                                        id="message"
+                                        name="message"
+                                        rows="6"
+                                        maxlength="5000"
+                                        placeholder="Tell us how we can help. If you are reporting a problem, please describe what happened and what you expected to happen."
+                                        required></textarea>
+
+                                <div class="form-text">
+                                    Please include as much detail as possible when reporting a problem.
+                                </div>
+
+                            </div>
+
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                Send Message
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

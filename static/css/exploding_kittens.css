@@ -2,7 +2,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background-image: 
         linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
-        url("../images/backgrounds/main_background.png");
+        url("../images/games/exploding_kittens/backgrounds/Intro_image.png");
 
     background-size: cover;
     background-position: center;
@@ -29,7 +29,7 @@ header {
 
     text-align: center;
 
-    background-image: url("../images/backgrounds/Top_instructions.png");
+    background-image: url("../images/games/exploding_kittens/backgrounds/Top_instructions.png");
 
     background-size: 100% 95%;
 
@@ -61,7 +61,7 @@ header {
 
     width: 220px;
 
-    background-image: url("../images/backgrounds/Score_plank.png");
+    background-image: url("../images/games/exploding_kittens/backgrounds/Score_plank.png");
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -104,17 +104,13 @@ QUESTION GRID
 
 #question-grid{
 
-    width:90%;
-
-    margin:40px auto;
-
     display:grid;
 
-    grid-template-columns:repeat(5, 300px);
+    grid-template-columns:repeat(5, minmax(100px, 1fr));
 
     justify-items:center;
 
-    gap:20px;
+    gap:1rem;
 
 }
 
@@ -123,7 +119,7 @@ QUESTION GRID
     width: 220px;
     height: 320px;
 
-    background-image: url("../images/cards/back_of_card.png");
+    background-image: url("../images/games/exploding_kittens/cards/back_of_card.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -136,7 +132,7 @@ QUESTION GRID
 
     align-items:center;
 
-    font-size:15rem;
+    font-size:clamp(4.2rem, 12vw, 8.8rem);
 
     font-weight:bold;
 
@@ -217,7 +213,7 @@ QUESTION OVERLAY
 
     max-width:90%;
 
-    background-image: url("../images/backgrounds/question_background.png");
+    background-image: url("../images/games/exploding_kittens/backgrounds/question_background.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -242,7 +238,7 @@ QUESTION OVERLAY
 
     height: 50px;
 
-    background-image: url("../images/backgrounds/Top_instructions.png");
+    background-image: url("../images/games/exploding_kittens/backgrounds/Top_instructions.png");
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -297,7 +293,7 @@ QUESTION OVERLAY
     display:none;
     flex:0 0 50px;
     height: 50px;
-    background-image: url("../images/backgrounds/answer_bar.png");
+    background-image: url("../images/games/exploding_kittens/backgrounds/answer_bar.png");
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -341,13 +337,13 @@ QUESTION OVERLAY
 
 #correct-btn{
 
-    background-image:url("../images/buttons/correct_button.png");
+    background-image:url("../images/games/exploding_kittens/buttons/correct_button.png");
 
 }
 
 #incorrect-btn{
 
-    background-image:url("../images/buttons/incorrect_button.png");
+    background-image:url("../images/games/exploding_kittens/buttons/incorrect_button.png");
 
 }
 
@@ -355,7 +351,7 @@ QUESTION OVERLAY
 
     width:400px;
 
-    background-image:url("../images/buttons/letter_block.png");
+    background-image:url("../images/games/exploding_kittens/buttons/letter_block.png");
     
 
     color:white;
@@ -450,13 +446,13 @@ REWARD WINDOW
 
     max-width:95%;
 
-    height:700px;
+    max-height:90%;
 
     overflow-y:auto;
 
     overflow-x:hidden;
 
-    background-image: url("../images/backgrounds/question_background.png");
+    background-image: url("../images/games/exploding_kittens/backgrounds/question_background.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -517,7 +513,7 @@ CARD DECK
 
     border-radius:15px;
 
-    background-image: url("../images/cards/back_of_card.png");
+    background-image: url("../images/games/exploding_kittens/cards/back_of_card.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -623,7 +619,7 @@ DRAWN CARD
 
     border-radius:20px;
 
-    background-image: url("../images/cards/back_of_card.png");
+    background-image: url("../images/games/exploding_kittens/cards/back_of_card.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -998,7 +994,7 @@ SWAP OVERLAY
     height:100px;
     background-color:transparent;
 
-    background-image:url("../images/buttons/back_button.png");
+    background-image:url("../images/games/exploding_kittens/buttons/back_button.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1075,4 +1071,17 @@ SWAP OVERLAY
 #temporary-score-label{
     text-align: center;
     font-size: 2rem;
+}
+
+.card-summary-image {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-summary-image img {
+    width: 100px;
+    height: auto;
 }

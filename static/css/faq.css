@@ -1,0 +1,108 @@
+/* ======================================
+   PAGE HERO
+====================================== */
+
+.page-hero{
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-dark)
+    );
+
+    color:white;
+
+    padding:80px 0;
+
+}
+
+.page-hero h1{
+
+    color:white;
+
+}
+
+.page-hero p{
+
+    color:rgba(255,255,255,.85);
+
+}
+
+/* ======================================
+FAQ SECTION
+====================================== */
+
+.faq-section-title {
+
+    font-size: 1.35rem;
+    font-weight: 700;
+
+    margin-bottom: 1rem;
+
+}
+
+/* ======================================
+ACCORDION
+====================================== */
+
+.accordion {
+
+    border-radius: 10px;
+    overflow: hidden;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+
+}
+
+.accordion-item {
+
+    border: none;
+    border-bottom: 1px solid #dee2e6;
+
+}
+
+.accordion-item {
+
+    border-bottom: none;
+
+}
+
+.accordion-button {
+
+    font-weight: 600;
+    padding: 1.1rem 1.25rem;
+
+}
+
+.accordion-button:not(.collapsed) {
+
+    color: var(--primary);
+
+    background-color: rgba(13,110,253,.08);
+
+    box-shadow: none;
+
+}
+
+.accordion-button:focus {
+
+    box-shadow: none;
+
+}
+
+.accordion-body {
+
+    line-height: 1.7;
+    color: #555;
+
+}
+
+/* ======================================
+CONTACT CTA
+====================================== */
+
+.faq-section + .text-center {
+
+    padding-bottom: 40px;
+
+}

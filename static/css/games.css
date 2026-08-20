@@ -218,6 +218,15 @@ main {
     color: var(--bs-warning);
 }
 
+#help-window {
+    width: 100%;
+    max-width: 1200px;
+}
+
+#modal-window {
+    width: 100%;
+}
+
 [hidden] {
     display: none !important;
 }

@@ -1,0 +1,806 @@
+{% extends "base.html" %}
+
+{% block title %}
+    FAQ
+{% endblock %} 
+
+{% block styles %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/faq.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="page-hero">
+
+    <div class="container text-center">
+
+        <h1>Frequently Asked Questions</h1>
+
+        <p class="lead">
+
+            Here are some questions other teachers have already asked.
+            If you cannot find the answer you are looking for, please contact us. 
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- Questions and Answers -->
+
+<section class="section">
+
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-9">
+
+
+            <!-- ========================================= -->
+            <!-- GETTING STARTED -->
+            <!-- ========================================= -->
+
+            <section class="faq-section mb-5">
+
+                <h2 class="faq-section-title">
+                    🎮 Getting Started
+                </h2>
+
+                <div class="accordion" id="gettingStarted">
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#gettingStarted1">
+
+                                How do I start a game?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="gettingStarted1"
+                             class="accordion-collapse collapse show"
+                             data-bs-parent="#gettingStarted">
+
+                            <div class="accordion-body">
+
+                                Choose a game from the Games page.
+                                Depending on the game, you can start
+                                a demo game, load an existing lesson
+                                pack, or create a new lesson pack.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#gettingStarted2">
+
+                                Do I need to create an account to play?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="gettingStarted2"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#gettingStarted">
+
+                            <div class="accordion-body">
+
+                                No account is currently required to
+                                start playing the available games.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#gettingStarted3">
+
+                                Can I try the games before creating a lesson pack?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="gettingStarted3"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#gettingStarted">
+
+                            <div class="accordion-body">
+
+                                Yes. Games that provide a
+                                <strong>Start Game</strong> or
+                                <strong>Demo</strong> option can be
+                                played immediately so you can see
+                                how the game works before preparing
+                                your own lesson content.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================= -->
+            <!-- GAMES -->
+            <!-- ========================================= -->
+
+            <section class="faq-section mb-5">
+
+                <h2 class="faq-section-title">
+                    🕹️ Games
+                </h2>
+
+                <div class="accordion" id="gamesFaq">
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#games1">
+
+                                What type of games are available?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="games1"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#gamesFaq">
+
+                            <div class="accordion-body">
+
+                                The website provides classroom review
+                                games designed to help teachers make
+                                vocabulary, grammar, speaking, and
+                                lesson review more engaging.
+
+                                <br><br>
+
+                                Each game has its own rules and reward
+                                system. You can read the game's
+                                <strong>How to Play</strong> section
+                                before starting.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#games2">
+
+                                Are the games suitable for teams?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="games2"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#gamesFaq">
+
+                            <div class="accordion-body">
+
+                                Yes. The games are designed primarily
+                                for classroom team play.
+
+                                The number of teams depends on the
+                                individual game. Check the game's
+                                help section for specific rules.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#games3">
+
+                                Can I use the games for different subjects or lessons?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="games3"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#gamesFaq">
+
+                            <div class="accordion-body">
+
+                                The games are designed to be adaptable
+                                to different lessons.
+
+                                You can create lesson packs using
+                                your own questions, vocabulary,
+                                grammar, and other lesson content.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#games4">
+
+                                Can students play the games by themselves?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="games4"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#gamesFaq">
+
+                            <div class="accordion-body">
+
+                                The games are primarily designed for
+                                teacher-led classroom activities.
+                                The teacher controls the game while
+                                students answer questions and make
+                                decisions as teams.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================= -->
+            <!-- LESSON PACKS -->
+            <!-- ========================================= -->
+
+            <section class="faq-section mb-5">
+
+                <h2 class="faq-section-title">
+                    📚 Lesson Packs
+                </h2>
+
+                <div class="accordion" id="lessonFaq">
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#lesson1">
+
+                                What is a lesson pack?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="lesson1"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#lessonFaq">
+
+                            <div class="accordion-body">
+
+                                A lesson pack is a collection of
+                                questions and lesson content prepared
+                                for use with a game.
+
+                                Instead of entering your questions
+                                every time you play, you can prepare
+                                a lesson pack and load it when you
+                                need it.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#lesson2">
+
+                                Can I create my own lesson packs?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="lesson2"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#lessonFaq">
+
+                            <div class="accordion-body">
+
+                                Yes. Games that support lesson packs
+                                provide a <strong>Create Lesson Pack</strong>
+                                option.
+
+                                This allows you to prepare content
+                                specifically for your class and
+                                lesson.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#lesson3">
+
+                                Can I reuse a lesson pack?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="lesson3"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#lessonFaq">
+
+                            <div class="accordion-body">
+
+                                Yes. Once you have created a lesson
+                                pack, you can load it again when you
+                                want to use the same lesson content.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================= -->
+            <!-- CLASSROOM USE -->
+            <!-- ========================================= -->
+
+            <section class="faq-section mb-5">
+
+                <h2 class="faq-section-title">
+                    👩‍🏫 Using the Games in Class
+                </h2>
+
+                <div class="accordion" id="teacherFaq">
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#teacher1">
+
+                                How can I use the games as a review activity?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="teacher1"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#teacherFaq">
+
+                            <div class="accordion-body">
+
+                                The games work well after teaching a
+                                vocabulary set, grammar point,
+                                expression, or other lesson content.
+
+                                Students answer review questions
+                                before taking their turn in the game,
+                                turning the review activity into a
+                                competitive classroom game.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#teacher2">
+
+                                Do students have to answer individually?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="teacher2"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#teacherFaq">
+
+                            <div class="accordion-body">
+
+                                Not necessarily.
+
+                                The teacher can decide whether students
+                                should answer individually, work with
+                                their teammates, or discuss the answer
+                                before responding.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-parent="#teacherFaq">
+
+                                Can I use the games for speaking practice?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="teacher3"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#teacherFaq">
+
+                            <div class="accordion-body">
+
+                                Yes.
+
+                                One simple way to turn the games into
+                                speaking practice is to require students
+                                to answer using complete sentences before
+                                allowing them to continue.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================= -->
+            <!-- TECHNICAL -->
+            <!-- ========================================= -->
+
+            <section class="faq-section mb-5">
+
+                <h2 class="faq-section-title">
+                    💻 Technical Questions
+                </h2>
+
+                <div class="accordion" id="technicalFaq">
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#technical1">
+
+                                Do I need to install anything?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="technical1"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#technicalFaq">
+
+                            <div class="accordion-body">
+
+                                The games are designed to run through
+                                your web browser, so there is no
+                                traditional desktop application that
+                                needs to be installed.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#technical2">
+
+                                Which browser should I use?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="technical2"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#technicalFaq">
+
+                            <div class="accordion-body">
+
+                                A modern browser such as Chrome,
+                                Edge, Firefox, or Safari should work.
+                                Keeping your browser updated is
+                                recommended.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#technical3">
+
+                                What happens if I find a bug?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="technical3"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#technicalFaq">
+
+                            <div class="accordion-body">
+
+                                Please use the
+                                <strong>Contact Us</strong> page to
+                                report the problem.
+
+                                When reporting a bug, please include
+                                as much information as possible,
+                                including which game you were playing
+                                and what happened.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================= -->
+            <!-- TROUBLESHOOTING -->
+            <!-- ========================================= -->
+
+            <section class="faq-section">
+
+                <h2 class="faq-section-title">
+                    🔧 Troubleshooting
+                </h2>
+
+                <div class="accordion" id="troubleshootingFaq">
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#trouble1">
+
+                                The game is not loading. What should I do?
+
+                            </button>
+
+                        </h2>
+
+                        <div id="trouble1"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#troubleshootingFaq">
+
+                            <div class="accordion-body">
+
+                                First, try refreshing the page.
+
+                                If the problem continues, check your
+                                internet connection and try opening the
+                                game again.
+
+                                If the issue still occurs, please
+                                contact us and tell us which game
+                                you were trying to use.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#trouble2">
+
+                                Something is not working correctly during a game.
+
+                            </button>
+
+                        </h2>
+
+                        <div id="trouble2"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#troubleshootingFaq">
+
+                            <div class="accordion-body">
+
+                                If possible, refresh the page and
+                                restart the game.
+
+                                If the problem continues, please use
+                                the Contact Us page to report it.
+
+                                Include the game name and describe
+                                what happened so the problem can be
+                                investigated.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================= -->
+            <!-- CONTACT -->
+            <!-- ========================================= -->
+
+            <div class="text-center mt-5">
+
+                <h3 class="fs-5 fw-bold">
+                    Still have a question?
+                </h3>
+
+                <p>
+                    If you cannot find the answer you're looking for,
+                    feel free to contact us.
+                </p>
+
+                <a href="{{ url_for('contact') }}"
+                   class="btn btn-primary">
+
+                    Contact Us
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+{% endblock %}

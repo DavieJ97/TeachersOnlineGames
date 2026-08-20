@@ -1,7 +1,7 @@
 <section id="setup-screen"
          class="container d-flex flex-column justify-content-center align-items-center text-center py-5">
 
-    <h1 class="display-4 fw-bold mb-3">
+    <h1 id="game-title" class="display-4 fw-bold mb-3">
         {{ game_title }}
     </h1>
 
@@ -21,7 +21,7 @@
             </button>
 
             <a id="new-lesson-btn"
-               href="{{ url_for('review_questions', game_name=game_name) }}"
+               href="{{ lesson_create_link }}"
                class="btn btn-outline-light game-button">
                 <i class="bi bi-plus-circle"></i>
                 Create Lesson Pack

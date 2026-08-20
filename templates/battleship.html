@@ -1,0 +1,664 @@
+{% extends "base_games.html" %}
+
+{% block title %}
+    Battleship
+{% endblock %}
+
+{% block game_styles %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/battleship.css') }}">
+{% endblock %}
+
+{% block game_content %}
+
+{% set game_name = "battleship" %}
+{% set game_title = "Battleship" %}
+{% set game_description =
+    "Load a lesson pack or start a demo to battle for the sea."
+%}
+{% set lesson_create_link = url_for('review_questions', game_name=game_name) %}
+
+<!-- Setup screen -->
+{% include "components/games/lesson_setup.html" %}
+
+
+<!-- Main game -->
+<section id="main-screen" hidden>
+
+    <section id="turn-panel" aria-live="polite">
+        <h1 id="game-title">Battleship</h1>
+        <p id="turn-message">Team Blue, choose a question card.</p>
+    </section>
+
+    <section id="battlefield" aria-label="Battleship boards">
+
+        <article class="team-board" data-team="0">
+            <header class="board-heading">
+                <div class="team-name-and-missiles">
+                    <h2 id="team-0-name">Team Blue</h2>
+
+                    <div id="team-0-missiles"
+                        class="missile-rack"
+                        aria-label="Team Blue missiles">
+                    </div>
+                </div>
+                <span id="team-0-ships">Ships remaining: 5</span>
+            </header>
+
+            <div id="team-0-board"
+                 class="battleship-board"
+                 aria-label="Team Blue board">
+            </div>
+        </article>
+
+        <article class="team-board" data-team="1">
+            <header class="board-heading">
+                <div class="team-name-and-missiles">
+                    <h2 id="team-1-name">Team Red</h2>
+                    <div id="team-1-missiles"
+                        class="missile-rack"
+                        aria-label="Team Red missiles">
+                    </div>
+                </div>
+                <span id="team-1-ships">Ships remaining: 5</span>
+            </header>
+
+            <div id="team-1-board"
+                 class="battleship-board"
+                 aria-label="Team Red board">
+            </div>
+        </article>
+
+    </section>
+
+    <section id="questions-section">
+        <h2>Choose a Question</h2>
+
+        <div id="question-grid"
+             aria-label="Question cards">
+        </div>
+    </section>
+
+</section>
+
+
+<!-- Shared question screen -->
+{% include "components/games/question_overlay.html" %}
+
+
+<!-- Correct-answer reward / attack screen -->
+<div id="reward-overlay" hidden>
+
+    <section id="reward-window"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="reward-title">
+
+        <h2 id="reward-title">Attack Time!</h2>
+
+        <p id="reward-message">
+            Choose squares on the opposing team’s board.
+        </p>
+
+        <div id="reward-missile-reveal"
+            class="reward-missile-reveal"
+            aria-label="Missile reward reveal">
+        </div>
+
+        <button id="finish-attack-btn"
+                type="button"
+                class="btn btn-outline-light game-button"
+                hidden>
+            End Turn
+        </button>
+
+    </section>
+
+</div>
+
+
+<!-- Winner screen -->
+<div id="winner-overlay" hidden>
+
+    <section id="winner-window"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="winner-title">
+
+        <h2 id="winner-title">Game Over!</h2>
+
+        <p id="winner-message"></p>
+
+        <button id="play-again-btn"
+                type="button"
+                class="btn btn-outline-light game-button">
+            Play Again
+        </button>
+
+    </section>
+
+</div>
+
+<div id="continue-overlay" hidden>
+
+    <section id="continue-window"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="continue-title">
+
+        <h2 id="continue-title">All Cards Used</h2>
+
+        <p>
+            Reset the question cards and continue the battle?
+        </p>
+
+        <button id="continue-game-btn"
+                type="button"
+                class="btn btn-outline-light game-button">
+            Continue
+        </button>
+
+    </section>
+
+</div>
+
+<div id="missile-layer" aria-hidden="true"></div>
+
+{% endblock %}
+
+
+{% block help_title %}
+Battleship — How to Play
+{% endblock %}
+
+{% block help_content %}
+
+<div class="battleship-help">
+
+    ```
+    <!-- ========================================= -->
+    <!-- GAME OVERVIEW -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            🚢 What is Battleship?
+        </h2>
+
+        <p>
+            Battleship is a team-based review game where students
+            answer questions to earn the opportunity to fire shots
+            at the opposing team's fleet.
+        </p>
+
+        <p class="mb-0">
+            The goal is simple:
+            <strong>sink all five of the opposing team's ships!</strong>
+        </p>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- GETTING STARTED -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            ⚓ Getting Started
+        </h2>
+
+        <ol class="ps-3">
+
+            <li class="mb-2">
+                Load a lesson pack, create one, or start a demo game.
+            </li>
+
+            <li class="mb-2">
+                Divide the class into <strong>two teams</strong>.
+                One team becomes <strong>Team Blue</strong> and the
+                other becomes <strong>Team Red</strong>.
+            </li>
+
+            <li class="mb-2">
+                The teams take turns answering questions and attacking
+                the opposing team's board.
+            </li>
+
+        </ol>
+
+        <div class="alert alert-info mt-3 mb-0">
+
+            <strong>Teacher tip:</strong>
+            You can use Battleship as a review activity after teaching
+            vocabulary, grammar, expressions, or other lesson content.
+            The questions can be adapted to match the lesson being reviewed.
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- HOW TO PLAY -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            🎮 How to Play
+        </h2>
+
+        <ol class="ps-3">
+
+            <li class="mb-2">
+                The current team chooses a numbered question card.
+            </li>
+
+            <li class="mb-2">
+                A student or team answers the question.
+            </li>
+
+            <li class="mb-2">
+                If the answer is correct, the team receives
+                <strong>1–5 shots</strong>.
+            </li>
+
+            <li class="mb-2">
+                The team uses its shots to choose squares on the
+                opposing team's Battleship board.
+            </li>
+
+            <li class="mb-2">
+                Each selected square reveals whether the team has
+                found part of an enemy ship.
+            </li>
+
+            <li>
+                After the team's shots have been used, the turn moves
+                to the other team.
+            </li>
+
+        </ol>
+
+        <div class="alert alert-warning mt-3 mb-0">
+
+            <strong>Important:</strong>
+            The number of shots a team receives si random and does not depend on the
+            question. A correct answer can give the team anywhere from 
+            <strong>1 to 5 shots</strong>.
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- QUESTIONS & SHOTS -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            🎯 Questions and Shots
+        </h2>
+
+        <p>
+            Answering questions is the key to getting opportunities
+            to attack the opposing fleet.
+        </p>
+
+        <div class="card mb-3">
+
+            <div class="card-body">
+
+                <img
+                    src="{{ url_for(
+                        'static',
+                        filename='/images/games/battleship/cards/battleship_card_background.png'
+                    ) }}"
+                    alt="card"
+                    class="img-fluid"
+                    style="max-width: 100px;"
+                >
+
+                <h3 class="fs-6 fw-bold">
+                    Choose a card.
+                </h3>
+
+                <p class="mb-0">
+                    The current team selects a question card.
+                    The teacher checks the student's answer before
+                    allowing the team to continue.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <img
+                    src="{{ url_for(
+                        'static',
+                        filename='/images/games/battleship/other/missile_on.png'
+                    ) }}"
+                    alt="missiles"
+                    class="img-fluid"
+                    style="max-width: 100px;"
+                >
+
+                <h3 class="fs-6 fw-bold">
+                    Earn Your Missils
+                </h3>
+
+                <p>
+                    A correct answer rewards the team with
+                    <strong>1–5 shots</strong>.
+                </p>
+
+                <p class="mb-0">
+                    More shots give the team more opportunities to
+                    search the opposing team's board and find ships.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- THE BATTLESHIP BOARD -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+        
+
+        <h2 class="fs-5 fw-bold">
+            🗺️ The Battleship Board
+        </h2>
+
+        <p>
+            Each team has a Battleship board containing hidden ships.
+            The opposing team does not know where the ships are located.
+        </p>
+
+        <p>
+            When a team earns shots, they choose squares on the
+            opponent's board to try to locate and destroy their ships.
+        </p>
+
+        <div class="text-center my-3">
+
+            <img
+                src="{{ url_for(
+                    'static',
+                    filename='/images/games/battleship/other/example_1.png'
+                ) }}"
+                alt="board"
+                class="img-fluid"
+                style="max-width: 100%;"
+            >
+
+            <img
+                src="{{ url_for(
+                    'static',
+                    filename='/images/games/battleship/other/example_2.png'
+                ) }}"
+                alt="board"
+                class="img-fluid"
+                style="max-width: 100%;"
+            >
+
+            <p class="small text-muted mt-2 mb-0">
+                Choose a square to fire a shot at the opposing fleet.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- SHIPS -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            🚢 The Fleet
+        </h2>
+
+        <p>
+            Each team has <strong>five ships</strong> hidden on its board.
+            Teams must search the opposing board and hit the ships
+            to destroy them.
+        </p>
+
+        <div class="card mb-3">
+
+            <div class="card-body">
+
+                <h3 class="fs-6 fw-bold">
+                    Finding Ships
+                </h3>
+
+                <p class="mb-0">
+                    A shot is used by selecting a square on the opposing
+                    team's board. The result of the shot is revealed
+                    by the game.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <h3 class="fs-6 fw-bold">
+                    Sinking Ships
+                </h3>
+
+                <p class="mb-0">
+                    Teams continue answering questions and using their
+                    shots until all five ships belonging to one team
+                    have been sunk.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- WINNING -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            🏆 How to Win
+        </h2>
+
+        <p>
+            Battleship is not won simply by answering the most questions.
+            Teams must use their earned shots effectively to locate the
+            opposing fleet.
+        </p>
+
+        <p class="mb-0">
+            The game ends when one team has successfully sunk
+            <strong>all five enemy ships</strong>.
+            That team is the winner!
+        </p>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- STRATEGY -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            🧠 Strategy
+        </h2>
+
+        <p>
+            Battleship combines English review with a little strategy
+            and luck. Teams need to think carefully about where to use
+            their shots.
+        </p>
+
+        <ul class="ps-4">
+
+            <li class="mb-2">
+                A correct answer gives your team an opportunity to attack.
+            </li>
+
+            <li class="mb-2">
+                More shots mean more opportunities to search for ships.
+            </li>
+
+            <li class="mb-2">
+                Teams should think carefully about which squares to choose.
+            </li>
+
+            <li>
+                Even a team that is behind can make a comeback by
+                finding and sinking several enemy ships.
+            </li>
+
+        </ul>
+
+        <p class="mb-0">
+            Every question can lead to another attack, so keep answering
+            correctly and keep searching for the enemy fleet!
+        </p>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- TEACHER TIPS -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <h2 class="fs-5 fw-bold">
+            👩‍🏫 Tips for Teachers
+        </h2>
+
+        <ul class="ps-4">
+
+            <li class="mb-2">
+                Use the game after teaching vocabulary or grammar
+                to give students an engaging review activity.
+            </li>
+
+            <li class="mb-2">
+                Require a correct answer before allowing the team
+                to receive its shots.
+            </li>
+
+            <li class="mb-2">
+                For speaking practice, require students to answer
+                using a complete sentence.
+            </li>
+
+            <li class="mb-2">
+                Let teammates discuss their answers before responding.
+            </li>
+
+            <li class="mb-2">
+                Encourage students to communicate and make decisions
+                together when choosing where to fire.
+            </li>
+
+            <li>
+                Use the number of shots as an additional reward for
+                students who give strong answers.
+            </li>
+
+        </ul>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- LESSON PACKS -->
+    <!-- ========================================= -->
+
+    <section>
+
+        <h2 class="fs-5 fw-bold">
+            📚 Lesson Packs
+        </h2>
+
+        <p>
+            Battleship can be played using lesson packs containing
+            questions and content prepared for your class.
+        </p>
+
+        <p>
+            You can:
+        </p>
+
+        <ul class="ps-4">
+
+            <li>Load an existing lesson pack</li>
+            <li>Create a new lesson pack</li>
+            <li>Start a demo game</li>
+
+        </ul>
+
+        <p class="mb-0">
+            This allows teachers to use Battleship with different
+            vocabulary, grammar points, topics, and lessons.
+        </p>
+
+    </section>
+    ```
+
+</div>
+
+{% endblock %}
+
+
+
+{% block game_scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script defer
+        src="{{ url_for('static',
+        filename='js/shared/lessonLoader.js') }}">
+</script>
+
+<script defer
+        src="{{ url_for('static',
+        filename='js/shared/question_grid.js') }}">
+</script>
+
+<script defer
+        src="{{ url_for('static',
+        filename='js/shared/ui.js') }}">
+</script>
+
+<script defer
+        src="{{ url_for('static',
+        filename='js/games/battleship.js') }}">
+</script>
+{% endblock %}

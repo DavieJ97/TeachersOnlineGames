@@ -1,0 +1,199 @@
+{% extends "base_games.html" %}
+
+{% block title %}
+    Create Lesson Pack
+{% endblock %}
+
+{% block game_styles %}
+<link rel="stylesheet"
+      href="{{ url_for('static',
+      filename='css/speaking_questions.css') }}">
+{% endblock %}
+
+{% block game_content %}
+    <div id="editor-window">
+
+        <h1 id="game-title">
+
+            {{ game_name.replace("_", " ").title() }}
+
+        </h1>
+
+        <!-- ========================= -->
+        <!-- TOP TOOLBAR               -->
+        <!-- ========================= -->
+
+        <div id="editor-toolbar"
+            class="editor-toolbar"
+            role="toolbar"
+            aria-label="Lesson editor toolbar">
+
+            <div class="toolbar-section">
+
+                <span class="toolbar-label">Lesson</span>
+
+                <div class="btn-group" role="group" aria-label="Lesson files">
+
+                    <button id="upload-lesson-btn"
+                            class="btn btn-outline-light game-button">
+                        <i class="bi bi-folder2-open"></i>
+                        Upload
+                    </button>
+
+                    <button id="save-lesson-btn"
+                            class="btn btn-outline-light game-button">
+                        <i class="bi bi-download"></i>
+                        Save
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="toolbar-section">
+
+                <span class="toolbar-label">Add content</span>
+
+                <div class="btn-group" role="group" aria-label="Add content">
+
+                    <button id="add-img-btn"
+                            class="btn btn-outline-light game-button">
+                        <i class="bi bi-image"></i>
+                        Image
+                    </button>
+
+                    <button id="add-textbox-btn"
+                            class="btn btn-outline-light game-button">
+                        <i class="bi bi-fonts"></i>
+                        Text
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="toolbar-section">
+
+                <span class="toolbar-label">Text size</span>
+
+                <div class="btn-group" role="group" aria-label="Text size">
+
+                    <button id="font-smaller-btn"
+                            class="btn btn-outline-light game-button">
+                        A-
+                    </button>
+
+                    <button id="font-bigger-btn"
+                            class="btn btn-outline-light game-button">
+                        A+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="toolbar-section toolbar-section-danger">
+
+                <span class="toolbar-label">Cell</span>
+
+                <button id="clear-cell-btn"
+                        class="btn btn-outline-danger game-button">
+                    <i class="bi bi-trash3"></i>
+                    Clear
+                </button>
+
+            </div>
+
+            <input type="file"
+                id="lesson-file-input"
+                accept=".zip"
+                hidden>
+
+            <input type="file"
+                id="image-file-input"
+                accept="image/*"
+                hidden>
+        </div>
+
+        <div id="grid-editor-container">
+            <table id="speaking-grid-editor">
+                <thead>
+                    <tr id="editor-column-headers">
+                        <!-- The Corner Cell (General Instructions) -->
+                        <th class="grid-edit-cell corner-cell" data-type="instructions">
+                            <div class="cell-content">Instructions</div>
+                        </th>
+                        <!-- 6 Column Header Cells will be generated here -->
+                    </tr>
+                </thead>
+                <tbody id="editor-row-body">
+                    <!-- 6 Rows will be generated here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- CANVAS EDITOR -->
+        <div id="canvas-editor-container">
+
+            <div id="editor-canvas">
+
+                <div id="editor-canvas-placeholder">
+                    Select a canvas from the grid above.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CANVAS CONTROLS -->
+        <div id="canvas-controls" class="mt-3 text-center">
+
+            <p>
+                Selected:
+                <span id="selected-canvas-label">None</span>
+            </p>
+
+            <!-- Buttons will go here later -->
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block help_title %}
+    How to use the lesson editor
+{% endblock %}
+
+{% block help_content %}
+<ol class="mb-0 ps-3">
+    <li>Create questions with the <strong>+ Add</strong> button.</li>
+    <li>Or add an existing Lesson pack with the <strong>Upload</strong> button.</li>
+    <li>Add images or text with the toolbar.</li>
+    <li>Click an item to move or resize it.</li>
+    <li>Double-click text to edit it.</li>
+    <li>Use Save to download your lesson pack.</li>
+</ol>
+<p class="mb-0">
+    The downloaded lesson pack is a ZIP file. Do not unzip it.
+</p>
+{% endblock %}
+
+{% block game_scripts %}
+    <script>
+        const GAME_NAME = "{{ game_name }}";
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script defer
+            src="{{ url_for('static',
+            filename='js/shared/lessonLoader.js') }}">
+    </script>
+
+    <script src="{{ url_for('static',
+                filename='js/shared/speaking_questions.js') }}">
+    </script>
+{% endblock %}

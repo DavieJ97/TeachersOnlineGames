@@ -114,7 +114,7 @@ const sounds = {
 
     correct: new Audio(SOUNDPATHS + "correct-6033.mp3"),
 
-    wrong: new Audio(SOUNDPATHS + "wrong.mp3"),
+    // wrong: new Audio(SOUNDPATHS + "wrong.mp3"),
 
     loseAll: new Audio(SOUNDPATHS + "Oh No (Instrumental) - Kreepa(cut edition).mp3"),
 
@@ -282,6 +282,9 @@ async function loadLessonPack(event) {
 
 
 function startGame() {
+
+    const body = document.body;
+    body.style.backgroundImage = "linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url('/static/images/games/exploding_kittens/backgrounds/main_background.png')";
 
     const teamInput = document.getElementById("team-count");
     sounds.music.play();
@@ -459,7 +462,7 @@ function animateCard(card) {
 
 function incorrectAnswer(){
 
-    sounds.wrong.play();
+    // sounds.wrong.play();
 
     closeQuestion();
 
@@ -587,10 +590,10 @@ function animateRewardCard(card){
     cardDiv.innerHTML=`
 
         <img class="reward-card-back"
-             src="/static/images/cards/back_of_card.png">
+             src="/static/images/games/exploding_kittens/cards/back_of_card.png">
 
         <img class="reward-card-front"
-             src="/static/images/cards/${card.folder}/${card.image}">
+             src="/static/images/games/exploding_kittens/cards/${card.folder}/${card.image}">
 
     `;
 
