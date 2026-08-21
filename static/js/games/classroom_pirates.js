@@ -281,6 +281,7 @@ async function setupColumnHeaders(columnHeaders) {
     columnHeadersContainer.querySelectorAll(".dynamic-column-header")
         .forEach(header => header.remove());
 
+        
     for (let i = 0; i < GAME_CONFIG.GRID_SIZE; i++) {
         const header = document.createElement("th");
         header.className = "dynamic-column-header";
