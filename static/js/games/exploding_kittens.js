@@ -177,6 +177,7 @@ function showSetupScreen() {
 }
 
 
+
 function showMainScreen() {
 
     GameUI.showOnly(

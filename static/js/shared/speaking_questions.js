@@ -53,6 +53,10 @@ const editorCanvas = document.getElementById('editor-canvas');
 const editorCanvasPlaceholder =
     document.getElementById('editor-canvas-placeholder');
 
+const progressOverlay = document.getElementById("save-progress-overlay");
+const progressBar = document.getElementById("save-progress-bar");
+const progressMessage = document.getElementById("save-progress-message");
+
 
 function initEditor() {
 
@@ -165,6 +169,10 @@ function initEditor() {
 }
 
 async function saveLesson() {
+
+    const totalCells = 13;
+    let cells = 0;
+    showProgress(totalCells);
 
     const zip = new JSZip();
     const imageFolder = zip.folder("images");
@@ -318,6 +326,10 @@ async function saveLesson() {
 
         canvasData.screenshot = `images/${screenshotName}`;
 
+        cells += 1;
+
+        updateProgress(cells, totalCells, "Saving");
+
         return canvasData;
     }
 
@@ -422,9 +434,14 @@ async function saveLesson() {
             "There was an error saving the lesson."
         );
     }
+    hideProgress();
 }
 
 async function uploadLesson(file) {
+
+    const totalCells = 13;
+    let cells = 0;
+    showProgress(totalCells);
 
     try {
 
@@ -601,8 +618,8 @@ async function uploadLesson(file) {
                     });
                 }
             }
-
-
+            cells += 1;
+            updateProgress(cells, totalCells, "Loading");
             return canvas;
         }
 
@@ -674,11 +691,6 @@ async function uploadLesson(file) {
 
         renderCanvas();
 
-
-        alert(
-            "Lesson pack loaded successfully!"
-        );
-
     } catch (error) {
 
         console.error(
@@ -690,6 +702,7 @@ async function uploadLesson(file) {
             "There was an error loading this lesson pack."
         );
     }
+    hideProgress();
 }
 
 function selectCanvas(element) {
@@ -1148,6 +1161,38 @@ function deleteAllCanvasObjects() {
 
     // Redraw the canvas
     renderCanvas();
+}
+
+function showProgress(totalQuestions) {
+
+    progressBar.style.width = "0%";
+
+    progressMessage.textContent =
+        `Preparing ${totalQuestions} cells${
+            totalQuestions === 1 ? "" : "s"
+        }...`;
+
+    progressOverlay.hidden = false;
+}
+
+function updateProgress(
+    completedQuestions,
+    totalQuestions, 
+    type
+) {
+
+    const percent = Math.round(
+        (completedQuestions / totalQuestions) * 100
+    );
+
+    progressBar.style.width = `${percent}%`;
+
+    progressMessage.textContent =
+        `${type} cells ${completedQuestions} of ${totalQuestions}...`;
+}
+
+function hideProgress() {
+    progressOverlay.hidden = true;
 }
 
 document.addEventListener("DOMContentLoaded", () => {

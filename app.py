@@ -148,6 +148,10 @@ def battleship():
 def classroom_pirates():
     return render_template("classroom_pirates.html")
 
+@app.route("/games/pokemon-hunters")
+def pokemon_hunters():
+    return render_template("pokemon_hunters.html")
+
 @app.route("/games/review_questions/<game_name>")
 def review_questions(game_name):
 

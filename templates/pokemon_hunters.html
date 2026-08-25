@@ -1,0 +1,121 @@
+{% extends "base_games.html" %}
+
+{% block title %}
+    Pokemon Hunters
+{% endblock %}
+
+{% block game_styles %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/pokemon_hunters.css') }}">
+{% endblock %}
+
+{% block game_content %}
+
+<!-- ========================= -->
+<!-- SETUP SCREEN              -->
+<!-- ========================= -->
+
+{% set game_name = "pokemon_hunters" %}
+{% set game_title = "Pokemon Hunters" %}
+{% set game_description =
+    "Load a lesson pack or create one before starting."
+%}
+{% set lesson_create_link = url_for('review_questions', game_name=game_name) %}
+
+{% include "components/games/lesson_setup.html" %}
+
+
+<!-- ========================= -->
+<!-- MAIN GAME SCREEN          -->
+<!-- ========================= -->
+<section id="main-screen" hidden>
+
+    {% include "components/games/team_scoreboard.html" %}
+
+    <div id="question_map">
+
+        <img id="map-image"
+            src="{{ url_for('static', filename='images/games/pokemon_hunters/backgrounds/board_background.jpg') }}"
+            alt="Pokemon Hunters map">
+
+        <img id="clouds-1"
+            src="{{ url_for('static', filename='images/games/pokemon_hunters/other/clouds_1.gif') }}"
+            alt="Clouds">
+        
+        <img id="clouds-2"
+            src="{{ url_for('static', filename='images/games/pokemon_hunters/other/clouds_1.gif') }}"
+            alt="Clouds">
+
+        <img id="wind-tornado"
+            src="{{ url_for('static', filename='images/games/pokemon_hunters/other/wind_tornado.gif') }}"
+            alt="Tornado">
+
+        <img id="water-tornado"
+            src="{{ url_for('static', filename='images/games/pokemon_hunters/other/water_tornado.gif') }}"
+            alt="Tornado">
+
+        <img id="lava"
+            src="{{ url_for('static', filename='images/games/pokemon_hunters/other/lava.gif') }}"
+            alt="Lava">
+        
+        <img id="smoke-explosion"
+            src="{{ url_for('static', filename='images/games/pokemon_hunters/other/smoke_explosion.gif') }}"
+            alt="Smoke Explosion">
+        
+        <img id="fire"
+            src="{{ url_for('static', filename='images/games/pokemon_hunters/other/fire.gif') }}"
+            alt="Fire">
+
+        <!-- Numbered locations -->
+        
+    </div>
+
+</section>
+
+<!-- ========================= -->
+<!-- Question and Reward Overlay -->
+<!-- ========================= -->
+<div id="reward-overlay">
+    <div id="reward-window">
+        <!-- this is where the background gets placed with the character and the question get's placed over the display
+         which the question is answered then the question get's removed and the reward can start.-->
+
+    </div>
+</div>
+{% endblock %}
+
+{% block help_title %}
+Pokemon Hunters — How to Play
+{% endblock %}
+
+{% block help_content %}
+{% endblock %}
+
+{% block game_scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script defer
+        src="{{ url_for('static',
+        filename='js/shared/lessonLoader.js') }}">
+</script>
+
+<script defer
+        src="{{ url_for('static',
+        filename='js/shared/question_grid.js') }}">
+</script>
+
+<script defer
+        src="{{ url_for('static',
+        filename='js/shared/scoreboard.js') }}">
+</script>
+
+<script defer
+        src="{{ url_for('static',
+        filename='js/shared/ui.js') }}">
+</script>
+
+<script defer
+        src="{{ url_for('static',
+        filename='js/games/pokemon_hunters.js') }}">
+</script>
+{% endblock %}
