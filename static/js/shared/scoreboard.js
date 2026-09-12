@@ -4,7 +4,8 @@ window.Scoreboard = {
         container,
         currentTeamLabel,
         teams,
-        currentTeam
+        currentTeam,
+        pokemonHunters = false
     }) {
 
         container.innerHTML = "";
@@ -21,9 +22,12 @@ window.Scoreboard = {
 
             const teamName = document.createElement("h3");
 
-            teamName.textContent =
-                team.name || `Team ${index + 1}`;
-
+            if (pokemonHunters) {
+                teamName.innerHTML = `Team<br>${index + 1}`
+            } else {
+                teamName.textContent =
+                    team.name || `Team ${index + 1}`;
+            }
             const teamScore = document.createElement("p");
 
             teamScore.textContent = team.score;

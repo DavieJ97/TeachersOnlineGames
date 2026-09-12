@@ -59,7 +59,8 @@ header {
 
 .team-box {
 
-    width: 220px;
+    min-width: 190px;
+    max-width: 250px;
 
     background-image: url("../images/games/exploding_kittens/backgrounds/Score_plank.png");
     background-size: 100% 100%;

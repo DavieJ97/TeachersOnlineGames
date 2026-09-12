@@ -888,10 +888,11 @@ async function displayResetReward(reward) {
         team.score = 0;
     });
 
+    applyPoints(reward.points);
+
     // Wait a bit more before closing
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    applyPoints(reward.points);
 }
 
 // ==============================
@@ -976,6 +977,7 @@ function applyFightScenario(winnerIndex, loserIndex, scenario) {
 function showRewardOverlay() {
     rewardOverlay.classList.remove("overlay-hidden");
 }
+
 
 function closeRewardOverlay() {
     playSound(sounds.click);

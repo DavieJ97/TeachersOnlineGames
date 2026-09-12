@@ -75,13 +75,23 @@
 <!-- ========================= -->
 <!-- Question and Reward Overlay -->
 <!-- ========================= -->
+
 <div id="reward-overlay">
     <div id="reward-window">
         <!-- this is where the background gets placed with the character and the question get's placed over the display
          which the question is answered then the question get's removed and the reward can start.-->
+        
+        {% include "components/games/question_overlay.html" %}
+        <img id="character" class="character" src="{{ url_for('static', filename = 'images/games/pokemon_hunters/other/character_1.png')  }}" alt="Character">
+        <img id="character_arm" class="character-arm-1" src="{{ url_for('static', filename = 'images/games/pokemon_hunters/other/character_arm_1.png')  }}" alt="Character Arm">
+        <div id="projectile-layer"></div>
+        <div id="text-display"></div>
+        <button id="exit-button" class="btn btn-primary"></button>
 
     </div>
 </div>
+
+
 {% endblock %}
 
 {% block help_title %}
@@ -114,7 +124,7 @@ Pokemon Hunters — How to Play
         filename='js/shared/ui.js') }}">
 </script>
 
-<script defer
+<script type="module"
         src="{{ url_for('static',
         filename='js/games/pokemon_hunters.js') }}">
 </script>
