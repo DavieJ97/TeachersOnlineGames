@@ -1,4 +1,4 @@
-import { pokemon, questions, environments, pinEnvironments, pokeballs, pokeballStatusData, backGroundImgs} from "../shared/pokemon_data.js";
+import { questions, environments, pinEnvironments, pokeballs } from "../shared/pokemon_data.js";
 
 const setupScreen = document.getElementById("setup-screen");
 const mainScreen = document.getElementById("main-screen");
@@ -60,168 +60,187 @@ const game = {
     currentPokemon: null,
     currentBackGround: null,
     currentPokeballs: null,
+    lessonObjectUrls: [],
+    overlayOpen: false,
+    rewardStarted: false,
     // Future use
     soundsEnabled: true
 
 };
 
+const sounds = {
+    mainTheme: new Audio("/static/audio/music/pokemon_hunters/main_music.wav"),
+    question: new Audio("/static/audio/music/pokemon_hunters/question_music.mp3"),
+    clickPin: new Audio("/static/audio/sounds/pokemon_hunters/click_question.mp3"),
+    clickSpecialPin: new Audio("/static/audio/sounds/pokemon_hunters/click_special_question.mp3"),
+    hitPokemon: new Audio("/static/audio/sounds/pokemon_hunters/hit.mp3"),
+    catch: new Audio("/static/audio/sounds/pokemon_hunters/pokeball_open.wav"),
+    miss: new Audio("/static/audio/sounds/pokemon_hunters/run.wav")
+};
+
 game.questions = questions;
 
-async function loadLessonPack(event) {
-
-    const file = event.target.files[0];
-
-    if (!file) {
-
-        return;
-
+function validateLesson(lessonData) {
+    if (!lessonData || typeof lessonData !== "object" || Array.isArray(lessonData)) {
+        throw new Error("The lesson file must contain a lesson object.");
+    }
+    if (lessonData.game !== "pokemon_hunters") {
+        throw new Error("This lesson pack is not for Pokemon Hunters.");
+    }
+    if (!Array.isArray(lessonData.questions)) {
+        throw new Error("The lesson pack must contain a questions array.");
+    }
+    if (lessonData.questions.length < 3 || lessonData.questions.length > 47) {
+        throw new Error("Pokemon Hunters needs between 3 and 47 questions.");
     }
 
-    try {
-
-        const zip = await JSZip.loadAsync(file);
-
-        const jsonText =
-            await zip.file("lesson.json").async("string");
-
-        const lessonData = JSON.parse(jsonText);
-
-        // Load every image from the zip
-        for (const question of lessonData.questions) {
-
-            if (question.image) {
-
-                question.image =
-                    await LessonLoader.getObjectUrl(
-                        zip,
-                        "images/" + question.image
-                    );
+    lessonData.questions.forEach((question, index) => {
+        const questionNumber = index + 1;
+        if (!question || typeof question !== "object" || Array.isArray(question)) {
+            throw new Error(`Question ${questionNumber} must be a question object.`);
+        }
+        const hasText = typeof question.question === "string" && question.question.trim();
+        const hasImage = typeof question.image === "string" && question.image.trim();
+        if (!hasText && !hasImage) {
+            throw new Error(`Question ${questionNumber} needs text or an image.`);
+        }
+        const hasAnswer =
+            (typeof question.answer === "string" && question.answer.trim()) ||
+            (typeof question.answer === "number" && Number.isFinite(question.answer));
+        if (!hasAnswer) {
+            throw new Error(`Question ${questionNumber} needs an answer.`);
+        }
+        if (hasImage) {
+            const imagePath = question.image.replace(/\\/g, "/");
+            if (imagePath.startsWith("/") || imagePath.split("/").some(part => !part || part === "." || part === "..")) {
+                throw new Error(`Question ${questionNumber} has an invalid image path.`);
             }
+        }
+    });
 
+    return lessonData;
+}
+
+async function loadLessonPack(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const newObjectUrls = [];
+    try {
+        const { zip, lessonData } = await LessonLoader.load(file);
+        validateLesson(lessonData);
+
+        for (const question of lessonData.questions) {
+            if (question.image) {
+                const objectUrl = await LessonLoader.getObjectUrl(
+                    zip,
+                    `images/${question.image.replace(/\\/g, "/")}`
+                );
+                newObjectUrls.push(objectUrl);
+                question.image = objectUrl;
+            }
         }
 
+        game.lessonObjectUrls.forEach(URL.revokeObjectURL);
+        game.lessonObjectUrls = newObjectUrls;
         game.lesson = lessonData;
-
         game.questions = lessonData.questions;
-
-        console.log(game.lesson);
-
-        // Update lesson info
-        lessonName.textContent =
-            game.lesson.name || "Untitled Lesson";
-
-        lessonQuestionCount.textContent =
-            game.questions.length;
-
+        lessonGrade.textContent = lessonData.grade || "-";
+        lessonName.textContent = lessonData.name || "Untitled Lesson";
+        lessonQuestionCount.textContent = game.questions.length;
         lessonInfo.hidden = false;
-
         alert("Lesson loaded successfully!");
-
-    }
-    catch (error) {
-
+    } catch (error) {
+        newObjectUrls.forEach(URL.revokeObjectURL);
         console.error(error);
-
-        alert("Invalid lesson pack.");
-
+        alert(error.message || "Invalid lesson pack.");
+    } finally {
+        lessonFileInput.value = "";
     }
-
 }
 
 function showMainScreen() {
-
-    GameUI.showOnly(
-        mainScreen,
-        [setupScreen]
-    );
-
+    GameUI.showOnly(mainScreen, [setupScreen]);
     game.currentScreen = "main";
-
 }
 
 function updateScoreboard() {
-
     Scoreboard.render({
         container: scoreboard,
-        currentTeamLabel: currentTeamLabel,
+        currentTeamLabel,
         teams: game.teams,
         currentTeam: game.currentTeam,
         pokemonHunters: true
     });
 }
 
-function create_pins(){
-    for (let i = 0; i < game.questions.length; i++){
-        if (i < game.questions.length-3 ){
-            let pin_drop = document.createElement("button");
-            pin_drop.className = "map-location question-location";
-            pin_drop.dataset.question = i + 1;
-            let pin_image = document.createElement("img");
-            pin_image.src = "/static/images/games/pokemon_hunters/buttons/location_button.png";
-            pin_image.alt = "pin-drop";
-            let number = document.createElement("span");
-            number.className = "location-number";
-            number.textContent = i + 1;
-            pin_drop.appendChild(pin_image);
-            pin_drop.appendChild(number);
-            question_map.appendChild(pin_drop)
-            pin_drop.addEventListener("click", handleNormalPinClick);
+function create_pins() {
+    question_map.querySelectorAll(".map-location").forEach(pin => pin.remove());
+
+    game.questions.forEach((question, index) => {
+        const isSpecial = index >= game.questions.length - 3;
+        const letter = isSpecial ? ["A", "B", "C"][index - (game.questions.length - 3)] : "";
+        const pin = document.createElement("button");
+        const pinImage = document.createElement("img");
+        const label = isSpecial ? `Special location ${letter}` : `Question ${index + 1}`;
+
+        pin.type = "button";
+        pin.className = isSpecial ? "map-location special-location" : "map-location question-location";
+        pin.setAttribute("aria-label", label);
+        pin.dataset.questionIndex = index;
+        pinImage.src = isSpecial
+            ? "/static/images/games/pokemon_hunters/buttons/special_location_button.png"
+            : "/static/images/games/pokemon_hunters/buttons/location_button.png";
+        pinImage.alt = "";
+
+        if (isSpecial) {
+            pin.dataset.special = letter;
         } else {
-            let letter = "";
-            if (i == game.questions.length-3){
-                letter = "A";
-            } else if (i == game.questions.length-2){
-                letter = "B";
-            } else if (i == game.questions.length-1){
-                letter  = "C";
-            };
-            let pin_drop = document.createElement("button");
-            pin_drop.className = "map-location special-location";
-            pin_drop.dataset.special = letter;
-            let pin_image = document.createElement("img");
-            pin_image.src = "/static/images/games/pokemon_hunters/buttons/special_button.png";
-            pin_image.alt = "special-pin-drop";
-            let number = document.createElement("span");
-            number.className = "location-number";
-            number.textContent = letter;
-            pin_drop.hidden = true
-            pin_drop.appendChild(pin_image);
-            pin_drop.appendChild(number);
-            question_map.appendChild(pin_drop)
-            pin_drop.addEventListener("click", handleSpecialPinClick);
-        };
-    };
+            pin.dataset.question = index + 1;
+        }
+
+        const number = document.createElement("span");
+        number.className = "location-number";
+        number.textContent = isSpecial ? letter : index + 1;
+        pin.append(pinImage, number);
+        pin.addEventListener("click", isSpecial ? handleSpecialPinClick : handleNormalPinClick);
+        question_map.appendChild(pin);
+    });
 }
 
-function startGame (){
-    const body = document.body;
-    body.style.backgroundColor = "#1855bf";
-
-    const teamInput = document.getElementById("team-count");
-
-    game.numberOfTeams = parseInt(teamInput.value);
-
-    game.teams = [];
-
-    for (let i = 0; i < game.numberOfTeams; i++) {
-
-        game.teams.push({
-            score: 0
-        });
-
+function startGame() {
+    try {
+        validateLesson({ game: "pokemon_hunters", questions: game.questions });
+    } catch (error) {
+        alert(error.message);
+        return;
     }
-
+    sounds.mainTheme.loop = true;
+    sounds.mainTheme.volume = 0.8;
+    sounds.mainTheme.play().catch(err => console.warn("Failed to play main theme:", err));
+    document.body.style.backgroundImage = "none";
+    document.body.style.backgroundColor = "#1d59bc";
+    const teamInput = document.getElementById("team-count");
+    game.numberOfTeams = Math.min(6, Math.max(2, Number.parseInt(teamInput.value, 10) || 2));
+    teamInput.value = game.numberOfTeams;
+    game.teams = Array.from({ length: game.numberOfTeams }, () => ({ score: 0 }));
     game.currentTeam = 0;
-
     updateScoreboard();
     create_pins();
     showMainScreen();
-    
 }
 
-function displayOverlay(index){
+function displayOverlay(index, environmentKey = index + 1) {
+    if (game.overlayOpen || !Number.isInteger(index) || !game.questions[index]) return;
+    sounds.mainTheme.pause();
+    sounds.mainTheme.currentTime = 0;
+    sounds.question.loop = true;
+    sounds.question.volume = 0.2;
+    sounds.question.play().catch(err => console.warn("Failed to play question music:", err));
 
     clearRewardObjects();
+    game.overlayOpen = true;
+    game.rewardStarted = false;
     textDisplay.style.display = "none";
     exitButton.style.display = "none";
     textDisplay.textContent = "";
@@ -229,8 +248,13 @@ function displayOverlay(index){
     characterArm.classList.remove("character-arm-2");
     characterArm.classList.add("character-arm-1");
 
-    game.currentEnvironment = pinEnvironments[index];
+    game.currentEnvironment = pinEnvironments[environmentKey];
     game.currentEnvironData = environments.find(env => env.name === game.currentEnvironment);
+    if (!game.currentEnvironData?.backgrounds?.length || !game.currentEnvironData?.pokemon?.length) {
+        game.overlayOpen = false;
+        console.error(`No complete environment is configured for map pin ${environmentKey}.`);
+        return;
+    }
 
     game.currentBackGround =
         game.currentEnvironData.backgrounds[
@@ -268,7 +292,7 @@ function displayOverlay(index){
         questionBox.appendChild(image);
     }
 
-    answerBox.textContent = question.answer || "";
+    answerBox.textContent = question.answer ?? "";
     answerBox.hidden = true;
 
     rewardOverlay.classList.add("show");
@@ -279,25 +303,24 @@ function displayOverlay(index){
 
 }
 
-async function handleNormalPinClick(event){
-    const pin_button = event.currentTarget;
-    pin_button.classList.add("clicked");
-    let index = pin_button.dataset.question;
-    displayOverlay(index);
+function handleNormalPinClick(event) {
+    const pinButton = event.currentTarget;
+    if (game.overlayOpen) return;
+    pinButton.disabled = true;
+    pinButton.classList.add("clicked");
+    sounds.clickPin.currentTime = 0;
+    sounds.clickPin.play().catch(err => console.warn("Failed to play click pin sound:", err));
+    displayOverlay(Number(pinButton.dataset.questionIndex));
 }
 
-async function handleSpecialPinClick(event){
-    const pin_button = event.currentTarget;
-    pin_button.classList.add("clicked");
-    let index = 0;
-    const specialIndexMap = {
-        A: game.questions.length - 3,
-        B: game.questions.length - 2,
-        C: game.questions.length - 1
-    };
-
-    index = specialIndexMap[pin_button.dataset.special];
-    displayOverlay(index);
+function handleSpecialPinClick(event) {
+    const pinButton = event.currentTarget;
+    if (game.overlayOpen) return;
+    pinButton.disabled = true;
+    pinButton.classList.add("clicked");
+    sounds.clickSpecialPin.currentTime = 0;
+    sounds.clickSpecialPin.play().catch(err => console.warn("Failed to play click special pin sound:", err));
+    displayOverlay(Number(pinButton.dataset.questionIndex), pinButton.dataset.special);
 }
 
 function showAnswer(){
@@ -318,7 +341,10 @@ function nextTeam() {
 
 }
 
-function playRewardScreen(){
+function playRewardScreen() {
+    if (!game.overlayOpen || game.rewardStarted) return;
+    sounds.question.volume = 0.8;
+    game.rewardStarted = true;
     questionOverlay.classList.remove("show");
     game.currentPokemon = getRandomPokemon(game.currentEnvironData.pokemon);
     const pokemonObject = document.createElement("img");
@@ -337,6 +363,10 @@ function playRewardScreen(){
 }
 
 function exitRewardOverlay(reward = 0){
+    if (!game.overlayOpen) return;
+    sounds.question.pause();
+    sounds.question.currentTime = 0;
+    sounds.mainTheme.play().catch(err => console.warn("Failed to play main theme:", err));
     console.log(`Reward: ${reward}`);
     clearRewardObjects();
     textDisplay.style.display = "none";
@@ -345,6 +375,8 @@ function exitRewardOverlay(reward = 0){
     questionOverlay.classList.remove("show");
     rewardOverlay.classList.remove("show");
     game.teams[game.currentTeam].score += reward;
+    game.overlayOpen = false;
+    game.rewardStarted = false;
     nextTeam();
 }
 
@@ -361,26 +393,21 @@ function clearRewardObjects() {
     }
 }
 
-function createPokeball(){
-   game.currentPokeballs.forEach((ball, index) => {
-
-        const ballObject = document.createElement("img");
-
-        ballObject.src = ball.imageUrl;
-
-        ballObject.className = "pokeball";
-
-        ballObject.dataset.index = index;
-        console.log(ball.status)
-        ballObject.classList.add(
-            ball.status.glowClass
-        );
-
-        rewardWindow.appendChild(ballObject);
-        ballObject.addEventListener("click",() => {
-            playPokeball(index);
-        });
-    }); 
+function createPokeball() {
+    game.currentPokeballs.forEach((ball, index) => {
+        const ballButton = document.createElement("button");
+        const ballImage = document.createElement("img");
+        ballButton.type = "button";
+        ballButton.className = `pokeball ${ball.status.glowClass}`;
+        ballButton.dataset.index = index;
+        ballButton.setAttribute("aria-label", `Throw Pokeball ${index + 1}`);
+        ballButton.title = `Catch chance ${ball.status.catchChance}%, XP multiplier ${ball.status.xpMultiplier}`;
+        ballImage.src = ball.imageUrl;
+        ballImage.alt = "";
+        ballButton.appendChild(ballImage);
+        ballButton.addEventListener("click", () => playPokeball(index));
+        rewardWindow.appendChild(ballButton);
+    });
 }
 
 function getRandomPokeball() {
@@ -419,16 +446,17 @@ function calculateCatchPossibility(ball) {
     const roll = Math.random() * 100;
     const isCaught = roll < catchChance;
     const xpEarned = Math.round(pokemonHp * xpMultiplier);
-
     if (!isCaught) {
-
+        sounds.miss.currentTime = 0;
+        sounds.miss.play().catch(err => console.warn("Failed to play miss sound:", err));
         missedPokemon();
         return {
             isCaught: false,
             xpEarned: 0
         };
     }
-
+    sounds.catch.currentTime = 0;
+    sounds.catch.play().catch(err => console.warn("Failed to play catch sound:", err));
     catchedPokemon(xpEarned);
 
     return {
@@ -440,7 +468,6 @@ function calculateCatchPossibility(ball) {
 function catchedPokemon(xpEarned = 0) {
     const pokemonNode = document.querySelector(".pokemon");
     const projectile = document.querySelector(".projectile-grounded, .projectile");
-
     if (!pokemonNode) {
         game.currentPokemon = null;
         return;
@@ -529,10 +556,15 @@ function missedPokemon() {
 }
 
 function playPokeball(index){
+    if (!game.rewardStarted || !game.currentPokeballs?.[index]) return;
+    game.rewardStarted = false;
     const selectedBall = game.currentPokeballs[index];
 
     rewardWindow.querySelectorAll(".pokeball").forEach(ball => ball.remove());
     playThrowAnimation();
+    sounds.hitPokemon.currentTime = 0;
+    sounds.hitPokemon.play().catch(err => console.warn("Failed to play hit sound:", err));
+
 
     setTimeout(() => {
         launchBallToPokemon(selectedBall);
@@ -711,4 +743,15 @@ function triggerImpact(projectile, endPosition, onLand = null) {
 
 
 startButton.addEventListener("click", startGame);
-loadLessonButton.addEventListener("click", loadLessonPack);
+loadLessonButton.addEventListener("click", () => lessonFileInput.click());
+lessonFileInput.addEventListener("change", loadLessonPack);
+
+document.addEventListener("keydown", event => {
+    if (
+        event.key === "Escape" &&
+        game.overlayOpen &&
+        (questionOverlay.classList.contains("show") || exitButton.style.display === "block")
+    ) {
+        exitRewardOverlay(0);
+    }
+});

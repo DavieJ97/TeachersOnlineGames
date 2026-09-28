@@ -82,11 +82,11 @@
          which the question is answered then the question get's removed and the reward can start.-->
         
         {% include "components/games/question_overlay.html" %}
-        <img id="character" class="character" src="{{ url_for('static', filename = 'images/games/pokemon_hunters/other/character_1.png')  }}" alt="Character">
-        <img id="character_arm" class="character-arm-1" src="{{ url_for('static', filename = 'images/games/pokemon_hunters/other/character_arm_1.png')  }}" alt="Character Arm">
+        <img id="character" class="character" src="{{ url_for('static', filename = 'images/games/pokemon_hunters/other/character_1.png')  }}" alt="" aria-hidden="true">
+        <img id="character_arm" class="character-arm-1" src="{{ url_for('static', filename = 'images/games/pokemon_hunters/other/character_arm_1.png')  }}" alt="" aria-hidden="true">
         <div id="projectile-layer"></div>
         <div id="text-display"></div>
-        <button id="exit-button" class="btn btn-primary"></button>
+        <button id="exit-button" class="btn btn-primary" aria-label="Close reward and continue"></button>
 
     </div>
 </div>
@@ -99,6 +99,14 @@ Pokemon Hunters — How to Play
 {% endblock %}
 
 {% block help_content %}
+<ol>
+    <li>Choose a lesson pack or use the built-in sample questions.</li>
+    <li>Choose 2 to 6 teams and start.</li>
+    <li>Choose any numbered or A/B/C map pin to reveal a question.</li>
+    <li>Show the answer, then mark it correct or incorrect.</li>
+    <li>Correct answers start a Pokeball catch attempt and award XP based on the Pokemon and ball.</li>
+    <li>Press Escape on the question or result screen to advance the turn without points.</li>
+</ol>
 {% endblock %}
 
 {% block game_scripts %}

@@ -1,3 +1,11 @@
+CSS Variables for Game Colors
+:root {
+    --exploding-kittens:#ff6f61;
+    --battleship:#1e90ff; 
+    --classroom-pirates:#32cd32;
+    --pokemon-hunters:#ff4500;
+}
+
 /* ======================================
    PAGE HERO
 ====================================== */
@@ -32,10 +40,58 @@
    GAME CARDS
 ====================================== */
 
-.game-card-icon{
+.card-body h4{
 
-    font-size:4rem;
+    color:white;
 
-    color:var(--primary);
+}
+
+.card-body p{
+
+    color:white;
+
+
+}
+
+.card-body i{
+
+    color:white;
+
+}
+
+
+#exploding-kittens-card{
+
+    background-image: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/games/exploding_kittens/backgrounds/Intro_image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
+#battleship-card{
+
+    background-image: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/games/battleship/backgrounds/battleship_background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
+#classroom-pirates-card{
+
+    background-image: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/games/classroom_pirates/backgrounds/into_background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
+#pokemon-hunters-card{
+
+    background-image: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/games/pokemon_hunters/backgrounds/intro_background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
 }

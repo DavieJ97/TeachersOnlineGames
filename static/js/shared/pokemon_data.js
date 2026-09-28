@@ -1043,7 +1043,7 @@ export const pinEnvironments = {
     43: "tundra",
     44: "sea",
     A: "sea",
-    B: "grasslands",
+    B: "grassland",
     C: "sea"
 };
 

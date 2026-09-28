@@ -42,9 +42,9 @@ Games
 
             <div class="col-md-6 col-lg-4">
 
-                <div class="card h-100 text-center">
+                <div class="card h-100 text-center" id="exploding-kittens-card">
 
-                    <div class="card-body">
+                    <div class="card-body" >
 
                         <i class="bi bi-controller feature-icon"></i>
 
@@ -79,7 +79,7 @@ Games
 
             <div class="col-md-6 col-lg-4">
 
-                <div class="card h-100 text-center">
+                <div class="card h-100 text-center" id="battleship-card">
 
                     <div class="card-body">
 
@@ -115,7 +115,7 @@ Games
 
             <div class="col-md-6 col-lg-4">
 
-                <div class="card h-100 text-center">
+                <div class="card h-100 text-center" id="classroom-pirates-card">
 
                     <div class="card-body">
 
@@ -134,6 +134,42 @@ Games
                     <div class="card-footer bg-transparent border-0">
 
                         <a href="{{ url_for('classroom_pirates') }}"
+                           class="btn btn-brand">
+
+                            Play Game
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Pokemon Hunters -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card h-100 text-center" id="pokemon-hunters-card">
+
+                    <div class="card-body">
+
+                        <i class="bi bi-controller feature-icon"></i>
+
+                        <h4>Pokemon Hunters</h4>
+
+                        <p>
+
+                            Answer classroom questions,
+                            try to catch the Pokemon and earn XP!
+
+                        </p>
+
+                    </div>
+
+                    <div class="card-footer bg-transparent border-0">
+
+                        <a href="{{ url_for('pokemon_hunters') }}"
                            class="btn btn-brand">
 
                             Play Game

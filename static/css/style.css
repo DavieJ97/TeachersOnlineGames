@@ -197,7 +197,56 @@ a:hover{
 
     color:white;
 
-    padding:100px 0;
+    padding:0;
+
+}
+
+.hero .carousel-item{
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-dark)
+    );
+
+    background-position:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+    padding:100px 0 104px;
+
+}
+
+.hero #classroom-pirates-hero{
+
+    background:
+        linear-gradient(rgba(0,0,0,.48), rgba(0,0,0,.58)),
+        url('/static/images/games/classroom_pirates/backgrounds/into_background.png') center / cover no-repeat;
+
+}
+
+.hero #battleship-hero{
+
+    background:
+        linear-gradient(rgba(0,0,0,.48), rgba(0,0,0,.58)),
+        url('/static/images/games/battleship/backgrounds/battleship_background.png') center / cover no-repeat;
+
+}
+
+.hero #pokemon-hunters-hero{
+
+    background:
+        linear-gradient(rgba(0,0,0,.48), rgba(0,0,0,.58)),
+        url('/static/images/games/pokemon_hunters/backgrounds/intro_background.jpg') center / cover no-repeat;
+
+}
+
+.hero-carousel-controls{
+
+    position:absolute;
+    right:0;
+    bottom:24px;
+    left:0;
+    z-index:2;
 
 }
 
