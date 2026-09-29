@@ -84,7 +84,7 @@ def contact():
         try:
             params = {
                 "from": "onboarding@resend.dev",
-                "to": "dawiddl41@gmail.com",
+                "to": "officialteachersonline@gmail.com",
                 "subject": f"Contact Form: {safe_name}",
 
                 "html": f"""
