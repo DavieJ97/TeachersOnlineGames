@@ -136,14 +136,14 @@ class TranslationSection:
             cols=4
         )
 
-        for i, (english, korean) in enumerate(
+        for i, (source, target) in enumerate(
             translations
         ):
 
-            if self.direction == "English → Korean":
-                question = english
+            if self.direction == "auto|en":
+                question = target
             else:
-                question = korean
+                question = source
 
             row = i % rows
             col = (i // rows) * 2
@@ -164,20 +164,17 @@ class TranslationSection:
 
         translations = self.get_translations()
 
-        for i, (english, korean) in enumerate(
+        for i, (source, target) in enumerate(
             translations,
             start=1
         ):
 
-            if self.direction == "English → Korean":
-
-                question = english
-                answer = korean
-
+            if self.direction == "auto|en":
+                question = target
+                answer = source
             else:
-
-                question = korean
-                answer = english
+                question = source
+                answer = target
 
             doc.add_paragraph(
                 f"{i}. {question} → {answer}"

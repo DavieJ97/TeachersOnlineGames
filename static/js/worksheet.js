@@ -173,17 +173,10 @@ function syncOutlineSelection() {
     const outlineItems = document.querySelectorAll(".outline-item");
 
     outlineItems.forEach(item => {
-        item.classList.remove("is-active");
-    });
-
-    if (!activeSection) return;
-
-    const sectionTitle = activeSection.querySelector(".section-title")?.value;
-
-    outlineItems.forEach(item => {
-        if (item.textContent.trim() === (sectionTitle || "Untitled Section")) {
-            item.classList.add("is-active");
-        }
+        item.classList.toggle(
+            "is-active",
+            Boolean(activeSection) && item.dataset.uid === activeSection.dataset.uid
+        );
     });
 }
 
@@ -208,7 +201,7 @@ async function exportWorksheet() {
 
     const data = {
 
-        title: document.querySelector(".title-input").value,
+        title: document.querySelector(".title-input").value.trim() || "Untitled Worksheet",
 
         headers: [],
 
@@ -280,7 +273,7 @@ async function exportWorksheet() {
 
                     type: "unscramble",
 
-                    title: titleField.value,
+                    title: titleField.value || "Untitled Section",
 
                     formatting: titleFormatting,
 
@@ -333,7 +326,7 @@ async function exportWorksheet() {
 
                     type: "fill_blank",
 
-                    title: titleField.value,
+                    title: titleField.value || "Untitled Section",
 
                     formatting: titleFormatting,
 
@@ -380,7 +373,7 @@ async function exportWorksheet() {
 
                     type: "translation",
 
-                    title: titleField.value,
+                    title: titleField.value || "Untitled Section",
 
                     formatting: titleFormatting,
 
@@ -431,7 +424,7 @@ async function exportWorksheet() {
 
                     type: "word_search",
 
-                    title: titleField.value,
+                    title: titleField.value || "Untitled Section",
 
                     formatting: titleFormatting,
 
@@ -974,6 +967,7 @@ function attachTranslationPairBehavior(row, directionSelect) {
     let requestToken = 0;
 
     sourceInput.addEventListener("input", async () => {
+        const currentToken = ++requestToken;
         const text = sourceInput.value.trim();
 
         if (!text) {
@@ -981,7 +975,6 @@ function attachTranslationPairBehavior(row, directionSelect) {
             return;
         }
         const [sourceLang, targetLang] = (directionSelect.value || "auto|ko").split("|");
-        const currentToken = ++requestToken;
 
         try {
             const response = await fetch("/api/translate", {

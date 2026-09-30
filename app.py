@@ -203,7 +203,7 @@ def export():
 
     data = request.get_json()
 
-    title = data["title"]
+    title = str(data.get("title") or "").strip() or "Untitled Worksheet"
     headers = data["headers"]
     sections_data = data["sections"]
 
