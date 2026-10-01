@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Create an Account | Teachers Online
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet"
+	  href="{{ url_for('static', filename='css/sign_up.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="signup-section py-5">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-10 col-lg-8 col-xl-7">
+				<div class="signup-panel">
+					<header class="mb-4">
+						<p class="signup-kicker mb-2">TEACHERS ONLINE</p>
+						<h1 class="h2 mb-2">Create your account</h1>
+						<p class="text-secondary mb-0">
+							Set up your teacher profile to get started.
+						</p>
+					</header>
+
+					<form method="post" action="{{ url_for('sign_up') }}">
+						<div class="row g-3">
+							<div class="col-sm-6">
+								<label for="display_name" class="form-label">Display name</label>
+								<input type="text"
+									   class="form-control"
+									   id="display_name"
+									   name="display_name"
+									   maxlength="100"
+									   autocomplete="name"
+									   required>
+							</div>
+
+							<div class="col-sm-6">
+								<label for="username" class="form-label">Username</label>
+								<input type="text"
+									   class="form-control"
+									   id="username"
+									   name="username"
+									   maxlength="50"
+									   autocomplete="username"
+									   required>
+							</div>
+
+							<div class="col-12">
+								<label for="email" class="form-label">Email address</label>
+								<input type="email"
+									   class="form-control"
+									   id="email"
+									   name="email"
+									   maxlength="254"
+									   autocomplete="email"
+									   required>
+							</div>
+
+							<div class="col-sm-6">
+								<label for="password" class="form-label">Password</label>
+								<input type="password"
+									   class="form-control"
+									   id="password"
+									   name="password"
+									   autocomplete="new-password"
+									   required>
+							</div>
+
+							<div class="col-sm-6">
+								<label for="confirm_password" class="form-label">Confirm password</label>
+								<input type="password"
+									   class="form-control"
+									   id="confirm_password"
+									   name="confirm_password"
+									   autocomplete="new-password"
+									   required>
+							</div>
+						</div>
+
+						<button type="submit" class="btn btn-brand w-100 mt-4">
+							Create account
+							<i class="bi bi-arrow-right ms-2" aria-hidden="true"></i>
+						</button>
+					</form>
+
+					<p class="signup-note small text-secondary mt-3 mb-0">
+						Your teaching details can be added to your profile later.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

@@ -1,0 +1,251 @@
+.settings-page {
+    background:
+        radial-gradient(ellipse at 4% 0%, rgba(245, 130, 32, 0.08), transparent 30%),
+        var(--background);
+}
+
+.settings-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.25rem;
+}
+
+.settings-kicker {
+    color: var(--primary);
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.settings-nav {
+    position: sticky;
+    top: 6rem;
+    display: grid;
+    border-left: 2px solid var(--border);
+}
+
+.settings-nav a {
+    padding: 0.65rem 0.9rem;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.settings-nav a:hover,
+.settings-nav a:focus-visible {
+    color: var(--primary);
+    background: rgba(30, 90, 136, 0.06);
+}
+
+.settings-nav .settings-nav-danger {
+    color: #b42318;
+}
+
+.settings-section {
+    scroll-margin-top: 6rem;
+    margin-bottom: 1.25rem;
+    padding: clamp(1.1rem, 3vw, 1.6rem);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.settings-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.settings-subsection + .settings-subsection {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.settings-subsection h3 {
+    margin-bottom: 1rem;
+}
+
+.settings-details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.5rem;
+    margin: 0 0 1rem;
+}
+
+.settings-details dt,
+.settings-muted-label {
+    color: var(--text-light);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.settings-details dd {
+    margin: 0.2rem 0 0;
+    overflow-wrap: anywhere;
+}
+
+.settings-inline-link {
+    font-weight: 600;
+}
+
+.settings-form-grid,
+.settings-preference-grid,
+.delete-account-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.settings-form-action {
+    display: flex;
+    align-items: end;
+}
+
+.settings-form-grid .form-control,
+.settings-preference-grid .form-select,
+.delete-account-form .form-control {
+    min-height: 44px;
+}
+
+.settings-profile-summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.settings-avatar {
+    display: grid;
+    width: 64px;
+    aspect-ratio: 1;
+    flex: 0 0 auto;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 50%;
+    background: #edf3f7;
+    color: var(--primary);
+    font-size: 2rem;
+}
+
+.settings-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.settings-profile-summary p {
+    overflow-wrap: anywhere;
+}
+
+.public-profile-setting {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--border);
+}
+
+.public-profile-setting p {
+    max-width: 600px;
+    font-size: 0.9rem;
+}
+
+.settings-toggle-list {
+    margin-top: 1.25rem;
+    border-top: 1px solid var(--border);
+}
+
+.settings-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+}
+
+.settings-toggle-row span {
+    display: grid;
+    gap: 0.2rem;
+}
+
+.settings-toggle-row small {
+    color: var(--text-light);
+}
+
+.subscription-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.subscription-summary > div:first-child {
+    display: grid;
+    gap: 0.2rem;
+}
+
+.subscription-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.settings-danger {
+    border-color: #e8b4b0;
+}
+
+.settings-danger .settings-kicker,
+.settings-danger h2 {
+    color: #a33b32;
+}
+
+.delete-account-form {
+    align-items: end;
+}
+
+.delete-account-form .btn {
+    min-height: 44px;
+}
+
+@media (max-width: 991.98px) {
+    .settings-nav {
+        position: static;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        border-left: 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .settings-nav a {
+        padding-inline: 0.45rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .settings-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .settings-details,
+    .settings-form-grid,
+    .settings-preference-grid,
+    .delete-account-form {
+        grid-template-columns: 1fr;
+    }
+
+    .public-profile-setting,
+    .subscription-summary {
+        align-items: stretch;
+        grid-template-columns: 1fr;
+        flex-direction: column;
+    }
+
+    .subscription-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}

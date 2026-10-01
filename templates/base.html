@@ -7,6 +7,17 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1">
 
+    <script>
+        (() => {
+            const savedTheme = {{ session.get('theme', 'system') | tojson }};
+            const useDarkTheme = savedTheme === "dark" || (
+                savedTheme === "system" &&
+                window.matchMedia("(prefers-color-scheme: dark)").matches
+            );
+            document.documentElement.classList.toggle("theme-dark", useDarkTheme);
+        })();
+    </script>
+
     <title>
         {% block title %}
             Teachers Online
@@ -51,9 +62,13 @@
     {% block styles %}
     {% endblock %}
 
+        <link rel="stylesheet"
+            href="{{ url_for('static', filename='css/dark_mode.css') }}">
+
 </head>
 
-<body class="d-flex flex-column min-vh-100 bg-light">
+<body class="d-flex flex-column min-vh-100 bg-light"
+    data-theme="{{ session.get('theme', 'system') }}">
 
     <!-- Navigation -->
     {% include "components/navbar.html" %}

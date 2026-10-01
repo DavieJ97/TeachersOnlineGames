@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Settings | Teachers Online
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet"
+	  href="{{ url_for('static', filename='css/settings.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="settings-page py-4 py-lg-5">
+	<div class="container">
+		<header class="settings-header mb-4">
+			<p class="settings-kicker mb-2">TEACHERS ONLINE</p>
+			<h1 class="h2 mb-1">Settings</h1>
+			<p class="text-secondary mb-0">Manage your account, profile, and preferences.</p>
+		</header>
+
+		<div class="row g-4 g-xl-5">
+			<aside class="col-lg-3">
+				<nav class="settings-nav" aria-label="Settings sections">
+					<a href="#account">Account</a>
+					<a href="#profile">Profile</a>
+					<a href="#teaching">Teaching</a>
+					<a href="#preferences">Preferences</a>
+					<a href="#subscription">Subscription</a>
+					<a class="settings-nav-danger" href="#danger-zone">Danger zone</a>
+				</nav>
+			</aside>
+
+			<div class="col-lg-9">
+				<section class="settings-section" id="account" aria-labelledby="account-heading">
+					<div class="settings-section-heading">
+						<div>
+							<p class="settings-kicker mb-1">ACCOUNT</p>
+							<h2 class="h4 mb-0" id="account-heading">Account</h2>
+						</div>
+					</div>
+
+					<div class="settings-subsection">
+						<h3 class="h6">Personal information</h3>
+						<dl class="settings-details">
+							<div>
+								<dt>Display name</dt>
+								<dd>{{ account.display_name or 'Not set' }}</dd>
+							</div>
+							<div>
+								<dt>Username</dt>
+								<dd>{{ account.username or 'Not set' }}</dd>
+							</div>
+						</dl>
+						<a class="settings-inline-link" href="{{ url_for('profile') }}">
+							Edit personal information <i class="bi bi-arrow-right" aria-hidden="true"></i>
+						</a>
+					</div>
+
+					<div class="settings-subsection">
+						<h3 class="h6">Email</h3>
+						<p class="text-secondary">Current email: <strong>{{ account.email }}</strong></p>
+						<form method="post" class="settings-form-grid">
+							<input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+							<input type="hidden" name="action" value="update_email">
+							<div>
+								<label class="form-label" for="new_email">New email address</label>
+								<input class="form-control" id="new_email" name="new_email" type="email" maxlength="254" autocomplete="email" required>
+							</div>
+							<div>
+								<label class="form-label" for="email_current_password">Current password</label>
+								<input class="form-control" id="email_current_password" name="current_password" type="password" autocomplete="current-password" required>
+							</div>
+							<div class="settings-form-action">
+								<button class="btn btn-outline-primary" type="submit">Change email</button>
+							</div>
+						</form>
+					</div>
+
+					<div class="settings-subsection">
+						<h3 class="h6">Password & account security</h3>
+						<form method="post" class="settings-form-grid">
+							<input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+							<input type="hidden" name="action" value="update_password">
+							<div>
+								<label class="form-label" for="password_current_password">Current password</label>
+								<input class="form-control" id="password_current_password" name="current_password" type="password" autocomplete="current-password" required>
+							</div>
+							<div>
+								<label class="form-label" for="new_password">New password</label>
+								<input class="form-control" id="new_password" name="new_password" type="password" minlength="8" autocomplete="new-password" required>
+							</div>
+							<div>
+								<label class="form-label" for="confirm_password">Confirm new password</label>
+								<input class="form-control" id="confirm_password" name="confirm_password" type="password" minlength="8" autocomplete="new-password" required>
+							</div>
+							<div class="settings-form-action">
+								<button class="btn btn-outline-primary" type="submit">Update password</button>
+							</div>
+						</form>
+						<p class="form-text mb-0">Sensitive changes require your current password. Use a unique password for your account.</p>
+					</div>
+				</section>
+
+				<section class="settings-section" id="profile" aria-labelledby="profile-heading">
+					<div class="settings-section-heading">
+						<div>
+							<p class="settings-kicker mb-1">PROFILE</p>
+							<h2 class="h4 mb-0" id="profile-heading">Profile</h2>
+						</div>
+						<a class="btn btn-sm btn-outline-primary" href="{{ url_for('profile') }}">Edit profile</a>
+					</div>
+					<div class="settings-profile-summary">
+						<div class="settings-avatar">
+							{% if account.avatar_url %}
+								<img src="{{ account.avatar_url }}" alt="">
+							{% else %}
+								<i class="bi bi-person-fill" aria-hidden="true"></i>
+							{% endif %}
+						</div>
+						<div>
+							<strong>{{ account.display_name or 'Your display name' }}</strong>
+							<p class="mb-0 text-secondary">{{ account.bio or 'Add a short bio about yourself.' }}</p>
+						</div>
+					</div>
+					<form method="post" class="public-profile-setting">
+						<input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+						<input type="hidden" name="action" value="public_profile">
+						<div>
+							<strong>Public profile</strong>
+							<p class="text-secondary mb-0">When enabled, your profile can be shown alongside your public teaching resources. Your email stays private.</p>
+						</div>
+						<div class="form-check form-switch">
+							<input class="form-check-input" type="checkbox" role="switch" id="is_public" name="is_public" {% if account.is_public %}checked{% endif %}>
+							<label class="form-check-label" for="is_public">Visible</label>
+						</div>
+						<button class="btn btn-sm btn-outline-primary" type="submit">Save visibility</button>
+					</form>
+				</section>
+
+				<section class="settings-section" id="teaching" aria-labelledby="teaching-heading">
+					<div class="settings-section-heading">
+						<div>
+							<p class="settings-kicker mb-1">TEACHING</p>
+							<h2 class="h4 mb-0" id="teaching-heading">Teaching</h2>
+						</div>
+						<a class="btn btn-sm btn-outline-primary" href="{{ url_for('profile') }}">Edit teaching profile</a>
+					</div>
+					<dl class="settings-details">
+						<div>
+							<dt>Subjects</dt>
+							<dd>{{ account.subjects | join(', ') if account.subjects else 'Not set' }}</dd>
+						</div>
+						<div>
+							<dt>Grade levels</dt>
+							<dd>{{ account.grade_levels | join(', ') if account.grade_levels else 'Not set' }}</dd>
+						</div>
+						<div>
+							<dt>Experience</dt>
+							<dd>{{ account.years_experience ~ ' years' if account.years_experience is not none else 'Not set' }}</dd>
+						</div>
+						<div>
+							<dt>Specializations</dt>
+							<dd>{{ account.specializations | join(', ') if account.specializations else 'Not set' }}</dd>
+						</div>
+					</dl>
+				</section>
+
+				<section class="settings-section" id="preferences" aria-labelledby="preferences-heading">
+					<div class="settings-section-heading">
+						<div>
+							<p class="settings-kicker mb-1">PREFERENCES</p>
+							<h2 class="h4 mb-0" id="preferences-heading">Preferences</h2>
+						</div>
+					</div>
+					<form method="post">
+						<input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+						<input type="hidden" name="action" value="preferences">
+						<div class="settings-preference-grid">
+							<div>
+								<label class="form-label" for="preferred_language">Language</label>
+								<select class="form-select" id="preferred_language" name="preferred_language">
+									<option value="en" {% if preferences.preferred_language == 'en' %}selected{% endif %}>English</option>
+									<option value="ko" {% if preferences.preferred_language == 'ko' %}selected{% endif %}>Korean</option>
+									<option value="es" {% if preferences.preferred_language == 'es' %}selected{% endif %}>Spanish</option>
+									<option value="ja" {% if preferences.preferred_language == 'ja' %}selected{% endif %}>Japanese</option>
+									<option value="zh" {% if preferences.preferred_language == 'zh' %}selected{% endif %}>Chinese</option>
+								</select>
+							</div>
+							<div>
+								<label class="form-label" for="theme">Theme</label>
+								<select class="form-select" id="theme" name="theme">
+									<option value="system" {% if preferences.theme == 'system' %}selected{% endif %}>Use device setting</option>
+									<option value="light" {% if preferences.theme == 'light' %}selected{% endif %}>Light</option>
+									<option value="dark" {% if preferences.theme == 'dark' %}selected{% endif %}>Dark</option>
+								</select>
+							</div>
+						</div>
+						<div class="settings-toggle-list">
+							<label class="settings-toggle-row" for="email_notifications">
+								<span><strong>Email notifications</strong><small>Receive important account and product updates by email.</small></span>
+								<input class="form-check-input" type="checkbox" id="email_notifications" name="email_notifications" {% if preferences.email_notifications %}checked{% endif %}>
+							</label>
+							<label class="settings-toggle-row" for="community_notifications">
+								<span><strong>Community notifications</strong><small>Hear about activity on shared teaching resources.</small></span>
+								<input class="form-check-input" type="checkbox" id="community_notifications" name="community_notifications" {% if preferences.community_notifications %}checked{% endif %}>
+							</label>
+						</div>
+						<button class="btn btn-primary mt-3" type="submit">Save preferences</button>
+					</form>
+				</section>
+
+				<section class="settings-section" id="subscription" aria-labelledby="subscription-heading">
+					<div class="settings-section-heading">
+						<div>
+							<p class="settings-kicker mb-1">PLAN & BILLING</p>
+							<h2 class="h4 mb-0" id="subscription-heading">Subscription</h2>
+						</div>
+					</div>
+					<div class="subscription-summary">
+						<div>
+							<span class="settings-muted-label">Current plan</span>
+							<strong>{{ subscription.plan.name if subscription and subscription.plan else 'No plan found' }}</strong>
+							{% if subscription and subscription.plan %}
+								<span class="text-secondary">{{ subscription.plan.description or subscription.status | title }}</span>
+							{% endif %}
+						</div>
+						<div class="subscription-actions">
+							<span class="text-secondary">Billing management is not connected yet.</span>
+							<a class="btn btn-outline-primary" href="{{ url_for('contact') }}">Ask about plans</a>
+						</div>
+					</div>
+				</section>
+
+				<section class="settings-section settings-danger" id="danger-zone" aria-labelledby="danger-heading">
+					<div class="settings-section-heading">
+						<div>
+							<p class="settings-kicker mb-1">DANGER ZONE</p>
+							<h2 class="h4 mb-0" id="danger-heading">Delete account</h2>
+						</div>
+					</div>
+					<p class="text-secondary">Deleting your account permanently removes your profile and associated teaching data. This cannot be undone.</p>
+					<form method="post" class="delete-account-form">
+						<input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+						<input type="hidden" name="action" value="delete_account">
+						<div>
+							<label class="form-label" for="delete_current_password">Current password</label>
+							<input class="form-control" id="delete_current_password" name="current_password" type="password" autocomplete="current-password" required>
+						</div>
+						<div>
+							<label class="form-label" for="delete_confirmation">Type DELETE to confirm</label>
+							<input class="form-control" id="delete_confirmation" name="delete_confirmation" autocomplete="off" required>
+						</div>
+						<button class="btn btn-danger" type="submit">Delete my account</button>
+					</form>
+				</section>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

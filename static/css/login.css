@@ -1,0 +1,49 @@
+.login-section {
+	background:
+		radial-gradient(ellipse at 88% 10%, rgba(30, 90, 136, 0.1), transparent 35%),
+		linear-gradient(145deg, #f4f8fb, #fff 58%, #f7f4ef);
+}
+
+.login-panel {
+	padding: clamp(1.5rem, 5vw, 2.75rem);
+	background: #fff;
+	border: 1px solid #e2e8ed;
+	border-top: 4px solid var(--primary);
+	box-shadow: 0 1rem 2.5rem rgba(21, 69, 106, 0.08);
+}
+
+.login-avatar {
+	color: var(--primary);
+	font-size: 2.75rem;
+	line-height: 1;
+}
+
+.login-kicker {
+	color: var(--accent);
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+}
+
+.login-panel .form-control {
+	min-height: 46px;
+}
+
+.login-panel .btn-brand {
+	min-height: 48px;
+}
+
+.login-signup {
+	line-height: 1.5;
+}
+
+.login-signup a {
+	color: var(--primary);
+	font-weight: 600;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 3px;
+}
+
+.login-signup a:hover {
+	color: var(--primary-dark);
+}

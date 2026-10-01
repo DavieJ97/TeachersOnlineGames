@@ -1,0 +1,32 @@
+.signup-section {
+    background:
+        radial-gradient(ellipse at 12% 8%, rgba(245, 130, 32, 0.1), transparent 34%),
+        linear-gradient(145deg, #f4f8fb, #fff 58%, #f7f4ef);
+}
+
+.signup-panel {
+    padding: clamp(1.5rem, 5vw, 3rem);
+    background: #fff;
+    border: 1px solid #e2e8ed;
+    border-top: 4px solid var(--accent);
+    box-shadow: 0 1rem 2.5rem rgba(21, 69, 106, 0.08);
+}
+
+.signup-kicker {
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.signup-panel .form-control {
+    min-height: 46px;
+}
+
+.signup-panel .btn-brand {
+    min-height: 48px;
+}
+
+.signup-note {
+    line-height: 1.5;
+}

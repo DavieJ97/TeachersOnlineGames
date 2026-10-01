@@ -1,0 +1,47 @@
+.email-confirmation-section {
+    min-height: 55vh;
+    display: grid;
+    align-items: center;
+    background:
+        radial-gradient(ellipse at 12% 8%, rgba(245, 130, 32, 0.1), transparent 34%),
+        linear-gradient(145deg, #f4f8fb, #fff 58%, #f7f4ef);
+}
+
+.email-confirmation-panel {
+    width: min(100%, 620px);
+    padding: clamp(1.5rem, 5vw, 3rem);
+    background: #fff;
+    border: 1px solid #e2e8ed;
+    border-top: 4px solid var(--accent);
+    box-shadow: 0 1rem 2.5rem rgba(21, 69, 106, 0.08);
+}
+
+.confirmation-icon {
+    display: grid;
+    width: 64px;
+    aspect-ratio: 1;
+    place-items: center;
+    margin-inline: auto;
+    border-radius: 50%;
+    font-size: 1.75rem;
+}
+
+.confirmation-icon-success {
+    color: #18794e;
+    background: #e8f5ee;
+}
+
+.confirmation-icon-error {
+    color: #a33b32;
+    background: #fff0ed;
+}
+
+.confirmation-kicker {
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.email-confirmation-panel .btn {
+    min-height: 44px;
+}

@@ -1,0 +1,393 @@
+html.theme-dark {
+    color-scheme: dark;
+    --background: #171d1a;
+    --surface: #222a26;
+    --surface-raised: #2b3530;
+    --surface-inset: #1b231f;
+    --text: #edf3ef;
+    --text-light: #b5c1ba;
+    --border: #414d46;
+    --primary: #79c5d2;
+    --primary-dark: #183f47;
+    --accent: #f0ad68;
+    --accent-hover: #ffc17d;
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.24);
+    --shadow-hover: 0 10px 28px rgba(0, 0, 0, 0.32);
+    --bs-body-bg: var(--background);
+    --bs-body-color: var(--text);
+    --bs-emphasis-color: #f7faf8;
+    --bs-secondary-color: var(--text-light);
+    --bs-tertiary-color: #89978f;
+    --bs-secondary-bg: var(--surface);
+    --bs-tertiary-bg: var(--surface-raised);
+    --bs-border-color: var(--border);
+    --bs-card-bg: var(--surface);
+    --bs-link-color: var(--primary);
+    --bs-link-hover-color: #a4e0e8;
+}
+
+html.theme-dark body {
+    background-color: var(--background) !important;
+    color: var(--text);
+}
+
+html.theme-dark h1,
+html.theme-dark h2,
+html.theme-dark h3,
+html.theme-dark h4,
+html.theme-dark h5,
+html.theme-dark h6,
+html.theme-dark .text-dark,
+html.theme-dark .text-body {
+    color: var(--text) !important;
+}
+
+html.theme-dark p,
+html.theme-dark .text-secondary,
+html.theme-dark .text-muted,
+html.theme-dark .form-text,
+html.theme-dark .text-body-secondary {
+    color: var(--text-light) !important;
+}
+
+html.theme-dark a:not(.btn):not(.nav-link):not(.dropdown-item) {
+    color: var(--primary);
+}
+
+html.theme-dark .bg-light,
+html.theme-dark .bg-white,
+html.theme-dark .navbar,
+html.theme-dark .dropdown-menu,
+html.theme-dark .modal-content,
+html.theme-dark .popover,
+html.theme-dark .list-group-item,
+html.theme-dark .accordion-item,
+html.theme-dark .card,
+html.theme-dark .contact-card,
+html.theme-dark .login-panel,
+html.theme-dark .signup-panel,
+html.theme-dark .email-confirmation-panel,
+html.theme-dark .profile-form,
+html.theme-dark .resource-section,
+html.theme-dark .settings-section {
+    background-color: var(--surface) !important;
+    color: var(--text);
+    border-color: var(--border);
+}
+
+html.theme-dark .card,
+html.theme-dark .modal-content,
+html.theme-dark .accordion,
+html.theme-dark .dropdown-menu {
+    box-shadow: var(--shadow);
+}
+
+html.theme-dark .card-header,
+html.theme-dark .card-footer,
+html.theme-dark .list-group-item,
+html.theme-dark .accordion-button,
+html.theme-dark .accordion-body,
+html.theme-dark .accordion-collapse {
+    background-color: var(--surface) !important;
+    color: var(--text);
+    border-color: var(--border);
+}
+
+html.theme-dark .accordion-button:not(.collapsed) {
+    background-color: var(--surface-raised) !important;
+    color: var(--primary) !important;
+}
+
+html.theme-dark .accordion-button::after {
+    filter: invert(0.85);
+}
+
+html.theme-dark .navbar {
+    --bs-navbar-color: var(--text-light);
+    --bs-navbar-hover-color: var(--text);
+    --bs-navbar-active-color: var(--text);
+    --bs-navbar-brand-color: var(--text);
+    --bs-navbar-brand-hover-color: var(--text);
+}
+
+html.theme-dark .navbar-toggler {
+    border-color: var(--border);
+}
+
+html.theme-dark .navbar-toggler-icon {
+    filter: invert(1);
+}
+
+html.theme-dark .dropdown-item {
+    color: var(--text);
+}
+
+html.theme-dark .dropdown-item:hover,
+html.theme-dark .dropdown-item:focus {
+    background-color: var(--surface-raised);
+    color: var(--text);
+}
+
+html.theme-dark .border,
+html.theme-dark .border-top,
+html.theme-dark .border-bottom,
+html.theme-dark hr {
+    border-color: var(--border) !important;
+}
+
+html.theme-dark .form-control,
+html.theme-dark .form-select,
+html.theme-dark .input-group-text {
+    border-color: var(--border);
+    background-color: var(--surface-inset);
+    color: var(--text);
+}
+
+html.theme-dark .form-control::placeholder {
+    color: #89978f;
+}
+
+html.theme-dark .form-control:focus,
+html.theme-dark .form-select:focus {
+    border-color: var(--primary);
+    background-color: var(--surface-inset);
+    color: var(--text);
+    box-shadow: 0 0 0 0.2rem rgba(121, 197, 210, 0.18);
+}
+
+html.theme-dark option {
+    background-color: var(--surface);
+    color: var(--text);
+}
+
+html.theme-dark .form-check-input {
+    border-color: #78877e;
+    background-color: var(--surface-inset);
+}
+
+html.theme-dark .form-check-input:checked {
+    border-color: var(--primary);
+    background-color: #287783;
+}
+
+html.theme-dark .btn-primary {
+    --bs-btn-bg: #287783;
+    --bs-btn-border-color: #287783;
+    --bs-btn-hover-bg: #32909b;
+    --bs-btn-hover-border-color: #32909b;
+    --bs-btn-active-bg: #21636d;
+    --bs-btn-active-border-color: #21636d;
+    --bs-btn-color: #f7faf8;
+}
+
+html.theme-dark .btn-outline-primary,
+html.theme-dark .btn-outline-brand {
+    --bs-btn-color: var(--primary);
+    --bs-btn-border-color: var(--primary);
+    --bs-btn-hover-color: #14201d;
+    --bs-btn-hover-bg: var(--primary);
+    --bs-btn-hover-border-color: var(--primary);
+    color: var(--primary);
+}
+
+html.theme-dark .btn-brand {
+    background-color: #b86a2b;
+    color: #fffaf4;
+}
+
+html.theme-dark .btn-brand:hover {
+    background-color: #d17c36;
+    color: #fffaf4;
+}
+
+html.theme-dark .table {
+    --bs-table-color: var(--text);
+    --bs-table-bg: var(--surface);
+    --bs-table-border-color: var(--border);
+    --bs-table-striped-bg: var(--surface-raised);
+    --bs-table-hover-bg: #344039;
+    color: var(--text);
+}
+
+html.theme-dark .alert-light,
+html.theme-dark .alert-secondary {
+    --bs-alert-color: var(--text);
+    --bs-alert-bg: var(--surface-raised);
+    --bs-alert-border-color: var(--border);
+}
+
+html.theme-dark .login-section,
+html.theme-dark .signup-section,
+html.theme-dark .email-confirmation-section,
+html.theme-dark .profile-page,
+html.theme-dark .settings-page {
+    background:
+        radial-gradient(ellipse at 8% 0%, rgba(121, 197, 210, 0.08), transparent 32%),
+        linear-gradient(145deg, #171d1a, #1d2521 58%, #22231f) !important;
+}
+
+html.theme-dark .login-panel,
+html.theme-dark .signup-panel,
+html.theme-dark .email-confirmation-panel {
+    box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.3);
+}
+
+html.theme-dark .feature-icon,
+html.theme-dark .login-avatar {
+    color: var(--primary);
+}
+
+html.theme-dark .page-hero,
+html.theme-dark .bg-brand {
+    background: linear-gradient(135deg, #285f66, #203f48) !important;
+}
+
+html.theme-dark .hero .carousel-item {
+    background-color: #203f48;
+}
+
+html.theme-dark .hero:not(:has(.carousel-item)) {
+    background: linear-gradient(135deg, #285f66, #203f48);
+}
+
+html.theme-dark footer.bg-dark,
+html.theme-dark .footer {
+    background-color: #132d31 !important;
+    color: var(--text);
+}
+
+html.theme-dark .settings-nav a,
+html.theme-dark .settings-nav a:hover,
+html.theme-dark .settings-nav a:focus-visible {
+    color: var(--text);
+}
+
+html.theme-dark .settings-avatar,
+html.theme-dark .resource-count,
+html.theme-dark .profile-photo {
+    background-color: var(--surface-raised);
+    color: var(--primary);
+}
+
+html.theme-dark .profile-section,
+html.theme-dark .resource-heading,
+html.theme-dark .settings-subsection + .settings-subsection,
+html.theme-dark .public-profile-setting,
+html.theme-dark .settings-toggle-list,
+html.theme-dark .settings-toggle-row,
+html.theme-dark .settings-header,
+html.theme-dark .profile-header {
+    border-color: var(--border);
+}
+
+html.theme-dark .settings-danger {
+    border-color: #814843;
+}
+
+html.theme-dark .settings-danger .settings-kicker,
+html.theme-dark .settings-danger h2 {
+    color: #f0a49b !important;
+}
+
+/* The worksheet builder uses its own editor palette, so map those surfaces too. */
+html.theme-dark .worksheet-page {
+    background: var(--background);
+    color: var(--text);
+}
+
+html.theme-dark .worksheet-editor,
+html.theme-dark .section-card,
+html.theme-dark .overlay-card {
+    background: var(--surface);
+    border-color: var(--border);
+    color: var(--text);
+}
+
+html.theme-dark .toolbar,
+html.theme-dark .left-panel,
+html.theme-dark .right-panel,
+html.theme-dark .header-options,
+html.theme-dark .section-card__header,
+html.theme-dark .question-list li,
+html.theme-dark .inspector-empty,
+html.theme-dark .section-outline li {
+    background: var(--surface-raised);
+    border-color: var(--border);
+    color: var(--text);
+}
+
+html.theme-dark .panel-header h3,
+html.theme-dark .worksheet-header h1,
+html.theme-dark .header-options label,
+html.theme-dark .toggle-row,
+html.theme-dark .question-list,
+html.theme-dark .wordsearch-option,
+html.theme-dark .section-outline li {
+    color: var(--text);
+}
+
+html.theme-dark .toolbar-label,
+html.theme-dark .question-entry__label,
+html.theme-dark .section-card__meta,
+html.theme-dark .translation-arrow {
+    color: var(--text-light);
+}
+
+html.theme-dark .toolbar input[type="number"],
+html.theme-dark .section-title,
+html.theme-dark .word-row input[type="text"],
+html.theme-dark .word-grid input[type="text"],
+html.theme-dark .question-input,
+html.theme-dark .translation-direction,
+html.theme-dark .translation-source,
+html.theme-dark .translation-target,
+html.theme-dark .wordsearch-option select,
+html.theme-dark .wordsearch-instructions,
+html.theme-dark .type-btn,
+html.theme-dark .add-choice {
+    border-color: var(--border);
+    background: var(--surface-inset);
+    color: var(--text);
+}
+
+html.theme-dark .section-card__badge {
+    background: #24535a;
+    color: #a9e4e5;
+}
+
+html.theme-dark .section-card__actions button {
+    background: #3a4740;
+    color: var(--text);
+}
+
+html.theme-dark .add-word-row,
+html.theme-dark .add-translation-pair,
+html.theme-dark .section-outline li.is-active {
+    border-color: #376a70;
+    background: #25484a;
+    color: #c2eeee;
+}
+
+html.theme-dark .add-question {
+    background: #25484a;
+    color: var(--text);
+}
+
+html.theme-dark .worksheet-canvas::-webkit-scrollbar-track {
+    background: var(--surface-inset);
+}
+
+html.theme-dark .worksheet-canvas::-webkit-scrollbar-thumb {
+    background: #526158;
+}
+
+html.theme-dark .outline-empty {
+    background: var(--surface-raised);
+    color: var(--text-light);
+}
+
+@media (prefers-color-scheme: dark) {
+    html:not(.theme-dark) {
+        color-scheme: light;
+    }
+}

@@ -534,3 +534,29 @@ footer a:hover{
     color:rgba(255,255,255,.9);
 
 }
+
+.account-menu-trigger {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    place-items: center;
+}
+
+.account-avatar,
+.account-avatar-large {
+    display: block;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.account-avatar {
+    width: 36px;
+    height: 36px;
+}
+
+.account-avatar-large {
+    width: 56px;
+    height: 56px;
+    margin-inline: auto;
+}

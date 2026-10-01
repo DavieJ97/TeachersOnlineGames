@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Login | Teachers Online
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet"
+	  href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="login-section py-5">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-sm-10 col-md-7 col-lg-5">
+				<div class="login-panel">
+					<header class="text-center mb-4">
+						<div class="login-avatar mb-3" aria-hidden="true">
+							<i class="bi bi-person-circle"></i>
+						</div>
+						<p class="login-kicker mb-2">WELCOME BACK</p>
+						<h1 class="h2 mb-2">Log in to your account</h1>
+						<p class="text-secondary mb-0">
+							Continue creating resources for your classroom.
+						</p>
+					</header>
+
+					<form method="post" action="{{ url_for('login') }}">
+						<div class="mb-3">
+							<label for="email" class="form-label">Email address</label>
+							<input type="email"
+								   class="form-control"
+								   id="email"
+								   name="email"
+								   maxlength="254"
+								   autocomplete="email"
+								   required>
+						</div>
+
+						<div class="mb-4">
+							<label for="password" class="form-label">Password</label>
+							<input type="password"
+								   class="form-control"
+								   id="password"
+								   name="password"
+								   autocomplete="current-password"
+								   required>
+						</div>
+
+						<button type="submit" class="btn btn-brand w-100">
+							Log in
+							<i class="bi bi-arrow-right ms-2" aria-hidden="true"></i>
+						</button>
+					</form>
+
+					<p class="login-signup text-center text-secondary mt-4 mb-0">
+						New to Teachers Online?
+						<a href="{{ url_for('sign_up') }}">Create an account</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
+

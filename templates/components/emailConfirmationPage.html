@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Email Confirmation | Teachers Online
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet"
+	  href="{{ url_for('static', filename='css/email_confirmation.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="email-confirmation-section py-5">
+	<div class="container">
+		<div class="email-confirmation-panel mx-auto text-center">
+			{% if confirmation_failed %}
+				<div class="confirmation-icon confirmation-icon-error mb-3"
+					 aria-hidden="true">
+					<i class="bi bi-envelope-exclamation"></i>
+				</div>
+				<p class="confirmation-kicker mb-2">EMAIL CONFIRMATION</p>
+				<h1 class="h2 mb-3">This confirmation link didn’t work</h1>
+				<p class="text-secondary mb-4">
+					The link may have expired or already been used. Try logging in,
+					or create an account again to request a new confirmation email.
+				</p>
+				<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+					<a class="btn btn-outline-primary"
+					   href="{{ url_for('login') }}">
+						Go to login
+					</a>
+					<a class="btn btn-primary"
+					   href="{{ url_for('sign_up') }}">
+						Create an account
+					</a>
+				</div>
+			{% else %}
+				<div class="confirmation-icon confirmation-icon-success mb-3"
+					 aria-hidden="true">
+					<i class="bi bi-envelope-check"></i>
+				</div>
+				<p class="confirmation-kicker mb-2">EMAIL CONFIRMATION</p>
+				<h1 class="h2 mb-3">Your email is confirmed</h1>
+				<p class="text-secondary mb-4">
+					Your Teachers Online account is ready. Log in to continue.
+				</p>
+				<a class="btn btn-primary"
+				   href="{{ url_for('login') }}">
+					<i class="bi bi-box-arrow-in-right me-1" aria-hidden="true"></i>
+					Log in to your account
+				</a>
+			{% endif %}
+		</div>
+	</div>
+</section>
+{% endblock %}
