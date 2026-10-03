@@ -743,7 +743,7 @@ function triggerImpact(projectile, endPosition, onLand = null) {
 
 
 startButton.addEventListener("click", startGame);
-loadLessonButton.addEventListener("click", () => lessonFileInput.click());
+bindLessonPackLoadButton(loadLessonButton, lessonFileInput);
 lessonFileInput.addEventListener("change", loadLessonPack);
 
 document.addEventListener("keydown", event => {

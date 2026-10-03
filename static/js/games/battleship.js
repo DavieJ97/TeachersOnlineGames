@@ -912,9 +912,7 @@ if (teamCountInput) {
 
 startButton.addEventListener("click", startGame);
 
-loadLessonButton.addEventListener("click", () => {
-    lessonFileInput.click();
-});
+bindLessonPackLoadButton(loadLessonButton, lessonFileInput);
 
 lessonFileInput.addEventListener("change", loadLessonPack);
 

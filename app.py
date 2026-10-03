@@ -14,6 +14,7 @@ import os
 import hmac
 import secrets
 from datetime import datetime
+from urllib.parse import urlsplit
 import zipfile
 from markupsafe import escape
 from docx import Document
@@ -58,6 +59,17 @@ def create_profile_client():
     return create_client(
         supabase_url=superbase_url,
         supabase_key=service_key
+    )
+
+
+def is_safe_redirect_target(target):
+    parsed_target = urlsplit(target)
+    return (
+        target.startswith("/")
+        and not target.startswith("//")
+        and not parsed_target.scheme
+        and not parsed_target.netloc
+        and "\\" not in target
     )
 
 
@@ -176,13 +188,15 @@ def email_confirmation():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    next_url = request.values.get("next", "")
+
     if request.method == "POST":
         email = request.form.get("email", "").strip()
         password = request.form.get("password", "")
 
         if not email or not password:
             flash("Enter your email address and password.", "danger")
-            return redirect(url_for("login"))
+            return redirect(url_for("login", next=next_url) if next_url else url_for("login"))
 
         try:
             response = create_auth_client().auth.sign_in_with_password({
@@ -191,13 +205,76 @@ def login():
             })
             set_logged_in_user(response.user)
             flash("You are now logged in.", "success")
+            if is_safe_redirect_target(next_url):
+                return redirect(next_url)
             return redirect(url_for("index"))
         except Exception as error:
             app.logger.warning("Supabase login failed: %s", error)
             flash("Login failed. Check your email and password.", "danger")
-            return redirect(url_for("login"))
+            return redirect(url_for("login", next=next_url) if next_url else url_for("login"))
 
-    return render_template("login_page.html")
+    return render_template("login_page.html", next_url=next_url)
+
+
+@app.route("/forgot-password", methods=["GET", "POST"])
+def forgot_password():
+    if request.method == "POST":
+        email = request.form.get("email", "").strip()
+        if not email or len(email) > 254:
+            flash("Enter a valid email address.", "danger")
+            return redirect(url_for("forgot_password"))
+
+        try:
+            create_auth_client().auth.reset_password_for_email(
+                email,
+                options={
+                    "redirect_to": url_for("reset_password", _external=True)
+                }
+            )
+        except Exception as error:
+            app.logger.warning("Supabase recovery email request failed: %s", error)
+
+        flash(
+            "If an account exists for that email, a password reset link will arrive shortly.",
+            "success"
+        )
+        return redirect(url_for("forgot_password"))
+
+    return render_template("forgot_password.html")
+
+
+@app.route("/reset-password")
+def reset_password():
+    return render_template(
+        "reset_password.html",
+        supabase_url=superbase_url,
+        supabase_key=superbase_key
+    )
+
+
+@app.route("/api/reset-password", methods=["POST"])
+def api_reset_password():
+    payload = request.get_json(silent=True) or {}
+    access_token = payload.get("access_token", "")
+    refresh_token = payload.get("refresh_token", "")
+    password = payload.get("password", "")
+    confirm_password = payload.get("confirm_password", "")
+
+    if not access_token or not refresh_token:
+        return jsonify({"error": "This reset link is invalid or expired. Request a new one."}), 400
+    if not isinstance(password, str) or len(password) < 8:
+        return jsonify({"error": "Your new password must be at least 8 characters."}), 400
+    if password != confirm_password:
+        return jsonify({"error": "The passwords do not match."}), 400
+
+    try:
+        auth_client = create_auth_client()
+        auth_client.auth.set_session(access_token, refresh_token)
+        auth_client.auth.update_user({"password": password})
+        return jsonify({"success": True})
+    except Exception as error:
+        app.logger.warning("Supabase password reset failed: %s", error)
+        return jsonify({"error": "This reset link is invalid or expired. Request a new one."}), 400
 
 
 @app.route("/logout", methods=["POST"])
@@ -724,6 +801,9 @@ def pokemon_hunters():
 
 @app.route("/games/review_questions/<game_name>")
 def review_questions(game_name):
+    if not session.get("user"):
+        flash("Please log in or sign up to create a lesson pack.", "warning")
+        return redirect(url_for("login"))
 
     return render_template(
         "review_questions.html",
@@ -732,6 +812,9 @@ def review_questions(game_name):
 
 @app.route("/games/speaking_questions/<game_name>")
 def speaking_questions(game_name):
+    if not session.get("user"):
+        flash("Please log in or sign up to create a lesson pack.", "warning")
+        return redirect(url_for("login"))
 
     return render_template(
         "speaking_questions.html",
@@ -740,6 +823,10 @@ def speaking_questions(game_name):
 
 @app.route("/worksheets")
 def worksheet_generator():
+    if not session.get("user"):
+        flash("Please log in or sign up to use the Worksheet Generator.", "warning")
+        return redirect(url_for("login"))
+
     return render_template("worksheet.html")
 
 @app.route("/api/translate", methods=["POST"])

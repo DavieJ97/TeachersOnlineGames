@@ -15,9 +15,15 @@
 
             <button id="load-lesson-btn"
                     type="button"
+                    data-requires-login="{{ 'false' if session.get('user') else 'true' }}"
+                    data-login-url="{{ url_for('login', next=request.path) }}"
                     class="btn btn-outline-light game-button">
                 <i class="bi bi-folder2-open"></i>
-                Load Lesson Pack
+                {% if session.get('user') %}
+                    Load Lesson Pack
+                {% else %}
+                    Log in to load lesson
+                {% endif %}
             </button>
 
             <a id="new-lesson-btn"

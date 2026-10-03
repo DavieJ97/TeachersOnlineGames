@@ -93,6 +93,23 @@
         </div>
     </div>
 
+    <script>
+        function bindLessonPackLoadButton(button, fileInput) {
+            if (!button || !fileInput) {
+                return;
+            }
+
+            button.addEventListener("click", () => {
+                if (button.dataset.requiresLogin === "true") {
+                    window.location.assign(button.dataset.loginUrl);
+                    return;
+                }
+
+                fileInput.click();
+            });
+        }
+    </script>
+
     {% block game_scripts %}
     {% endblock %}
 

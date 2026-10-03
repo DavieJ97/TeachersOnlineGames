@@ -97,6 +97,22 @@ const swapOverlay = document.getElementById("swap-overlay");
 const swapTeamList = document.getElementById("swap-team-list");
 const cancelSwapButton = document.getElementById("cancel-swap-btn");
 let rewardActive = false;
+let rewardWindowGlowTimeout = null;
+
+function playRewardWindowGlow(className, durationMs) {
+    if (rewardWindowGlowTimeout) {
+        window.clearTimeout(rewardWindowGlowTimeout);
+    }
+
+    rewardWindow.classList.remove("special-event", "nuclear-glow");
+    void rewardWindow.offsetWidth;
+    rewardWindow.classList.add(className);
+
+    rewardWindowGlowTimeout = window.setTimeout(() => {
+        rewardWindow.classList.remove(className);
+        rewardWindowGlowTimeout = null;
+    }, durationMs);
+}
 
 // ==============================
 // AUDIO ELEMENTS
@@ -568,7 +584,7 @@ function setupSpecialReward(){
         sounds.special.currentTime = 0;
         sounds.special.play();
 
-        rewardWindow.classList.add("special-event");
+        playRewardWindowGlow("special-event", 1000);
 
         drawnCards.classList.remove("special-intro");
         drawnCards.classList.add("special-animate");
@@ -689,6 +705,8 @@ function drawNormalCard() {
                 setTimeout(() => {
                     temporaryScore.textContent = "0";
                     sounds.nuclear.play();
+                    cardDiv.classList.add("nuclear");
+                    playRewardWindowGlow("nuclear-glow", 1000);
                 }, 900);
 
                 for (let i = 0; i < game.teams.length; i++) {
@@ -878,11 +896,7 @@ document.querySelectorAll("button").forEach(button => {
 
 startButton.addEventListener("click", startGame);
 
-loadLessonButton.addEventListener("click", () => {
-
-    lessonFileInput.click();
-
-});
+bindLessonPackLoadButton(loadLessonButton, lessonFileInput);
 
 lessonFileInput.addEventListener("change", loadLessonPack);
 

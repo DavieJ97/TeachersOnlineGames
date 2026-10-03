@@ -40,6 +40,18 @@ CSS Variables for Game Colors
    GAME CARDS
 ====================================== */
 
+.game-category-heading {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--accent);
+}
+
+.game-category-heading h2 {
+    color: var(--primary);
+}
+
 .card-body h4{
 
     color:white;

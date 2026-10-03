@@ -685,6 +685,25 @@ DRAWN CARD
 
 }
 
+.reward-card.nuclear {
+    animation: nuclearCardSurge 1.35s ease-in-out both;
+}
+
+@keyframes nuclearCardSurge {
+    0%,
+    100% {
+        transform: rotateY(180deg) scale(1);
+    }
+
+    28% {
+        transform: rotateY(180deg) scale(2);
+    }
+
+    55% {
+        transform: rotateY(180deg) scale(1.7);
+    }
+}
+
 .reward-card-front,
 .reward-card-back{
 
@@ -1075,6 +1094,29 @@ SWAP OVERLAY
 
     animation:holyGlow 1s ease;
 
+}
+
+#reward-window.nuclear-glow {
+    animation: nuclearWindowGlow 1s ease-out;
+}
+
+@keyframes nuclearWindowGlow {
+    0%,
+    100% {
+        outline: 4px solid transparent;
+        outline-offset: 0;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+    }
+
+    18%,
+    55% {
+        outline-color: rgba(255, 36, 36, .95);
+        outline-offset: 0;
+        box-shadow:
+            0 0 26px 8px rgba(255, 20, 20, .9),
+            0 0 58px 16px rgba(180, 0, 0, .55),
+            0 20px 60px rgba(0, 0, 0, .5);
+    }
 }
 
 #temporary-score-label{

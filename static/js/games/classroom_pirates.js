@@ -113,9 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function initializeGame() {
     // Load lesson setup handlers
-    loadLessonButton.addEventListener("click", () => {
-        lessonFileInput.click();
-    });
+    bindLessonPackLoadButton(loadLessonButton, lessonFileInput);
 
     lessonFileInput.addEventListener("change", handleLessonLoad);
     startButton.addEventListener("click", startGame);
