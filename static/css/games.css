@@ -104,9 +104,10 @@ main {
 }
 
 #setup-screen p {
-    font-size: 1.2rem;
-    color: #d1d5db;
+    font-size: 2.2rem;
+    color: white;
     margin-bottom: 40px;
+    font-weight: 500;
 }
 
 .setup-box {

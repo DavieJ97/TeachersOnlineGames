@@ -1,0 +1,127 @@
+{% extends "base_games.html" %}
+
+{% block title %}
+    Connect Four
+{% endblock %}
+
+{% block game_styles %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/connect_four.css') }}">
+{% endblock %}
+
+{% block game_content %}
+
+{% set game_name = "connect_four" %}
+{% set game_title = "Connect Four" %}
+{% set game_description -%}
+    Original game designed by <a href="https://taysteachingtoolkit.com/b/connect-4" target="_blank" rel="noopener noreferrer">Tays Teaching Toolkit</a>
+{%- endset %}
+{% set lesson_create_link = url_for('speaking_questions', game_name=game_name) %}
+
+<!-- Setup screen -->
+{% include "components/games/connect_four_setup.html" %}
+
+<!-- Main game -->
+<section id="main-screen" hidden>
+
+    {% include "components/games/team_scoreboard.html" %}
+
+    <section id="turn-panel" aria-live="polite">
+        <h1 id="main-game-title">Connect Four</h1>
+        <p id="turn-message">Yellow's turn. Make a sentence to choose a column.</p>
+    </section>
+
+    <div id="round-display" class="round-display" hidden>Round <span id="round-number">1</span></div>
+
+    <section id="connect-four-game" aria-label="Connect Four game board">
+        <div id="connect-four-board"
+             class="connect-four-board"
+             data-yellow-puck="{{ url_for('static', filename='images/games/connect_four/other/puck_yellow.png') }}"
+             data-red-puck="{{ url_for('static', filename='images/games/connect_four/other/puck_red.png') }}">
+            <img class="board-background"
+                 src="{{ url_for('static', filename='images/games/connect_four/backgrounds/board_background.png') }}"
+                 alt=""
+                 aria-hidden="true">
+
+            <div id="lesson-image-layer"
+                 class="lesson-image-layer"
+                 role="group"
+                 aria-label="Lesson prompts for each column">
+            </div>
+
+            <!-- Pucks are positioned here so they appear above the background
+                 and below the board's foreground frame. -->
+            <div id="puck-layer" class="puck-layer" aria-label="Pucks on the board">
+            </div>
+
+            <img class="board-foreground"
+                 src="{{ url_for('static', filename='images/games/connect_four/backgrounds/board_forground.png') }}"
+                 alt=""
+                 aria-hidden="true">
+
+            <!-- The seven colored pucks above the board are the column controls. -->
+            <div id="column-controls"
+                 class="column-controls"
+                 role="group"
+                 aria-label="Choose a column">
+            </div>
+        </div>
+    </section>
+
+    <div class="game-actions">
+        <button id="reset-game-btn" type="button" class="btn btn-outline-light game-button">Reset Game</button>
+        <button id="end-game-btn" type="button" class="btn btn-outline-danger game-button">End Game</button>
+    </div>
+
+</section>
+
+<div id="result-overlay" class="connect-four-overlay" hidden>
+    <section id="result-window" class="connect-four-dialog" role="dialog" aria-modal="true" aria-labelledby="result-title">
+        <h2 id="result-title">Game Over</h2>
+        <p id="result-message" aria-live="polite"></p>
+        <div id="result-scores" class="result-scores" hidden></div>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+            <button id="continue-game-btn" type="button" class="btn btn-outline-light game-button" hidden>Play Next Round</button>
+            <button id="play-again-btn" type="button" class="btn btn-outline-light game-button">Play Again</button>
+            <button id="close-result-btn" type="button" class="btn btn-outline-secondary game-button" hidden>Close</button>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
+
+{% block help_title %}
+    Connect Four — How to Play
+{% endblock %}
+
+{% block help_content %}
+<div class="connect-four-help">
+    <section class="mb-4">
+        <h2 class="fs-5 fw-bold">🔴🟡 What is Connect Four?</h2>
+        <p class="mb-0">
+            Connect Four is a two-team speaking game. Teams take turns
+            making a sentence before choosing a column for one of their pucks.
+        </p>
+    </section>
+
+    <section>
+        <h2 class="fs-5 fw-bold">🎮 How to Play</h2>
+        <ol class="ps-3 mb-0">
+            <li class="mb-2">Divide the class into Yellow and Red teams.</li>
+            <li class="mb-2">The current team makes a sentence or gives a speaking response.</li>
+            <li class="mb-2">After the teacher approves, click the puck above a column. It falls into the lowest open space.</li>
+            <li class="mb-2"><strong>Speed:</strong> the first team to connect four wins immediately.</li>
+            <li class="mb-2"><strong>Full Board:</strong> fill the board, then score each maximal run: 4 = 1 point, 5 = 2, 6 = 3, 7 = 4.</li>
+            <li><strong>Infinite:</strong> each connect four earns a point and starts another round until the teacher ends the game.</li>
+        </ol>
+    </section>
+</div>
+{% endblock %}
+
+{% block game_scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="{{ url_for('static', filename='js/shared/scoreboard.js') }}"></script>
+<script src="{{ url_for('static', filename='js/shared/teams.js') }}"></script>
+<script src="{{ url_for('static', filename='js/shared/lessonLoader.js') }}"></script>
+<script src="{{ url_for('static', filename='js/games/connect_four.js') }}"></script>
+{% endblock %}

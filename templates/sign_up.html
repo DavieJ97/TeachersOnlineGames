@@ -60,22 +60,42 @@
 
 							<div class="col-sm-6">
 								<label for="password" class="form-label">Password</label>
-								<input type="password"
-									   class="form-control"
-									   id="password"
-									   name="password"
-									   autocomplete="new-password"
-									   required>
+								<div class="input-group">
+									<input type="password"
+										   class="form-control"
+										   id="password"
+										   name="password"
+										   autocomplete="new-password"
+										   required>
+									<button class="btn btn-outline-secondary"
+											type="button"
+											data-password-toggle
+											aria-label="Show password"
+											aria-controls="password"
+											aria-pressed="false">
+										<i class="bi bi-eye" aria-hidden="true"></i>
+									</button>
+								</div>
 							</div>
 
 							<div class="col-sm-6">
 								<label for="confirm_password" class="form-label">Confirm password</label>
-								<input type="password"
-									   class="form-control"
-									   id="confirm_password"
-									   name="confirm_password"
-									   autocomplete="new-password"
-									   required>
+								<div class="input-group">
+									<input type="password"
+										   class="form-control"
+										   id="confirm_password"
+										   name="confirm_password"
+										   autocomplete="new-password"
+										   required>
+									<button class="btn btn-outline-secondary"
+											type="button"
+											data-password-toggle
+											aria-label="Show password"
+											aria-controls="confirm_password"
+											aria-pressed="false">
+										<i class="bi bi-eye" aria-hidden="true"></i>
+									</button>
+								</div>
 							</div>
 						</div>
 
@@ -93,4 +113,8 @@
 		</div>
 	</div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/password_visibility.js') }}" defer></script>
 {% endblock %}

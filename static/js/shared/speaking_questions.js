@@ -1,6 +1,12 @@
+const GAME_NAME = window.GAME_NAME;
+const SINGLE_ROW_EDITOR = window.SINGLE_ROW_EDITOR === true;
+const COLUMN_COUNT = SINGLE_ROW_EDITOR ? 7 : 6;
+const ROW_COUNT = SINGLE_ROW_EDITOR ? 0 : 6;
+const LESSON_CANVAS_COUNT = 1 + COLUMN_COUNT + ROW_COUNT;
+
 // Data Structure
 let lesson = {
-    game: "classroom_pirates",
+    game: GAME_NAME,
 
     instructions: {
         id: "instructions",
@@ -8,13 +14,13 @@ let lesson = {
         objects: []
     },
 
-    columnHeaders: Array(6).fill(null).map((_, i) => ({
+    columnHeaders: Array(COLUMN_COUNT).fill(null).map((_, i) => ({
         id: `column_${i}`,
         name: `Column ${i + 1}`,
         objects: []
     })),
 
-    rowHeaders: Array(6).fill(null).map((_, i) => ({
+    rowHeaders: Array(ROW_COUNT).fill(null).map((_, i) => ({
         id: `row_${i}`,
         name: `Row ${i + 1}`,
         objects: []
@@ -93,10 +99,10 @@ function initEditor() {
 
 
     // ----------------------------------------
-    // Six column headers
+    // Prompt columns
     // ----------------------------------------
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < COLUMN_COUNT; i++) {
 
         const th = document.createElement("th");
 
@@ -122,7 +128,7 @@ function initEditor() {
     // BODY ROWS
     // ========================================
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < ROW_COUNT; i++) {
 
         const tr = document.createElement("tr");
 
@@ -151,10 +157,10 @@ function initEditor() {
 
 
         // ----------------------------------------
-        // Six empty game cells
+        // Empty grid cells for grid-based games
         // ----------------------------------------
 
-        for (let j = 0; j < 6; j++) {
+        for (let j = 0; j < COLUMN_COUNT; j++) {
 
             const td = document.createElement("td");
 
@@ -170,7 +176,7 @@ function initEditor() {
 
 async function saveLesson() {
 
-    const totalCells = 13;
+    const totalCells = LESSON_CANVAS_COUNT;
     let cells = 0;
     showProgress(totalCells);
 
@@ -413,7 +419,7 @@ async function saveLesson() {
         downloadLink.href = url;
 
         downloadLink.download =
-            "classroom_pirates_lesson.zip";
+            `${lesson.game}_lesson.zip`;
 
         document.body.appendChild(downloadLink);
 
@@ -439,7 +445,7 @@ async function saveLesson() {
 
 async function uploadLesson(file) {
 
-    const totalCells = 13;
+    const totalCells = LESSON_CANVAS_COUNT;
     let cells = 0;
     showProgress(totalCells);
 
@@ -466,6 +472,7 @@ async function uploadLesson(file) {
                 "This ZIP file does not contain lesson.json."
             );
 
+            hideProgress();
             return;
         }
 
@@ -480,14 +487,25 @@ async function uploadLesson(file) {
         // Verify game
         // --------------------------------
 
-        if (
-            lessonData.game !== "classroom_pirates"
-        ) {
+        if (lessonData.game !== GAME_NAME) {
 
             alert(
-                "This lesson pack is not for Classroom Pirates."
+                `This lesson pack is not for ${GAME_NAME.replaceAll("_", " ")}.`
             );
 
+            hideProgress();
+            return;
+        }
+
+        if (
+            !lessonData.instructions
+            || !Array.isArray(lessonData.columnHeaders)
+            || !Array.isArray(lessonData.rowHeaders)
+            || lessonData.columnHeaders.length !== COLUMN_COUNT
+            || lessonData.rowHeaders.length !== ROW_COUNT
+        ) {
+            alert("This lesson pack does not match the expected editor layout.");
+            hideProgress();
             return;
         }
 

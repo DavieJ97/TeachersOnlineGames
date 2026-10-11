@@ -26,7 +26,9 @@
             <ul class="navbar-nav ms-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link active" href="/">
+                    <a class="nav-link{{ ' active' if request.endpoint == 'index' else '' }}"
+                       href="/"
+                       {% if request.endpoint == 'index' %}aria-current="page"{% endif %}>
                         Home
                     </a>
                 </li>
@@ -34,7 +36,7 @@
                 <!-- Games -->
                 <li class="nav-item dropdown">
 
-                    <a class="nav-link dropdown-toggle"
+                    <a class="nav-link dropdown-toggle{% if request.endpoint in ['games', 'exploding_kittens', 'battleship', 'classroom_pirates', 'pokemon_hunters', 'connect_four', 'review_questions', 'speaking_questions'] %} active{% endif %}"
                        href="#"
                        role="button"
                        data-bs-toggle="dropdown">
@@ -47,7 +49,8 @@
                     <ul class="dropdown-menu">
 
                         <li>
-                            <a class="dropdown-item"
+                            <a class="dropdown-item{{ ' active' if request.endpoint == 'games' else '' }}"
+                               {% if request.endpoint == 'games' %}aria-current="page"{% endif %}
                                href="/games">
 
                                 All Games
@@ -58,7 +61,8 @@
                         <li><hr class="dropdown-divider"></li>
 
                         <li>
-                            <a class="dropdown-item"
+                            <a class="dropdown-item{{ ' active' if request.endpoint == 'exploding_kittens' else '' }}"
+                               {% if request.endpoint == 'exploding_kittens' %}aria-current="page"{% endif %}
                                href="/games/exploding-kittens">
 
                                 Exploding Kittens
@@ -66,7 +70,8 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item"
+                            <a class="dropdown-item{{ ' active' if request.endpoint == 'battleship' else '' }}"
+                               {% if request.endpoint == 'battleship' %}aria-current="page"{% endif %}
                                href="/games/battleship">
 
                                 Battleship
@@ -75,7 +80,8 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item"
+                            <a class="dropdown-item{{ ' active' if request.endpoint == 'classroom_pirates' else '' }}"
+                               {% if request.endpoint == 'classroom_pirates' %}aria-current="page"{% endif %}
                                href="/games/classroom-pirates">
 
                                 Classroom Pirates
@@ -83,14 +89,15 @@
                             </a>
                         </li>
 
-                        <li>
-                            <a class="dropdown-item"
+                        <!-- <li>
+                            <a class="dropdown-item{{ ' active' if request.endpoint == 'pokemon_hunters' else '' }}"
+                               {% if request.endpoint == 'pokemon_hunters' %}aria-current="page"{% endif %}
                                href="/games/pokemon-hunters">
 
                                 Pokemon Hunters
 
                             </a>
-                        </li>
+                        </li> -->
 
                         <li>
                             <a class="dropdown-item"
@@ -101,14 +108,14 @@
                             </a>
                         </li>
 
-                        <li>
+                        <!-- <li>
                             <a class="dropdown-item disabled"
                                href="#">
 
                                 Walk the Plank (Coming Soon)
 
                             </a>
-                        </li>
+                        </li> -->
 
                     </ul>
 
@@ -117,7 +124,7 @@
                 <!-- Worksheets -->
                 <li class="nav-item dropdown">
 
-                    <a class="nav-link dropdown-toggle"
+                    <a class="nav-link dropdown-toggle{{ ' active' if request.endpoint == 'worksheet_generator' else '' }}"
                        href="#"
                        role="button"
                        data-bs-toggle="dropdown">
@@ -130,7 +137,8 @@
                     <ul class="dropdown-menu">
 
                         <li>
-                            <a class="dropdown-item"
+                            <a class="dropdown-item{{ ' active' if request.endpoint == 'worksheet_generator' else '' }}"
+                               {% if request.endpoint == 'worksheet_generator' %}aria-current="page"{% endif %}
                                href="/worksheets">
 
                                 Worksheet Generator
@@ -169,7 +177,9 @@
                 <!-- Contact Us -->
                 <li class="nav-item">
 
-                    <a class="nav-link" href="/contact">
+                    <a class="nav-link{{ ' active' if request.endpoint == 'contact' else '' }}"
+                       href="/contact"
+                       {% if request.endpoint == 'contact' %}aria-current="page"{% endif %}>
 
                         <i class="bi bi-headset"></i>
                         Contact Us

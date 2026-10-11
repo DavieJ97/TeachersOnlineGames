@@ -1,0 +1,12 @@
+{% extends "components/games/lesson_setup.html" %}
+
+{% block setup_extra %}
+<div class="mt-4 text-start">
+    <label for="game-mode" class="form-label">Game Mode</label>
+    <select id="game-mode" class="form-select">
+        <option value="speed">Speed — first to connect four wins</option>
+        <option value="full-board">Full Board — score every connection</option>
+        <option value="infinite">Infinite — play repeat rounds</option>
+    </select>
+</div>
+{% endblock %}

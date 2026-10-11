@@ -116,6 +116,10 @@ def games():
 def faq():
     return render_template("faq.html")
 
+@app.route("/community")
+def community():
+    return render_template("community.html")
+
 @app.route("/sign-up", methods=["GET", "POST"])
 def sign_up():
     if request.method == "POST":
@@ -785,19 +789,23 @@ def contact():
 
 @app.route("/games/exploding-kittens")
 def exploding_kittens():
-    return render_template("exploding_kittens.html")
+    return render_template("games/exploding_kittens.html")
 
 @app.route("/games/battleship")
 def battleship():
-    return render_template("battleship.html")
+    return render_template("games/battleship.html")
 
 @app.route("/games/classroom-pirates")
 def classroom_pirates():
-    return render_template("classroom_pirates.html")
+    return render_template("games/classroom_pirates.html")
 
 @app.route("/games/pokemon-hunters")
 def pokemon_hunters():
-    return render_template("pokemon_hunters.html")
+    return render_template("games/pokemon_hunters.html")
+
+@app.route("/games/connect-four")
+def connect_four():
+    return render_template("games/connect_four.html")
 
 @app.route("/games/review_questions/<game_name>")
 def review_questions(game_name):
@@ -806,7 +814,7 @@ def review_questions(game_name):
         return redirect(url_for("login"))
 
     return render_template(
-        "review_questions.html",
+        "games/review_questions.html",
         game_name=game_name
     )
 
@@ -817,7 +825,7 @@ def speaking_questions(game_name):
         return redirect(url_for("login"))
 
     return render_template(
-        "speaking_questions.html",
+        "games/speaking_questions.html",
         game_name=game_name
     )
 

@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Teacher community | Teachers Online{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/community.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="community-page">
+    <div class="community-shell">
+        <header class="community-heading">
+            <div>
+                <span class="community-eyebrow"><i class="bi bi-stars"></i> THE TEACHER COMMUNITY</span>
+                <h1>A little better, <em>together.</em></h1>
+                <p>Ideas, encouragement, and classroom wins from teachers like you.</p>
+            </div>
+            <div class="community-online"><span></span> Your staffroom is open</div>
+        </header>
+
+        <div class="community-layout">
+            <main class="community-feed" aria-label="Community feed">
+                <section class="community-filters" aria-labelledby="community-filters-title">
+                    <h2 id="community-filters-title">Browse by curriculum</h2>
+                    <div class="community-filter-grid">
+                        <label class="community-filter">
+                            <span>Grade</span>
+                            <select id="filter-grade" data-filter-field="grade">
+                                <option value="">All grades</option>
+                                <optgroup label="Elementary">
+                                    <option value="elementary-1">Elementary 1</option>
+                                    <option value="elementary-2">Elementary 2</option>
+                                    <option value="elementary-3">Elementary 3</option>
+                                    <option value="elementary-4">Elementary 4</option>
+                                    <option value="elementary-5">Elementary 5</option>
+                                </optgroup>
+                                <optgroup label="Middle">
+                                    <option value="middle-1">Middle 1</option>
+                                    <option value="middle-2">Middle 2</option>
+                                    <option value="middle-3">Middle 3</option>
+                                </optgroup>
+                                <optgroup label="High">
+                                    <option value="high-1">High 1</option>
+                                    <option value="high-2">High 2</option>
+                                    <option value="high-3">High 3</option>
+                                </optgroup>
+                            </select>
+                        </label>
+                        <label class="community-filter">
+                            <span>Country</span>
+                            <select id="filter-country" data-filter-field="country">
+                                <option value="">All countries</option>
+                                <option value="Korea">Korea</option>
+                                <option value="China">China</option>
+                                <option value="Japan">Japan</option>
+                                <option value="Thailand">Thailand</option>
+                            </select>
+                        </label>
+                        <label class="community-filter">
+                            <span>Textbook</span>
+                            <select id="filter-textbook" data-filter-field="textbook" disabled>
+                                <option value="">Select a country first</option>
+                            </select>
+                        </label>
+                        <label class="community-filter">
+                            <span>Unit</span>
+                            <select id="filter-unit" data-filter-field="unit" disabled>
+                                <option value="">Select a textbook first</option>
+                            </select>
+                        </label>
+                        <label class="community-filter">
+                            <span>Lesson</span>
+                            <select id="filter-lesson" data-filter-field="lesson" disabled>
+                                <option value="">Select a unit first</option>
+                            </select>
+                        </label>
+                    </div>
+                </section>
+
+                <div class="feed-toolbar">
+                    <div class="feed-tabs" role="group" aria-label="Filter posts">
+                        <button class="feed-tab is-active" type="button" data-filter="all">For you</button>
+                        <button class="feed-tab" type="button" data-filter="ideas">Ideas</button>
+                        <button class="feed-tab" type="button" data-filter="wins">Classroom wins</button>
+                        <button class="feed-tab" type="button" data-filter="questions">Questions</button>
+                    </div>
+                    <label class="community-search"><i class="bi bi-search"></i><input id="community-search" type="search" placeholder="Search the community" aria-label="Search posts"><kbd>/</kbd></label>
+                </div>
+
+                <section class="post-list" id="post-list" aria-live="polite"></section>
+            </main>
+
+            <aside class="community-sidebar">
+                <section class="welcome-card"><span class="welcome-icon"><i class="bi bi-chat-heart"></i></span><h2>Good things grow here.</h2><p>A space for teachers to share what works, ask for help, and celebrate the small wins.</p><div class="welcome-stat"><div class="mini-avatars"><span>MC</span><span>JL</span><span>AM</span><span>+</span></div><span><strong>2.4k</strong> teachers in the room</span></div></section>
+                <section class="community-guidelines"><h3>A gentle reminder</h3><p><i class="bi bi-check2"></i> Be generous with encouragement</p><p><i class="bi bi-check2"></i> Keep student details private</p><p><i class="bi bi-check2"></i> Share resources freely</p></section>
+                <p class="community-footnote">Made for the people who make a difference. <span>✳</span></p>
+            </aside>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/community.js') }}" defer></script>
+{% endblock %}

@@ -1,0 +1,403 @@
+:root {
+    --puck-size: clamp(25px, 5.9vw, 76px);
+    --puck-half: calc(var(--puck-size) / 2);
+    --puck-height: calc(var(--puck-size) * .8077);
+    --puck-height-half: calc(var(--puck-height) / 2);
+}
+
+body {
+    background-image: 
+        linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+        url("../images/games/connect_four/backgrounds/main_background.png");
+    color: #e2e8f0;
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+.game-header {
+    display: none;
+}
+
+#game-title {
+    width: min(100%, 1000px);
+    height: 400px;
+    margin: 0 auto 0.25rem;
+    overflow: hidden;
+    text-indent: -9999px;
+    background:
+        url("../images/games/connect_four/other/logo.png")
+        center / contain no-repeat;
+}
+
+#main-game-title {
+    width: min(100%, 1000px);
+    height: 200px;
+    margin: 0 auto 0.25rem;
+    overflow: hidden;
+    text-indent: -9999px;
+    background:
+        url("../images/games/connect_four/other/logo.png")
+        center / contain no-repeat;
+}
+
+#setup-screen .setup-box {
+    width: min(100%, 560px);
+    border: 1px solid #475569;
+    border-radius: 18px;
+}
+
+#setup-screen .form-select {
+    min-width: min(100%, 360px);
+}
+
+#main-screen {
+    width: min(100%, 1200px);
+    margin: 0 auto;
+    padding: 18px clamp(12px, 3vw, 32px) 36px;
+}
+
+#main-screen[hidden] {
+    display: none !important;
+}
+
+#scoreboard {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+#scoreboard .team-box {
+    flex: 1 1 0;
+    max-width: 210px;
+    padding: 10px 16px;
+    border: 2px solid #475569;
+    border-radius: 14px;
+    text-align: center;
+    background: #111827;
+    transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+#scoreboard .team-box h3 {
+    margin: 0;
+    font-size: clamp(1rem, 2.4vw, 1.35rem);
+    font-weight: 800;
+}
+
+#scoreboard .team-box p {
+    margin: 2px 0 0;
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+#scoreboard .team-box p[hidden] {
+    display: none !important;
+}
+
+#scoreboard .team-box.team-yellow.active-team {
+    border-color: #facc15;
+    box-shadow: 0 0 18px #facc1566;
+}
+
+#scoreboard .team-box.team-red.active-team {
+    border-color: #f87171;
+    box-shadow: 0 0 18px #f8717166;
+}
+
+#scoreboard .team-box.active-team {
+    transform: translateY(-2px);
+}
+
+#turn-panel {
+    text-align: center;
+    margin: 8px auto 10px;
+}
+
+#turn-panel h1 {
+    margin: 0 0 4px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+#turn-message {
+    margin: 0 auto 100px;
+    color: #e2e8f0;
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+}
+
+#turn-message.infinite {
+    margin: 0;
+}
+
+.round-display {
+    width: fit-content;
+    margin: 0 auto 100px;
+    padding: 5px 25px;
+    border: 1px solid #64748b;
+    border-radius: 999px;
+    background: #172033;
+    font-weight: 800;
+}
+
+.round-display[hidden] {
+    display: none !important;
+}
+
+#connect-four-game {
+    width: min(100%, 1040px);
+    margin: 42px auto 0;
+}
+
+.connect-four-board {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    isolation: isolate;
+    overflow: visible;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.board-background,
+.board-foreground,
+.puck-layer,
+.lesson-image-layer,
+.column-controls {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.board-background {
+    z-index: 0;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.puck-layer {
+    z-index: 1;
+    pointer-events: none;
+}
+
+.lesson-image-layer {
+    z-index: 1;
+    pointer-events: none;
+}
+
+.lesson-column-image {
+    position: absolute;
+    width: 12%;
+    height: 10%;
+    object-fit: contain;
+    transform: translateX(-50%);
+}
+
+.board-foreground {
+    z-index: 2;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.board-puck,
+.column-puck {
+    position: absolute;
+    width: var(--puck-size);
+    height: var(--puck-height);
+    object-fit: contain;
+}
+
+.board-puck {
+    z-index: 1;
+    display: block;
+    pointer-events: none;
+}
+
+.column-controls {
+    z-index: 3;
+    inset: -11% 0 auto;
+    height: 10%;
+    pointer-events: none;
+}
+
+.column-puck {
+    top: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    cursor: pointer;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+    transition: transform 140ms ease, filter 140ms ease, opacity 140ms ease;
+}
+
+.column-puck img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.column-puck img[hidden] {
+    display: none !important;
+}
+
+.board-puck.asset-failed,
+.column-puck.asset-failed {
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 28%, #fff7ad 0, #ffe53d 38%, #f5b800 100%);
+    box-shadow: inset 0 3px 5px #ffffff75, inset 0 -5px 8px #00000038, 0 2px 5px #0008;
+}
+
+.board-puck.red.asset-failed,
+.column-puck.red.asset-failed {
+    background: radial-gradient(circle at 35% 28%, #ffb1a8 0, #f04438 40%, #b91c1c 100%);
+}
+
+.column-puck:hover:not(:disabled),
+.column-puck:focus-visible:not(:disabled) {
+    transform: translateY(-5px) scale(1.08);
+    filter: brightness(1.12);
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+}
+
+.column-puck:disabled {
+    cursor: default;
+}
+
+.column-puck.is-full {
+    opacity: 0.2;
+}
+
+.controls-disabled .column-puck {
+    pointer-events: none;
+}
+
+.game-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 16px auto 0;
+}
+
+.game-actions .game-button {
+    min-width: 132px;
+}
+
+.connect-four-overlay {
+    position: fixed;
+    z-index: 1100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    background: #020617d9;
+    animation: connect-four-fade-in 180ms ease-out both;
+}
+
+.connect-four-overlay[hidden] {
+    display: none !important;
+}
+
+.connect-four-dialog {
+    width: min(100%, 520px);
+    padding: clamp(22px, 5vw, 36px);
+    border: 1px solid #64748b;
+    border-radius: 22px;
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    box-shadow: 0 24px 80px #0009;
+    text-align: center;
+    animation: connect-four-pop-in 240ms cubic-bezier(.2, .9, .3, 1.2) both;
+}
+
+.connect-four-dialog h2 {
+    margin: 0 0 10px;
+    font-size: clamp(1.8rem, 6vw, 2.6rem);
+    font-weight: 900;
+}
+
+.connect-four-dialog > p {
+    margin: 0 0 22px;
+    color: #e2e8f0;
+    font-size: 1.1rem;
+}
+
+.result-scores {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0 0 22px;
+}
+
+.result-scores[hidden] {
+    display: none !important;
+}
+
+.result-score {
+    padding: 14px 8px;
+    border: 1px solid #64748b;
+    border-radius: 12px;
+    background: #0f172a;
+    font-size: clamp(0.95rem, 3vw, 1.2rem);
+    font-weight: 800;
+}
+
+.result-score.yellow {
+    border-color: #eab308;
+    color: #fde047;
+}
+
+.result-score.red {
+    border-color: #ef4444;
+    color: #fca5a5;
+}
+
+@keyframes connect-four-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes connect-four-pop-in {
+    from { opacity: 0; transform: translateY(14px) scale(.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 620px) {
+    :root {
+        --puck-size: clamp(20px, 5.8vw, 36px);
+    }
+
+    #connect-four-game {
+        margin-top: 30px;
+    }
+
+    #main-screen {
+        padding-inline: 7px;
+    }
+
+    .game-actions {
+        flex-wrap: wrap;
+    }
+
+    .game-actions .game-button {
+        min-width: 120px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

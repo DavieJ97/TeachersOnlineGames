@@ -41,12 +41,22 @@
 
 						<div class="mb-4">
 							<label for="password" class="form-label">Password</label>
-							<input type="password"
-								   class="form-control"
-								   id="password"
-								   name="password"
-								   autocomplete="current-password"
-								   required>
+							<div class="input-group">
+								<input type="password"
+									   class="form-control"
+									   id="password"
+									   name="password"
+									   autocomplete="current-password"
+									   required>
+								<button class="btn btn-outline-secondary"
+										type="button"
+										data-password-toggle
+										aria-label="Show password"
+										aria-controls="password"
+										aria-pressed="false">
+									<i class="bi bi-eye" aria-hidden="true"></i>
+								</button>
+							</div>
 							<div class="text-end mt-2">
 								<a href="{{ url_for('forgot_password') }}">Forgot password?</a>
 							</div>
@@ -69,3 +79,6 @@
 </section>
 {% endblock %}
 
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/password_visibility.js') }}" defer></script>
+{% endblock %}

@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block game_content %}
+    {% set single_row_editor = game_name == "connect_four" %}
     <div id="editor-window">
 
         <h1 id="game-title">
@@ -94,7 +95,7 @@
 
             <div class="toolbar-section toolbar-section-danger">
 
-                <span class="toolbar-label">Cell</span>
+                <span class="toolbar-label">{{ "Column" if single_row_editor else "Cell" }}</span>
 
                 <button id="clear-cell-btn"
                         class="btn btn-outline-danger game-button">
@@ -115,7 +116,9 @@
                 hidden>
         </div>
 
-        <div id="grid-editor-container">
+        <div id="grid-editor-container"
+             role="region"
+             aria-label="{{ 'Single row of seven Connect Four columns' if single_row_editor else 'Speaking question grid' }}">
             <table id="speaking-grid-editor">
                 <thead>
                     <tr id="editor-column-headers">
@@ -123,11 +126,11 @@
                         <th class="grid-edit-cell corner-cell" data-type="instructions">
                             <div class="cell-content">Instructions</div>
                         </th>
-                        <!-- 6 Column Header Cells will be generated here -->
+                        <!-- Prompt column cells will be generated here -->
                     </tr>
                 </thead>
                 <tbody id="editor-row-body">
-                    <!-- 6 Rows will be generated here -->
+                    <!-- Grid rows are generated here for grid-based games -->
                 </tbody>
             </table>
         </div>
@@ -138,7 +141,7 @@
             <div id="editor-canvas">
 
                 <div id="editor-canvas-placeholder">
-                    Select a canvas from the grid above.
+                    Select a canvas from the {{ "row" if single_row_editor else "grid" }} above.
                 </div>
 
             </div>
@@ -218,7 +221,8 @@
 
 {% block game_scripts %}
     <script>
-        const GAME_NAME = "{{ game_name }}";
+        window.GAME_NAME = "{{ game_name }}";
+        window.SINGLE_ROW_EDITOR = JSON.parse('{{ (game_name == "connect_four") | tojson }}');
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
