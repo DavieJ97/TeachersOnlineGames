@@ -137,7 +137,7 @@ async function loadLessonPack(event) {
                     `images/${question.image.replace(/\\/g, "/")}`
                 );
                 newObjectUrls.push(objectUrl);
-                question.image = objectUrl;
+                question.imageUrl = objectUrl;
             }
         }
 
@@ -285,7 +285,7 @@ function displayOverlay(index, environmentKey = index + 1) {
     if (question.image) {
         const image = document.createElement("img");
 
-        image.src = question.image;
+        image.src = question.imageUrl;
         image.alt = "Question image";
         image.className = "img-fluid mt-3";
 

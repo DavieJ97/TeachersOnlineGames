@@ -2,17 +2,11 @@ const GAME_NAME = window.GAME_NAME;
 const SINGLE_ROW_EDITOR = window.SINGLE_ROW_EDITOR === true;
 const COLUMN_COUNT = SINGLE_ROW_EDITOR ? 7 : 6;
 const ROW_COUNT = SINGLE_ROW_EDITOR ? 0 : 6;
-const LESSON_CANVAS_COUNT = 1 + COLUMN_COUNT + ROW_COUNT;
+const LESSON_CANVAS_COUNT = COLUMN_COUNT + ROW_COUNT;
 
 // Data Structure
 let lesson = {
     game: GAME_NAME,
-
-    instructions: {
-        id: "instructions",
-        name: "Instructions",
-        objects: []
-    },
 
     columnHeaders: Array(COLUMN_COUNT).fill(null).map((_, i) => ({
         id: `column_${i}`,
@@ -74,29 +68,6 @@ function initEditor() {
     // ========================================
     // TOP HEADER ROW
     // ========================================
-
-    // ----------------------------------------
-    // Instructions cell
-    // ----------------------------------------
-
-    const instructionsCell = document.createElement("th");
-
-    instructionsCell.className = "grid-edit-cell";
-
-    instructionsCell.dataset.type = "instructions";
-    instructionsCell.dataset.index = "";
-
-    instructionsCell.innerHTML = `
-        <div class="cell-content">
-            ${lesson.instructions.name}
-        </div>
-    `;
-
-    instructionsCell.onclick = () =>
-        selectCanvas(instructionsCell);
-
-    headerRow.appendChild(instructionsCell);
-
 
     // ----------------------------------------
     // Prompt columns
@@ -188,12 +159,6 @@ async function saveLesson() {
         grade:"",
         name:"",
 
-        instructions: {
-            id: lesson.instructions.id,
-            name: lesson.instructions.name,
-            objects: []
-        },
-
         columnHeaders: [],
         rowHeaders: []
     };
@@ -211,24 +176,11 @@ async function saveLesson() {
 
         selectedObject = null;
 
-        if (canvasType === "instructions") {
-
-            selectedCanvas = {
-                type: "instructions",
-                index: null,
-                element: null
-            };
-
-        }
-        else {
-
-            selectedCanvas = {
-                type: canvasType,
-                index: canvasIndex,
-                element: null
-            };
-
-        }
+        selectedCanvas = {
+            type: canvasType,
+            index: canvasIndex,
+            element: null
+        };
 
         // Render the correct canvas
         renderCanvas();
@@ -288,7 +240,7 @@ async function saveLesson() {
             else if (object.type === "image") {
 
                 const imageName =
-                    `${canvasType}_${canvasIndex ?? "instructions"}_image_${i}.png`;
+                `${canvasType}_${canvasIndex}_image_${i}.png`;
 
                 canvasData.objects.push({
 
@@ -326,7 +278,7 @@ async function saveLesson() {
             );
         }
 
-        const screenshotName = `${canvasType}_${canvasIndex ?? "instructions"}_screenshot.png`;
+        const screenshotName = `${canvasType}_${canvasIndex}_screenshot.png`;
 
         imageFolder.file(screenshotName, imageBlob);
 
@@ -338,17 +290,6 @@ async function saveLesson() {
 
         return canvasData;
     }
-
-
-    // --------------------------------
-    // Instructions
-    // --------------------------------
-
-    lessonData.instructions =
-        await saveCanvas(
-            lesson.instructions,
-            "instructions"
-        );
 
 
     // --------------------------------
@@ -498,8 +439,7 @@ async function uploadLesson(file) {
         }
 
         if (
-            !lessonData.instructions
-            || !Array.isArray(lessonData.columnHeaders)
+            !Array.isArray(lessonData.columnHeaders)
             || !Array.isArray(lessonData.rowHeaders)
             || lessonData.columnHeaders.length !== COLUMN_COUNT
             || lessonData.rowHeaders.length !== ROW_COUNT
@@ -508,17 +448,6 @@ async function uploadLesson(file) {
             hideProgress();
             return;
         }
-
-
-        // --------------------------------
-        // Rebuild instructions
-        // --------------------------------
-
-        lesson.instructions = {
-            id: lessonData.instructions.id,
-            name: lessonData.instructions.name,
-            objects: []
-        };
 
 
         // --------------------------------
@@ -643,16 +572,6 @@ async function uploadLesson(file) {
 
 
         // --------------------------------
-        // Load instructions objects
-        // --------------------------------
-
-        lesson.instructions =
-            await loadCanvas(
-                lessonData.instructions
-            );
-
-
-        // --------------------------------
         // Load columns
         // --------------------------------
 
@@ -739,9 +658,7 @@ function selectCanvas(element) {
     
     // 4. Update the label
     const label =
-        selectedCanvas.type === "instructions"
-        ? "Instructions"
-        : selectedCanvas.type === "column"
+        selectedCanvas.type === "column"
             ? `Column ${selectedCanvas.index + 1}`
             : `Row ${selectedCanvas.index + 1}`;
 
@@ -755,10 +672,6 @@ function getSelectedCanvas() {
 
     if (!selectedCanvas) {
         return null;
-    }
-
-    if (selectedCanvas.type === "instructions") {
-        return lesson.instructions;
     }
 
     if (selectedCanvas.type === "column") {

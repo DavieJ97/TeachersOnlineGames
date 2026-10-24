@@ -89,6 +89,16 @@
                             </a>
                         </li>
 
+                        <li>
+                            <a class="dropdown-item{{ ' active' if request.endpoint == 'connect_four' else '' }}"
+                               {% if request.endpoint == 'connect_four' %}aria-current="page"{% endif %}
+                               href="/games/connect-four">
+
+                                4 in a Row
+
+                            </a>
+                        </li>
+
                         <!-- <li>
                             <a class="dropdown-item{{ ' active' if request.endpoint == 'pokemon_hunters' else '' }}"
                                {% if request.endpoint == 'pokemon_hunters' %}aria-current="page"{% endif %}
