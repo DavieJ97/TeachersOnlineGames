@@ -84,6 +84,11 @@
         {% include "components/games/question_overlay.html" %}
         <img id="character" class="character" src="{{ url_for('static', filename = 'images/games/pokemon_hunters/other/character_1.png')  }}" alt="" aria-hidden="true">
         <img id="character_arm" class="character-arm-1" src="{{ url_for('static', filename = 'images/games/pokemon_hunters/other/character_arm_1.png')  }}" alt="" aria-hidden="true">
+        <div id="pokemon-stats" class="pokemon-stats" aria-hidden="true">
+            <h2 id="pokemon-stats-name"></h2>
+            <p>HP: <span id="pokemon-stats-hp"></span></p>
+            <p>Defense: <span id="pokemon-stats-defense"></span></p>
+        </div>
         <div id="projectile-layer"></div>
         <div id="text-display"></div>
         <button id="exit-button" class="btn btn-primary" aria-label="Close reward and continue"></button>
@@ -99,14 +104,132 @@ Pokemon Hunters — How to Play
 {% endblock %}
 
 {% block help_content %}
-<ol>
-    <li>Choose a lesson pack or use the built-in sample questions.</li>
-    <li>Choose 2 to 6 teams and start.</li>
-    <li>Choose any numbered or A/B/C map pin to reveal a question.</li>
-    <li>Show the answer, then mark it correct or incorrect.</li>
-    <li>Correct answers start a Pokeball catch attempt and award XP based on the Pokemon and ball.</li>
-    <li>Press Escape on the question or result screen to advance the turn without points.</li>
-</ol>
+<div class="pokemon-hunters-help">
+    <section class="mb-4">
+        <h2 class="fs-5 fw-bold">🧭 What is Pokémon Hunters?</h2>
+        <p>
+            Pokémon Hunters is a team-based review game. Teams answer questions
+            to discover Pokémon, then choose a Poké Ball and try to catch one.
+        </p>
+        <p class="mb-0">
+            A successful catch adds XP to the team's score. Pick a ball with
+            the catch chance and XP reward that best suits your team!
+        </p>
+    </section>
+
+    <section class="mb-4">
+        <h2 class="fs-5 fw-bold">🎒 Getting Started</h2>
+        <ol class="ps-3 mb-0">
+            <li class="mb-2"><strong>Start Game</strong> uses the built-in sample questions so you can begin right away.</li>
+            <li class="mb-2"><strong>Load Lesson Pack</strong> loads a saved Pokémon Hunters lesson for your class.</li>
+            <li class="mb-2"><strong>Create Lesson Pack</strong> opens the lesson builder to make your own questions.</li>
+            <li>Choose 2 to 6 teams, then start. The scoreboard tracks each team's XP.</li>
+        </ol>
+    </section>
+
+    <section class="mb-4">
+        <h2 class="fs-5 fw-bold">🗺️ How to Play</h2>
+        <ol class="ps-3 mb-0">
+            <li class="mb-2">The current team picks an unused numbered or A/B/C pin on the map to open a question. If the team answers correctly, it reveals a Pokémon from that pin's assigned environment.</li>
+            <li class="mb-2">Read the question to the team. Use <strong>Show Answer</strong> when they are ready, then mark the response correct or incorrect.</li>
+            <li class="mb-2">An incorrect answer earns no XP and passes the turn to the next team.</li>
+            <li class="mb-2">A correct answer reveals a Pokémon and three randomly selected Poké Balls. The Pokémon's name, HP, and defense appear in its stats card.</li>
+            <li class="mb-2">Choose one Poké Ball to make a single catch attempt. The ball's glow and hover text show its odds and XP multiplier.</li>
+            <li>A successful catch adds XP to the team's score. A missed catch awards 0 XP. Close the result screen to pass the turn.</li>
+        </ol>
+    </section>
+
+    <section class="mb-4">
+        <h2 class="fs-5 fw-bold">✨ Poké Ball Guide: what the glow means</h2>
+        <p>
+            The colored glow around each ball tells you its type. A higher
+            catch chance makes the Pokémon easier to catch; a higher XP
+            multiplier gives more XP if the catch succeeds. Hover over a ball
+            during play to see its exact stats.
+        </p>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="text-center mb-3">
+                    <img src="{{ url_for('static', filename='images/games/pokemon_hunters/buttons/pokeballs/Pokeball_2.png') }}"
+                        alt="Basic Poké Ball" class="pokemon-help-ball pokemon-help-ball-basic">
+                </div>
+                <h3 class="fs-6 fw-bold">⚪ Basic — White glow</h3>
+                <p class="mb-0"><strong>70% catch chance</strong> · <strong>1× XP</strong><br>A steady, standard choice.</p>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="text-center mb-3">
+                    <img src="{{ url_for('static', filename='images/games/pokemon_hunters/buttons/pokeballs/Pokeball_1.png') }}"
+                        alt="Good Poké Ball" class="pokemon-help-ball pokemon-help-ball-good">
+                </div>
+                <h3 class="fs-6 fw-bold">🟢 Good — Green glow</h3>
+                <p class="mb-0"><strong>78% catch chance</strong> · <strong>1.25× XP</strong><br>A little more reward with a strong chance to catch.</p>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="text-center mb-3">
+                    <img src="{{ url_for('static', filename='images/games/pokemon_hunters/buttons/pokeballs/Pokeball_4.png') }}"
+                        alt="Great Poké Ball" class="pokemon-help-ball pokemon-help-ball-great">
+                </div>
+                <h3 class="fs-6 fw-bold">🔵 Great — Blue glow</h3>
+                <p class="mb-0"><strong>86% catch chance</strong> · <strong>1.5× XP</strong><br>The best catch chance among the standard balls, with a higher XP bonus.</p>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="text-center mb-3">
+                    <img src="{{ url_for('static', filename='images/games/pokemon_hunters/buttons/pokeballs/Pokeball_6.png') }}"
+                        alt="Risky Poké Ball" class="pokemon-help-ball pokemon-help-ball-risky">
+                </div>
+                <h3 class="fs-6 fw-bold">🟣 Risky — Purple glow</h3>
+                <p class="mb-0"><strong>55% catch chance</strong> · <strong>2.25× XP</strong><br>The hardest ball to land, but it gives the biggest XP multiplier.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="text-center mb-3">
+                    <img src="{{ url_for('static', filename='images/games/pokemon_hunters/buttons/pokeballs/Pokeball_16.png') }}"
+                        alt="Elite Poké Ball" class="pokemon-help-ball pokemon-help-ball-elite">
+                </div>
+                <h3 class="fs-6 fw-bold">🟡 Elite — Gold glow</h3>
+                <p class="mb-0"><strong>100% catch chance</strong> · <strong>1.75× XP</strong><br>A guaranteed catch for a solid XP bonus.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-4">
+        <h2 class="fs-5 fw-bold">📊 Pokémon Stats and XP</h2>
+        <div class="card">
+            <div class="card-body">
+                <ul class="mb-0">
+                    <li class="mb-2"><strong>HP:</strong> This value determines the base XP reward.</li>
+                    <li class="mb-2"><strong>Defense:</strong> Shown on the Pokémon card for reference. It does not currently affect the catch attempt.</li>
+                    <li><strong>XP calculation:</strong> Pokémon HP × ball's XP multiplier, rounded to the nearest whole point. XP is awarded only if the catch succeeds; a miss awards 0.</li>
+                </ul>
+                <p class="mt-3 mb-0">The name, HP, and defense card appears when the Pokémon is revealed. It stays visible for 20 seconds, then fades away.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="fs-5 fw-bold">💡 Quick Tips</h2>
+        <div class="alert alert-info mb-0">
+            <ul class="mb-0">
+                <li class="mb-2">Choose Great or Elite for a higher catch chance.</li>
+                <li class="mb-2">Choose Risky when your team wants to gamble for the biggest XP multiplier.</li>
+                <li class="mb-2">A ball can be used only once, so agree on your choice before clicking.</li>
+                <li>Press <strong>Escape</strong> on the question or result screen to end the turn without points.</li>
+            </ul>
+        </div>
+    </section>
+</div>
 {% endblock %}
 
 {% block game_scripts %}

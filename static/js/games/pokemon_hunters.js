@@ -27,10 +27,15 @@ const character = document.getElementById("character");
 const characterArm = document.getElementById("character_arm");
 const textDisplay = document.getElementById("text-display");
 const exitButton = document.getElementById("exit-button");
+const pokemonStats = document.getElementById("pokemon-stats");
+const pokemonStatsName = document.getElementById("pokemon-stats-name");
+const pokemonStatsHp = document.getElementById("pokemon-stats-hp");
+const pokemonStatsDefense = document.getElementById("pokemon-stats-defense");
 
 const question_map = document.getElementById("question_map");
 
 const characterPath = "/static/images/games/pokemon_hunters/other/";
+let pokemonStatsTimeout = null;
 
 const characterFrames = [
     new Image(),
@@ -347,6 +352,7 @@ function playRewardScreen() {
     game.rewardStarted = true;
     questionOverlay.classList.remove("show");
     game.currentPokemon = getRandomPokemon(game.currentEnvironData.pokemon);
+    showPokemonStats(game.currentPokemon);
     const pokemonObject = document.createElement("img");
     pokemonObject.src = game.currentPokemon.imageUrl;
     pokemonObject.className = "pokemon";
@@ -384,6 +390,14 @@ function clearRewardObjects() {
     rewardWindow.querySelectorAll(".pokemon, .pokeball, .projectile, .projectile-glow")
         .forEach(object => object.remove());
 
+    window.clearTimeout(pokemonStatsTimeout);
+    pokemonStatsTimeout = null;
+    pokemonStats.classList.remove("show");
+    pokemonStats.setAttribute("aria-hidden", "true");
+    pokemonStatsName.textContent = "";
+    pokemonStatsHp.textContent = "";
+    pokemonStatsDefense.textContent = "";
+
     exitButton.onclick = null;
 
     const projectileLayer = document.getElementById("projectile-layer");
@@ -391,6 +405,20 @@ function clearRewardObjects() {
     if (projectileLayer) {
         projectileLayer.replaceChildren();
     }
+}
+
+function showPokemonStats(pokemon) {
+    pokemonStatsName.textContent = pokemon.englishName;
+    pokemonStatsHp.textContent = pokemon.hp;
+    pokemonStatsDefense.textContent = pokemon.defense;
+    pokemonStats.setAttribute("aria-hidden", "false");
+    pokemonStats.classList.add("show");
+
+    pokemonStatsTimeout = window.setTimeout(() => {
+        pokemonStats.classList.remove("show");
+        pokemonStats.setAttribute("aria-hidden", "true");
+        pokemonStatsTimeout = null;
+    }, 20_000);
 }
 
 function createPokeball() {
