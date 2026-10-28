@@ -791,6 +791,10 @@ def contact():
 def exploding_kittens():
     return render_template("games/exploding_kittens.html")
 
+@app.route("/games/mine-rush")
+def mine_rush():
+    return render_template("games/mine_rush.html")
+
 @app.route("/games/battleship")
 def battleship():
     return render_template("games/battleship.html")
