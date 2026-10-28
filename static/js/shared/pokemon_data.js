@@ -1057,25 +1057,25 @@ export const pokeballStatusData = {
 
     good: {
         catchChance: 70,
-        xpMultiplier: 1.25,
+        xpMultiplier: 1.50,
         glowClass: "pokeball-glow-good"
     },
 
     great: {
         catchChance: 50,
-        xpMultiplier: 1.5,
+        xpMultiplier: 2.0,
         glowClass: "pokeball-glow-great"
     },
 
     risky: {
         catchChance: 30,
-        xpMultiplier: 1.75,
+        xpMultiplier: 3.0,
         glowClass: "pokeball-glow-risky"
     },
 
     elite: {
         catchChance: 10,
-        xpMultiplier: 2.0,
+        xpMultiplier: 9.0,
         glowClass: "pokeball-glow-elite"
     }
 };
