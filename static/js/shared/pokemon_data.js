@@ -1050,32 +1050,32 @@ export const pinEnvironments = {
 export const pokeballStatusData = {
 
     basic: {
-        catchChance: 70,
+        catchChance: 90,
         xpMultiplier: 1.0,
         glowClass: "pokeball-glow-basic"
     },
 
     good: {
-        catchChance: 78,
+        catchChance: 70,
         xpMultiplier: 1.25,
         glowClass: "pokeball-glow-good"
     },
 
     great: {
-        catchChance: 86,
+        catchChance: 50,
         xpMultiplier: 1.5,
         glowClass: "pokeball-glow-great"
     },
 
     risky: {
-        catchChance: 55,
-        xpMultiplier: 2.25,
+        catchChance: 30,
+        xpMultiplier: 1.75,
         glowClass: "pokeball-glow-risky"
     },
 
     elite: {
-        catchChance: 100,
-        xpMultiplier: 1.75,
+        catchChance: 10,
+        xpMultiplier: 2.0,
         glowClass: "pokeball-glow-elite"
     }
 };
