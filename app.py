@@ -799,6 +799,10 @@ def mine_rush():
 def battleship():
     return render_template("games/battleship.html")
 
+@app.route("/games/battleship-space")
+def battleship_space():
+    return render_template("games/battleship_space.html")
+
 @app.route("/games/classroom-pirates")
 def classroom_pirates():
     return render_template("games/classroom_pirates.html")
