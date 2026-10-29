@@ -270,24 +270,25 @@ body.game-app {
 
 #instruction {
     margin: 0 0 1rem;
-    font-size: clamp(1.25rem, 3vw, 2rem);
+    font-size: clamp(1rem, 3.5vmin, 2.5rem);
 }
 
 #question-box {
     display: grid;
+    flex: 1 1 auto;
     place-items: center;
-    min-height: 180px;
+    min-height: 0;
     padding: 1rem;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.91);
     color: var(--navy);
-    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-size: clamp(1rem, 3.5vmin, 2.5rem);
     font-weight: 800;
 }
 
 #question-image {
     max-width: 100%;
-    max-height: 280px;
+    max-height: 100%;
     object-fit: contain;
 }
 
@@ -300,7 +301,7 @@ body.game-app {
         url("../images/games/battleship/backgrounds/answer_background.png")
         center / cover;
     color: #fff;
-    font-size: clamp(1rem, 2vw, 1.35rem);
+    font-size: clamp(0.9rem, 2.5vmin, 1.75rem);
     font-weight: 800;
 }
 
@@ -453,14 +454,37 @@ body.game-app {
 
 #question-card {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.35rem, 1.5vmin, 1rem);
+    width: 90vw;
+    height: 90vh;
+    max-width: none;
+    max-height: 90vh;
+    box-sizing: border-box;
+    overflow-y: auto;
     padding:
-        clamp(1rem, 3vw, 2rem)
-        clamp(5rem, 11vw, 8rem);
+        clamp(0.75rem, 3vh, 2rem)
+        clamp(3.5rem, 8vw, 7rem);
+}
+
+#instruction {
+    flex: 0 0 auto;
+    margin-bottom: 0;
+}
+
+#question-box {
+    width: 100%;
+}
+
+#answer-box {
+    flex: 0 0 auto;
 }
 
 #question-buttons {
     position: static;
     display: block;
+    flex: 0 0 auto;
     margin: 0;
 }
 
@@ -469,7 +493,7 @@ body.game-app {
     position: absolute;
     top: 50%;
     width: clamp(44px, 6vw, 76px);
-    height: clamp(150px, 34vw, 300px);
+    height: clamp(100px, 32vh, 300px);
     transform: translateY(-50%);
     border: 0 !important;
     background-color: transparent !important;
@@ -488,6 +512,8 @@ body.game-app {
 
 #show-answer-btn {
     margin-top: 1rem;
+    padding: clamp(0.5rem, 1.5vmin, 1rem);
+    font-size: clamp(0.9rem, 2.5vmin, 1.5rem);
 }
 
 .reward-missile-reveal {

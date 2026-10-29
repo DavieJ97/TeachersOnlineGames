@@ -681,8 +681,16 @@ REWARD CONTENT
 }
 
 #question-card {
-    width: min(100%, 740px);
-    padding: clamp(1rem, 4vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.35rem, 1.5vmin, 1rem);
+    width: 90vw;
+    height: 90vh;
+    max-width: none;
+    max-height: 90vh;
+    box-sizing: border-box;
+    overflow-y: auto;
+    padding: clamp(0.75rem, 3vh, 2rem);
     color: #fff;
     text-align: center;
     border-radius: 20px;
@@ -690,8 +698,10 @@ REWARD CONTENT
 }
 
 #instruction {
-    margin: 0 0 1rem;
-    font-size: clamp(1.25rem, 3vw, 2rem);
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 0.25em 0.5em;
+    font-size: clamp(1rem, 3.5vmin, 2.5rem);
     background-image: url("../images/games/pokemon_hunters/other/answer_bar.png");
     background-size: 100% 100%;
     background-position: center;
@@ -700,47 +710,51 @@ REWARD CONTENT
 
 #question-box {
     display: grid;
+    flex: 1 1 auto;
     place-items: center;
-    min-height: 180px;
+    min-height: 0;
+    width: 100%;
     padding: 1rem;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.91);
     color: var(--navy);
-    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-size: clamp(1rem, 3.5vmin, 2.5rem);
     font-weight: 800;
 }
 
 #question-image {
     max-width: 100%;
-    max-height: 280px;
+    max-height: 100%;
     object-fit: contain;
 }
 
 #answer-box {
-    min-height: 48px;
-    margin-top: 0.8rem;
-    padding: 0.7rem 1rem;
+    flex: 0 0 auto;
+    min-height: clamp(2.5rem, 7vh, 5rem);
+    margin: 0;
+    padding: 0.5rem 1rem;
     border-radius: 10px;
     background:
         url("../images/games/pokemon_hunters/other/answer_bar.png")
         center / cover;
     color: #fff;
-    font-size: clamp(1rem, 2vw, 1.35rem);
+    font-size: clamp(0.9rem, 2.5vmin, 1.75rem);
     font-weight: 800;
 }
 
 #question-buttons {
+    flex: 0 0 auto;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 1rem;
+    gap: clamp(0.35rem, 1.5vmin, 1rem);
+    margin-top: 0;
 }
 
 #correct-btn,
 #incorrect-btn {
-    width: 62px;
-    height: 62px;
+    width: clamp(44px, 10vmin, 76px);
+    height: clamp(44px, 10vmin, 76px);
     border: 0;
     background-position: center;
     background-repeat: no-repeat;

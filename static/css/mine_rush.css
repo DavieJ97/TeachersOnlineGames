@@ -224,10 +224,13 @@ QUESTION OVERLAY
 
 #question-card{
 
-    width:1000px;
-    height:600px;
-
-    max-width:90%;
+    width:90vw;
+    height:90vh;
+    max-width:none;
+    max-height:90vh;
+    box-sizing:border-box;
+    overflow-y:auto;
+    overflow-x:hidden;
 
     background-image: url("../images/games/mine_rush/backgrounds/reward_background.png");
     background-size: cover;
@@ -238,7 +241,7 @@ QUESTION OVERLAY
 
     border-radius:20px;
 
-    padding:40px;
+    padding:clamp(12px, 4vmin, 40px);
 
     text-align:center;
 
@@ -246,26 +249,31 @@ QUESTION OVERLAY
 
     display:flex;
     flex-direction:column;
+    gap:clamp(8px, 1.5vmin, 18px);
 }
 
 #instruction{
 
-    flex:0 0 50px;
-
-    height: 50px;
+    flex:0 0 auto;
+    min-height:clamp(42px, 9vh, 76px);
+    display:grid;
+    place-items:center;
 
     background-image: url("../images/games/mine_rush/backgrounds/top_instructions.png");
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
 
-    margin-bottom:25px;
+    margin-bottom:0;
+    padding:0.25em 0.5em;
+    font-size:clamp(1rem, 3.5vmin, 2.5rem);
 
 }
 
 #question-box{
 
-    flex:1;
+    flex:1 1 auto;
+    min-height:0;
 
     display:flex;
 
@@ -273,20 +281,23 @@ QUESTION OVERLAY
 
     align-items:center;
 
-    margin-bottom:20px;
+    margin-bottom:0;
 
     background-color: white;
 
-    height:260px;
+    height:auto;
 
     width: 100%;
 
+    font-size:clamp(1rem, 3.5vmin, 2.5rem);
 
 }
 
 #question-text{
 
-    font-size:2rem;
+    max-width:100%;
+    overflow-wrap:anywhere;
+    font-size:clamp(1rem, 3.5vmin, 2.5rem);
 
     text-align:center;
 
@@ -307,16 +318,17 @@ QUESTION OVERLAY
 #answer-box{
 
     display:none;
-    flex:0 0 50px;
-    height: 50px;
+    flex:0 0 auto;
+    min-height:clamp(42px, 8vh, 70px);
     background-image: url("../images/games/mine_rush/backgrounds/answer_bar.png");
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
 
-    font-size:1.8rem;
+    font-size:clamp(0.9rem, 2.5vmin, 1.75rem);
 
-    margin:30px 0;
+    margin:0;
+    padding:0.5rem 1rem;
 
 
 }
@@ -329,7 +341,9 @@ QUESTION OVERLAY
 
     justify-content:center;
 
-    gap:25px;
+    flex-wrap:wrap;
+
+    gap:clamp(8px, 2vmin, 24px);
 
     cursor:pointer;
 
@@ -337,8 +351,8 @@ QUESTION OVERLAY
 
 .image-btn {
 
-    width:80px;
-    height:80px;
+    width:clamp(44px, 10vmin, 84px);
+    height:clamp(44px, 10vmin, 84px);
 
     background-size:100% 100%;
     background-position:center;
@@ -365,7 +379,10 @@ QUESTION OVERLAY
 
 #show-answer-btn{
 
-    width:400px;
+    width:clamp(160px, 35vw, 400px);
+    max-width:100%;
+    padding:clamp(8px, 1.5vmin, 16px);
+    font-size:clamp(0.9rem, 2.5vmin, 1.5rem);
 
     background-image:url("../images/games/mine_rush/backgrounds/score_plank.png");
     
