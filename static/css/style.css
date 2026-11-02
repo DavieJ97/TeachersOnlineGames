@@ -216,13 +216,6 @@ a:hover{
 
 }
 
-.hero #classroom-pirates-hero{
-
-    background:
-        linear-gradient(rgba(0,0,0,.48), rgba(0,0,0,.58)),
-        url('/static/images/games/classroom_pirates/backgrounds/into_background.png') center / cover no-repeat;
-
-}
 
 .hero #battleship-hero{
 
@@ -232,13 +225,14 @@ a:hover{
 
 }
 
-.hero #pokemon-hunters-hero{
+.hero #battleship-space-hero{
 
     background:
         linear-gradient(rgba(0,0,0,.48), rgba(0,0,0,.58)),
-        url('/static/images/games/pokemon_hunters/backgrounds/intro_background.jpg') center / cover no-repeat;
+        url('/static/images/games/battleship_space/backgrounds/intro_background.png') center / cover no-repeat;
 
 }
+
 
 .hero-carousel-controls{
 

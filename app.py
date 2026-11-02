@@ -787,10 +787,6 @@ def contact():
     return render_template("contact.html")
 
 
-@app.route("/games/exploding-kittens")
-def exploding_kittens():
-    return render_template("games/exploding_kittens.html")
-
 @app.route("/games/mine-rush")
 def mine_rush():
     return render_template("games/mine_rush.html")
@@ -806,10 +802,6 @@ def battleship_space():
 @app.route("/games/classroom-pirates")
 def classroom_pirates():
     return render_template("games/classroom_pirates.html")
-
-@app.route("/games/pokemon-hunters")
-def pokemon_hunters():
-    return render_template("games/pokemon_hunters.html")
 
 @app.route("/games/connect-four")
 def connect_four():

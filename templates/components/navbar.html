@@ -61,11 +61,11 @@
                         <li><hr class="dropdown-divider"></li>
 
                         <li>
-                            <a class="dropdown-item{{ ' active' if request.endpoint == 'exploding_kittens' else '' }}"
-                               {% if request.endpoint == 'exploding_kittens' %}aria-current="page"{% endif %}
-                               href="/games/exploding-kittens">
+                            <a class="dropdown-item{{ ' active' if request.endpoint == 'mine_rush' else '' }}"
+                               {% if request.endpoint == 'mine_rush' %}aria-current="page"{% endif %}
+                               href="/games/mine-rush">
 
-                                Exploding Kittens
+                                Mine Rush
 
                             </a>
                         </li>
@@ -80,6 +80,16 @@
                         </li>
 
                         <li>
+                            <a class="dropdown-item{{ ' active' if request.endpoint == 'battleship_space' else '' }}"
+                               {% if request.endpoint == 'battleship_space' %}aria-current="page"{% endif %}
+                               href="/games/battleship-space">
+
+                                Battleship: Space Edition
+
+                            </a>
+                        </li>
+
+                        <!-- <li>
                             <a class="dropdown-item{{ ' active' if request.endpoint == 'classroom_pirates' else '' }}"
                                {% if request.endpoint == 'classroom_pirates' %}aria-current="page"{% endif %}
                                href="/games/classroom-pirates">
@@ -87,24 +97,14 @@
                                 Classroom Pirates
 
                             </a>
-                        </li>
+                        </li> -->
 
-                        <li>
+                        <!-- <li>
                             <a class="dropdown-item{{ ' active' if request.endpoint == 'connect_four' else '' }}"
                                {% if request.endpoint == 'connect_four' %}aria-current="page"{% endif %}
                                href="/games/connect-four">
 
                                 4 in a Row
-
-                            </a>
-                        </li>
-
-                        <!-- <li>
-                            <a class="dropdown-item{{ ' active' if request.endpoint == 'pokemon_hunters' else '' }}"
-                               {% if request.endpoint == 'pokemon_hunters' %}aria-current="page"{% endif %}
-                               href="/games/pokemon-hunters">
-
-                                Pokemon Hunters
 
                             </a>
                         </li> -->
