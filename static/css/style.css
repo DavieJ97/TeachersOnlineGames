@@ -221,7 +221,7 @@ a:hover{
 
     background:
         linear-gradient(rgba(0,0,0,.48), rgba(0,0,0,.58)),
-        url('/static/images/games/battleship/backgrounds/battleship_background.png') center / cover no-repeat;
+        url('/static/images/games/battleship/backgrounds/battleship_background.webp') center / cover no-repeat;
 
 }
 
@@ -229,7 +229,7 @@ a:hover{
 
     background:
         linear-gradient(rgba(0,0,0,.48), rgba(0,0,0,.58)),
-        url('/static/images/games/battleship_space/backgrounds/intro_background.png') center / cover no-repeat;
+        url('/static/images/games/battleship_space/backgrounds/intro_background.webp') center / cover no-repeat;
 
 }
 

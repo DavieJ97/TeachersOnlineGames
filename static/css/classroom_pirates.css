@@ -6,7 +6,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background-image: 
         linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-        url("../images/games/classroom_pirates/backgrounds/main_background.png");
+        url("../images/games/classroom_pirates/backgrounds/main_background.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -21,7 +21,7 @@ body {
     overflow: hidden;
     text-indent: -9999px;
     background:
-        url("../images/games/classroom_pirates/other/intro_text.png")
+        url("../images/games/classroom_pirates/other/intro_text.webp")
         center / contain no-repeat;
 }
 
@@ -149,7 +149,7 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    background: url("../images/games/classroom_pirates/other/blank_map.png") center / 100% 100% no-repeat;
+    background: url("../images/games/classroom_pirates/other/blank_map.webp") center / 100% 100% no-repeat;
 }
 
 .header-cell img {
@@ -170,7 +170,7 @@ body {
 .row-header {
     position: relative;
     padding: 5px 12px !important;
-    background: url("../images/games/classroom_pirates/other/plank.png") center / 100% 100% no-repeat;
+    background: url("../images/games/classroom_pirates/other/plank.webp") center / 100% 100% no-repeat;
 }
 
 .row-header-img {
@@ -270,7 +270,7 @@ body {
 
 .reward-window {
     background-color: rgba(0, 0, 0, 0.9);
-    background-image:  url("../images/games/classroom_pirates/backgrounds/reward_background.jpg");
+    background-image:  url("../images/games/classroom_pirates/backgrounds/reward_background.webp");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -308,7 +308,7 @@ body {
     position: absolute;
     bottom: 15px;
     right: 15px;
-    background-image: url("../images/games/classroom_pirates/buttons/exit_button.png");
+    background-image: url("../images/games/classroom_pirates/buttons/exit_button.webp");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -531,7 +531,7 @@ body {
     height:100%;
     width: 100%;
     padding: 40px;
-    background-image: url("../images/games/classroom_pirates/backgrounds/background_reset.png");
+    background-image: url("../images/games/classroom_pirates/backgrounds/background_reset.webp");
     background-size: cover;
     background-position: center;
     align-content: center;

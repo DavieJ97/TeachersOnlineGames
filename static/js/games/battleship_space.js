@@ -39,10 +39,10 @@ const missileRacks = [
 const missileLayer = document.getElementById("missile-layer");
 
 const MISSILE_OFF =
-    "/static/images/games/battleship_space/other/missile_off.png";
+    "/static/images/games/battleship_space/other/missile_off.webp";
 
 const MISSILE_ON =
-    "/static/images/games/battleship_space/other/missile_on.png";
+    "/static/images/games/battleship_space/other/missile_on.webp";
 
 const boards = [
     document.getElementById("team-0-board"),
@@ -421,7 +421,7 @@ function renderSunkShip(boardElement, ship) {
     }
 
     shipImage.src =
-        `/static/images/games/battleship_space/other/${ship.length}_ship.png`;
+        `/static/images/games/battleship_space/other/${ship.length}_ship.webp`;
 
     shipImage.alt = `Sunk ${ship.length}-square ship`;
 

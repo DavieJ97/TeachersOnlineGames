@@ -354,7 +354,7 @@ async function setupGridRows(rowHeaders) {
             button.dataset.cellIndex = row * GAME_CONFIG.GRID_SIZE + col;
 
             const img = document.createElement("img");
-            img.src = "/static/images/games/classroom_pirates/buttons/cell_x.png";
+            img.src = "/static/images/games/classroom_pirates/buttons/cell_x.webp";
             img.alt = "?";
 
             button.appendChild(img);
@@ -487,7 +487,7 @@ async function displayCoinsReward(reward) {
         coin.style.animationDelay = `${delay}s`;
 
         const coinImg = document.createElement("img");
-        coinImg.src = "/static/images/games/classroom_pirates/other/coin.png";
+        coinImg.src = "/static/images/games/classroom_pirates/other/coin.webp";
         coinImg.alt = "Coin";
 
         coin.appendChild(coinImg);
@@ -530,7 +530,7 @@ async function displayShipsReward(reward) {
         ship.style.animationDelay = `${delay}s`;
 
         const shipImg = document.createElement("img");
-        shipImg.src = "/static/images/games/classroom_pirates/other/minus_img.png";
+        shipImg.src = "/static/images/games/classroom_pirates/other/minus_img.webp";
         shipImg.alt = "Broken Ship";
 
         ship.appendChild(shipImg);
@@ -570,7 +570,7 @@ async function displayTreasureReward(reward) {
     const shine = document.createElement("div");
     shine.className = "treasure-shine";
     const shineImg = document.createElement("img");
-    shineImg.src = "/static/images/games/classroom_pirates/other/treasure_shine.png";
+    shineImg.src = "/static/images/games/classroom_pirates/other/treasure_shine.webp";
     shineImg.alt = "Shine";
     shine.appendChild(shineImg);
 
@@ -578,7 +578,7 @@ async function displayTreasureReward(reward) {
     const treasure = document.createElement("div");
     treasure.className = "treasure-chest";
     const treasureImg = document.createElement("img");
-    treasureImg.src = "/static/images/games/classroom_pirates/other/treasure.png";
+    treasureImg.src = "/static/images/games/classroom_pirates/other/treasure.webp";
     treasureImg.alt = "Treasure";
     treasure.appendChild(treasureImg);
 
@@ -680,7 +680,7 @@ function showFightScreen() {
 
             <button class="fight-character" id="fight-team-1">
                 <img 
-                    src="/static/images/games/classroom_pirates/other/fight_salavan.png"
+                    src="/static/images/games/classroom_pirates/other/fight_salavan.webp"
                     alt="Character 1"
                 >
                 <span>
@@ -690,13 +690,13 @@ function showFightScreen() {
 
             <img
                 class="fight-image"
-                src="/static/images/games/classroom_pirates/other/fight_text.png"
+                src="/static/images/games/classroom_pirates/other/fight_text.webp"
                 alt="FIGHT"
             >
 
             <button class="fight-character" id="fight-team-2">
                 <img 
-                    src="/static/images/games/classroom_pirates/other/fight_jack.png"
+                    src="/static/images/games/classroom_pirates/other/fight_jack.webp"
                     alt="Character 2"
                 >
                 <span>
@@ -1017,4 +1017,3 @@ function playIntroMusic() {
 }
 
 document.addEventListener("pointerdown", playIntroMusic);
-

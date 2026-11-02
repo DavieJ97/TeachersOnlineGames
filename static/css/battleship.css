@@ -11,7 +11,7 @@
 body.game-app {
     background:
         linear-gradient(rgba(0, 18, 35, 0.25), rgba(0, 18, 35, 0.25)),
-        url("../images/games/battleship/backgrounds/main_background.png")
+        url("../images/games/battleship/backgrounds/main_background.webp")
         center / cover fixed;
 }
 
@@ -38,7 +38,7 @@ body.game-app {
     overflow: hidden;
     text-indent: -9999px;
     background:
-        url("../images/games/battleship/backgrounds/battleship_logo.png")
+        url("../images/games/battleship/backgrounds/battleship_logo.webp")
         center / contain no-repeat;
 }
 
@@ -114,7 +114,7 @@ body.game-app {
     border-radius: 8px;
     background:
         linear-gradient(rgba(4, 116, 170, 0.18), rgba(4, 116, 170, 0.18)),
-        url("../images/games/battleship/backgrounds/board_background_2.png")
+        url("../images/games/battleship/backgrounds/board_background_2.webp")
         center / cover;
 }
 
@@ -209,7 +209,7 @@ body.game-app {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.65);
     cursor: pointer;
     background:
-        url("../images/games/battleship/cards/battleship_card_background.png")
+        url("../images/games/battleship/cards/battleship_card_background.webp")
         center / cover;
     transition: transform 160ms ease, filter 160ms ease;
 }
@@ -263,7 +263,7 @@ body.game-app {
     border-radius: 20px;
     background:
         linear-gradient(rgba(0, 17, 35, 0.78), rgba(0, 17, 35, 0.78)),
-        url("../images/games/battleship/backgrounds/question_background.png")
+        url("../images/games/battleship/backgrounds/question_background.webp")
         center / cover;
     box-shadow: 0 18px 55px rgba(0, 0, 0, 0.55);
 }
@@ -298,7 +298,7 @@ body.game-app {
     padding: 0.7rem 1rem;
     border-radius: 10px;
     background:
-        url("../images/games/battleship/backgrounds/answer_background.png")
+        url("../images/games/battleship/backgrounds/answer_background.webp")
         center / cover;
     color: #fff;
     font-size: clamp(0.9rem, 2.5vmin, 1.75rem);
@@ -325,12 +325,12 @@ body.game-app {
 
 #correct-btn {
     background-image:
-        url("../images/games/battleship/buttons/right_btn.png");
+        url("../images/games/battleship/buttons/right_btn.webp");
 }
 
 #incorrect-btn {
     background-image:
-        url("../images/games/battleship/buttons/wrong_btn.png");
+        url("../images/games/battleship/buttons/wrong_btn.webp");
 }
 
 /* Attack and winner overlays */
@@ -338,14 +338,14 @@ body.game-app {
 #reward-window {
     background:
         linear-gradient(rgba(0, 17, 35, 0.68), rgba(0, 17, 35, 0.68)),
-        url("../images/games/battleship/backgrounds/main_background.png")
+        url("../images/games/battleship/backgrounds/main_background.webp")
         center / cover;
 }
 
 #winner-window {
     background:
         linear-gradient(rgba(0, 17, 35, 0.64), rgba(0, 17, 35, 0.64)),
-        url("../images/games/battleship/backgrounds/battleship_background.png")
+        url("../images/games/battleship/backgrounds/battleship_background.webp")
         center / cover;
 }
 

@@ -127,7 +127,7 @@
 
     function startGame() {
         const body = document.body;
-        body.style.backgroundImage = "linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url('/static/images/games/connect_four/backgrounds/intro_background.png')";
+        body.style.backgroundImage = "linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url('/static/images/games/connect_four/backgrounds/intro_background.webp')";
         mode = el["game-mode"].value;
         round = 1;
         TEAMS.forEach(team => team.score = 0);

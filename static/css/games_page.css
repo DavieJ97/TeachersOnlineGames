@@ -73,7 +73,7 @@ CSS Variables for Game Colors
 
 #mine-rush-card{
 
-    background-image: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/games/mine_rush/backgrounds/intro_background.png');
+    background-image: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/games/mine_rush/backgrounds/intro_background.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -82,7 +82,7 @@ CSS Variables for Game Colors
 
 #battleship-card{
 
-    background-image: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/games/battleship/backgrounds/battleship_background.png');
+    background-image: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/games/battleship/backgrounds/battleship_background.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -91,7 +91,7 @@ CSS Variables for Game Colors
 
 #battleship-space-card{
 
-    background-image: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/games/battleship_space/backgrounds/intro_background.png');
+    background-image: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/games/battleship_space/backgrounds/intro_background.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

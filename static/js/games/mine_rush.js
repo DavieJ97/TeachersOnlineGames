@@ -64,25 +64,25 @@ const CARD_TYPES = {
     BOMB: {
         type: "bomb",
         folder: "normal_cards",
-        image: "bomb.png"
+        image: "bomb.webp"
     },
 
     NUCLEAR: {
         type: "nuclear",
         folder: "normal_cards",
-        image: "reset.png"
+        image: "reset.webp"
     },
 
     SWAP: {
         type: "swap",
         folder: "special_cards",
-        image: "change.png"
+        image: "change.webp"
     },
 
     LOSE_ALL: {
         type: "lose_all",
         folder: "special_cards",
-        image: "stolen.png"
+        image: "stolen.webp"
     }
 
 };
@@ -301,7 +301,7 @@ async function loadLessonPack(event) {
 function startGame() {
 
     const body = document.body;
-    body.style.backgroundImage = "linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url('/static/images/games/mine_rush/backgrounds/main_background.png')";
+    body.style.backgroundImage = "linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url('/static/images/games/mine_rush/backgrounds/main_background.webp')";
 
     const teamInput = document.getElementById("team-count");
     sounds.music.play();
@@ -607,7 +607,7 @@ function animateRewardCard(card){
     cardDiv.innerHTML=`
 
         <img class="reward-card-back"
-             src="/static/images/games/mine_rush/cards/back.png">
+             src="/static/images/games/mine_rush/cards/back.webp">
 
         <img class="reward-card-front"
              src="/static/images/games/mine_rush/cards/${card.folder}/${card.image}">
@@ -771,7 +771,7 @@ function createNormalRewardDeck() {
 
             folder: CARD_TYPES.POINTS.folder,
 
-            image: `+${value}.png`
+            image: `+${value}.webp`
 
         });
 

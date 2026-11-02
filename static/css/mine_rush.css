@@ -9,7 +9,7 @@ body.game-app {
     font-family: "Rye", serif;
     background-image: 
         linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
-        url("../images/games/mine_rush/backgrounds/intro_background.png");
+        url("../images/games/mine_rush/backgrounds/intro_background.webp");
 
     background-size: cover;
     background-position: center;
@@ -36,7 +36,7 @@ header {
 
     text-align: center;
 
-    background-image: url("../images/games/mine_rush/backgrounds/top_instructions.png");
+    background-image: url("../images/games/mine_rush/backgrounds/top_instructions.webp");
 
     background-size: 100% 95%;
 
@@ -77,7 +77,7 @@ header {
     min-width: 190px;
     max-width: 250px;
 
-    background-image: url("../images/games/mine_rush/backgrounds/score_plank.png");
+    background-image: url("../images/games/mine_rush/backgrounds/score_plank.webp");
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -135,7 +135,7 @@ QUESTION GRID
     width: 220px;
     height: 320px;
 
-    background-image: url("../images/games/mine_rush/cards/back.png");
+    background-image: url("../images/games/mine_rush/cards/back.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -232,7 +232,7 @@ QUESTION OVERLAY
     overflow-y:auto;
     overflow-x:hidden;
 
-    background-image: url("../images/games/mine_rush/backgrounds/reward_background.png");
+    background-image: url("../images/games/mine_rush/backgrounds/reward_background.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -259,7 +259,7 @@ QUESTION OVERLAY
     display:grid;
     place-items:center;
 
-    background-image: url("../images/games/mine_rush/backgrounds/top_instructions.png");
+    background-image: url("../images/games/mine_rush/backgrounds/top_instructions.webp");
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -320,7 +320,7 @@ QUESTION OVERLAY
     display:none;
     flex:0 0 auto;
     min-height:clamp(42px, 8vh, 70px);
-    background-image: url("../images/games/mine_rush/backgrounds/answer_bar.png");
+    background-image: url("../images/games/mine_rush/backgrounds/answer_bar.webp");
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -367,13 +367,13 @@ QUESTION OVERLAY
 
 #correct-btn{
 
-    background-image:url("../images/games/mine_rush/buttons/correct_button.png");
+    background-image:url("../images/games/mine_rush/buttons/correct_button.webp");
 
 }
 
 #incorrect-btn{
 
-    background-image:url("../images/games/mine_rush/buttons/incorrect_button.png");
+    background-image:url("../images/games/mine_rush/buttons/incorrect_button.webp");
 
 }
 
@@ -384,7 +384,7 @@ QUESTION OVERLAY
     padding:clamp(8px, 1.5vmin, 16px);
     font-size:clamp(0.9rem, 2.5vmin, 1.5rem);
 
-    background-image:url("../images/games/mine_rush/backgrounds/score_plank.png");
+    background-image: url("../images/games/mine_rush/backgrounds/score_plank.webp");
     
 
     color:white;
@@ -485,7 +485,7 @@ REWARD WINDOW
 
     overflow-x:hidden;
 
-    background-image: url("../images/games/mine_rush/backgrounds/reward_background.png");
+    background-image: url("../images/games/mine_rush/backgrounds/reward_background.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -546,7 +546,7 @@ CARD DECK
 
     border-radius:15px;
 
-    background-image: url("../images/games/mine_rush/cards/back.png");
+    background-image: url("../images/games/mine_rush/cards/back.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -652,7 +652,7 @@ DRAWN CARD
 
     border-radius:20px;
 
-    background-image: url("../images/games/mine_rush/cards/back.png");
+    background-image: url("../images/games/mine_rush/cards/back.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1068,7 +1068,7 @@ SWAP OVERLAY
     height:100px;
     background-color:transparent;
     border:none;
-    background-image:url("../images/games/mine_rush/buttons/back_button.png");
+    background-image:url("../images/games/mine_rush/buttons/back_button.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
