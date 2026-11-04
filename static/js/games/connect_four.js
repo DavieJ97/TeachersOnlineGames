@@ -4,21 +4,28 @@
     const ROWS = 6;
     const COLS = 7;
     // Centers of the seven columns and six slots in the supplied 16:9 board art.
-    const COLUMN_CENTERS = [7.50, 21.60, 35.75, 49.90, 64.10, 78.25, 92.45];
-    const ROW_CENTERS = [8.45, 21.8, 35.15, 48.5, 61.85, 75.2];
+    const COLUMN_CENTERS = [10.20, 23.60, 36.85, 50.10, 63.35, 76.60, 89.75];
+    const ROW_CENTERS = [9.65, 22.55, 35.25, 48.53, 61.85, 74.90];
     const LESSON_IMGS_POSITIONS = [
-        { top: "88.55%", left: "7.50%" },
-        { top: "88.55%", left: "21.60%" },
-        { top: "88.55%", left: "35.75%" },
-        { top: "88.55%", left: "49.90%" },
-        { top: "88.55%", left: "64.10%" },
-        { top: "88.55%", left: "78.25%" },
-        { top: "88.55%", left: "92.45%" }
+        { top: "88.55%", left: "10.20%" },
+        { top: "88.55%", left: "23.60%" },
+        { top: "88.55%", left: "36.85%" },
+        { top: "88.55%", left: "50.10%" },
+        { top: "88.55%", left: "63.35%" },
+        { top: "88.55%", left: "76.60%" },
+        { top: "88.55%", left: "89.75%" }
     ];
     const TEAMS = [
         { name: "Yellow", color: "yellow", score: 0 },
         { name: "Red", color: "red", score: 0 }
     ];
+    const sounds = {
+        puckDrop: new Audio("/static/audio/sounds/connect_four/puck_drop.mp3"),
+        winner: new Audio("/static/audio/sounds/connect_four/winner.mp3"),
+        music: new Audio("/static/audio/music/connect_four/Sugar_Cane_Summit.mp3")
+    };
+    sounds.music.loop = true;
+    sounds.music.volume = 0.5;
 
     const el = {};
     let board = [];
@@ -44,6 +51,7 @@
 
         bindLessonPackLoadButton(el["load-lesson-btn"], el["lesson-file"]);
         el["lesson-file"].addEventListener("change", handleLessonLoad);
+        el["setup-screen"].addEventListener("click", playSetupMusic);
         el["start-game-btn"].addEventListener("click", startGame);
         el["reset-game-btn"].addEventListener("click", resetGame);
         el["end-game-btn"].addEventListener("click", endGame);
@@ -126,6 +134,7 @@
     }
 
     function startGame() {
+        sounds.music.volume = 0.05;
         const body = document.body;
         body.style.backgroundImage = "linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url('/static/images/games/connect_four/backgrounds/intro_background.webp')";
         mode = el["game-mode"].value;
@@ -166,6 +175,7 @@
         el["column-controls"].classList.add("controls-disabled");
         el["reset-game-btn"].disabled = true;
         el["end-game-btn"].disabled = true;
+        playSound(sounds.puckDrop);
         const puck = createPuckImage(currentTeam);
         puck.classList.add("board-puck");
         puck.alt = "";
@@ -264,6 +274,7 @@
     }
 
     function finishConnectFour(teamIndex) {
+        playSound(sounds.winner);
         if (mode === "infinite") {
             TEAMS[teamIndex].score += 1;
             renderScoreboard();
@@ -301,6 +312,7 @@
         if (scores[0] === scores[1]) {
             showResult("It's a tie!", "The board is full and both teams have the same connection score.", true, false);
         } else {
+            playSound(sounds.winner);
             const winner = scores[0] > scores[1] ? TEAMS[0].name : TEAMS[1].name;
             showResult(`${winner} wins!`, "The board is full. Final connection scores:", true, false);
         }
@@ -433,6 +445,20 @@
 
     function setTurnMessage(message) {
         el["turn-message"].textContent = message;
+    }
+
+    function playSound(sound) {
+        sound.currentTime = 0;
+        sound.play().catch(error => {
+            console.warn("Could not play Connect Four sound:", error);
+        });
+    }
+
+    function playSetupMusic() {
+        if (!sounds.music.paused) return;
+        sounds.music.play().catch(error => {
+            console.warn("Could not play Connect Four music:", error);
+        });
     }
 
     function isBoardFull() {

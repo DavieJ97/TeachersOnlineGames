@@ -9,6 +9,9 @@ body {
     background-image: 
         linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
         url("../images/games/connect_four/backgrounds/main_background.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: #e2e8f0;
     font-family: "Inter", sans-serif;
     font-size: 1rem;
@@ -175,7 +178,7 @@ body {
 
 .board-background {
     z-index: 0;
-    object-fit: contain;
+    object-fit: cover;
     pointer-events: none;
 }
 

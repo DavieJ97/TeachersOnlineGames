@@ -1,7 +1,7 @@
 {% extends "base_games.html" %}
 
 {% block title %}
-    Connect Four
+    4 in a Row
 {% endblock %}
 
 {% block game_styles %}
@@ -12,9 +12,9 @@
 {% block game_content %}
 
 {% set game_name = "connect_four" %}
-{% set game_title = "Connect Four" %}
+{% set game_title = "4 in a Row" %}
 {% set game_description -%}
-    Original game designed by <a href="https://taysteachingtoolkit.com/b/connect-4" target="_blank" rel="noopener noreferrer">Tays Teaching Toolkit</a>
+    Original game designed by <a href="https://www.teachersonline.app" target="_blank" rel="noopener noreferrer">Teachers Online</a>
 {%- endset %}
 {% set lesson_create_link = url_for('speaking_questions', game_name=game_name) %}
 
@@ -27,13 +27,13 @@
     {% include "components/games/team_scoreboard.html" %}
 
     <section id="turn-panel" aria-live="polite">
-        <h1 id="main-game-title">Connect Four</h1>
+        <h1 id="main-game-title">4 in a Row</h1>
         <p id="turn-message">Yellow's turn. Make a sentence to choose a column.</p>
     </section>
 
     <div id="round-display" class="round-display" hidden>Round <span id="round-number">1</span></div>
 
-    <section id="connect-four-game" aria-label="Connect Four game board">
+    <section id="connect-four-game" aria-label="4 in a Row game board">
         <div id="connect-four-board"
              class="connect-four-board"
              data-yellow-puck="{{ url_for('static', filename='images/games/connect_four/other/puck_yellow.webp') }}"
@@ -91,31 +91,98 @@
 {% endblock %}
 
 {% block help_title %}
-    Connect Four — How to Play
+    4 in a Row — How to Play
 {% endblock %}
 
 {% block help_content %}
+
 <div class="connect-four-help">
+
     <section class="mb-4">
-        <h2 class="fs-5 fw-bold">🔴🟡 What is Connect Four?</h2>
+        <h2 class="fs-5 fw-bold">
+            🔴🟡 What is 4 in a Row?
+        </h2>
+
+        <p>
+            4 in a Row is a two-team speaking game. Teams take turns
+            making a sentence or giving a speaking response before dropping
+            one of their pucks into a column.
+        </p>
+
         <p class="mb-0">
-            Connect Four is a two-team speaking game. Teams take turns
-            making a sentence before choosing a column for one of their pucks.
+            The goal is to connect four pucks in a row — horizontally,
+            vertically, or diagonally.
         </p>
     </section>
 
-    <section>
-        <h2 class="fs-5 fw-bold">🎮 How to Play</h2>
-        <ol class="ps-3 mb-0">
-            <li class="mb-2">Divide the class into Yellow and Red teams.</li>
-            <li class="mb-2">The current team makes a sentence or gives a speaking response.</li>
-            <li class="mb-2">After the teacher approves, click the puck above a column. It falls into the lowest open space.</li>
-            <li class="mb-2"><strong>Speed:</strong> the first team to connect four wins immediately.</li>
-            <li class="mb-2"><strong>Full Board:</strong> fill the board, then score each maximal run: 4 = 1 point, 5 = 2, 6 = 3, 7 = 4.</li>
-            <li><strong>Infinite:</strong> each connect four earns a point and starts another round until the teacher ends the game.</li>
+    <section class="mb-4">
+        <h2 class="fs-5 fw-bold">
+            ⚓ Getting Started
+        </h2>
+
+        <ol class="ps-3">
+            <li class="mb-2">
+                Load a lesson pack, create one, or start a demo game.
+            </li>
+            <li class="mb-2">
+                Divide the class into <strong>Yellow</strong> and
+                <strong>Red</strong> teams.
+            </li>
+            <li>
+                Choose a game mode, then select <strong>Start Game</strong>.
+            </li>
         </ol>
     </section>
+
+    <section class="mb-4">
+        <h2 class="fs-5 fw-bold">
+            🎮 How to Play
+        </h2>
+
+        <ol class="ps-3">
+            <li class="mb-2">
+                The current team makes a sentence or gives a speaking response.
+            </li>
+            <li class="mb-2">
+                Once the teacher approves, click the puck above a column.
+                It drops into the lowest open space.
+            </li>
+            <li>
+                Teams take turns until the selected game mode ends.
+            </li>
+        </ol>
+
+        <div class="alert alert-info mt-3 mb-0">
+            <strong>Teacher tip:</strong>
+            Decide how students should respond before each turn. They can
+            answer individually or work together as a team.
+        </div>
+    </section>
+
+    <section class="mb-4">
+        <h2 class="fs-5 fw-bold">
+            🏆 Game Modes
+        </h2>
+
+        <ul class="ps-4 mb-0">
+            <li class="mb-2">
+                <strong>Speed:</strong> the first team to connect four wins.
+            </li>
+            <li class="mb-2">
+                <strong>Full Board:</strong> fill the board, then score each
+                maximal run of four or more: a run of 4 is worth 1 point,
+                5 is worth 2, 6 is worth 3, and 7 is worth 4.
+            </li>
+            <li>
+                <strong>Infinite:</strong> each connect four earns the team
+                1 point and starts another round. The game continues until
+                the teacher ends it.
+            </li>
+        </ul>
+    </section>
+
 </div>
+
 {% endblock %}
 
 {% block game_scripts %}
