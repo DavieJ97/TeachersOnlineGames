@@ -7,13 +7,13 @@
     const COLUMN_CENTERS = [10.20, 23.60, 36.85, 50.10, 63.35, 76.60, 89.75];
     const ROW_CENTERS = [9.65, 22.55, 35.25, 48.53, 61.85, 74.90];
     const LESSON_IMGS_POSITIONS = [
-        { top: "88.55%", left: "10.20%" },
-        { top: "88.55%", left: "23.60%" },
-        { top: "88.55%", left: "36.85%" },
-        { top: "88.55%", left: "50.10%" },
-        { top: "88.55%", left: "63.35%" },
-        { top: "88.55%", left: "76.60%" },
-        { top: "88.55%", left: "89.75%" }
+        { top: "84.60%", left: "9.50%" },
+        { top: "84.60%", left: "23.00%" },
+        { top: "84.60%", left: "36.65%" },
+        { top: "84.60%", left: "50.10%" },
+        { top: "84.60%", left: "63.55%" },
+        { top: "84.60%", left: "77.10%" },
+        { top: "84.60%", left: "90.35%" }
     ];
     const TEAMS = [
         { name: "Yellow", color: "yellow", score: 0 },

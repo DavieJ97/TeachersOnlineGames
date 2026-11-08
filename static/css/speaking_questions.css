@@ -176,6 +176,11 @@ TOOLBAR
     justify-content: center;
 }
 
+#editor-window.connect-four-editor #canvas-editor-container {
+    max-width: 450px;
+    margin-inline: auto;
+}
+
 
 #editor-canvas-placeholder {
     position: absolute;
@@ -317,6 +322,11 @@ TOOLBAR
 
     background-color: white;
 
+}
+
+#editor-window.connect-four-editor #editor-canvas {
+    height: auto;
+    aspect-ratio: 1;
 }
 
 #font-smaller-btn,

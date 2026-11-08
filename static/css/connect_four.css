@@ -188,15 +188,15 @@ body {
 }
 
 .lesson-image-layer {
-    z-index: 1;
+    z-index: 3;
     pointer-events: none;
 }
 
 .lesson-column-image {
     position: absolute;
-    width: 12%;
-    height: 10%;
-    object-fit: contain;
+    width: 10%;
+    height: 14%;
+    object-fit: fill;
     transform: translateX(-50%);
 }
 

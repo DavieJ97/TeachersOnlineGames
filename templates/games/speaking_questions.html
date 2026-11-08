@@ -12,7 +12,7 @@
 
 {% block game_content %}
     {% set single_row_editor = game_name == "connect_four" %}
-    <div id="editor-window">
+    <div id="editor-window" class="{{ 'connect-four-editor' if single_row_editor else '' }}">
 
         <h1 id="game-title">
 
