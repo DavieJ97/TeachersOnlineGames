@@ -46,7 +46,7 @@ window.LessonLoader = {
         // Verify lesson structure
         // -----------------------------
 
-        if (!lessonData.instructions) {
+        if (game !== "connect_four" && !lessonData.instructions) {
 
             throw new Error(
                 "This lesson pack has no instructions canvas."
