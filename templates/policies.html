@@ -1,0 +1,329 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy | Teachers Online{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container text-center">
+        <h1>Privacy Policy</h1>
+        <p class="lead">Learn how Teachers Online handles your personal information.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="alert alert-info" role="note">
+                    <strong>Document status:</strong> This version identifies itself as a proposed policy with a proposed effective date of November 20, 2026. It also contains items marked for confirmation before publication, including details about international transfers and provider retention. Please review and confirm those details before treating it as the current policy.
+                </div>
+
+                <article>
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+                        <p class="text-muted mb-0">Version 1.1 · Proposed effective date: November 20, 2026</p>
+                        <a class="btn btn-outline-primary"
+                           href="{{ url_for('static', filename='documents/Teachers_Online_Privacy_Policy_v1.pdf') }}"
+                           download>
+                            <i class="bi bi-download me-2" aria-hidden="true"></i>
+                            Download Privacy Policy (PDF)
+                        </a>
+                    </div>
+
+                    <div class="accordion" id="privacyAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPrivacy1">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#privacySection1" aria-expanded="true" aria-controls="privacySection1">
+                                    1. About this Privacy Policy
+                                </button>
+                            </h2>
+                            <div id="privacySection1" class="accordion-collapse collapse show" aria-labelledby="headingPrivacy1" data-bs-parent="#privacyAccordion">
+                                <div class="accordion-body">
+                                    <p>This Privacy Policy explains how Teachers Online (the Website) collects, uses, stores, and protects personal information when people visit the Website, create an account, or use its features.</p>
+                                    <p>The Website is operated by Kayla Brummer. Website: <a href="https://www.teachersonline.app">https://www.teachersonline.app</a>. Privacy enquiries may be sent to <a href="mailto:officialteachersonline@gmail.com">officialteachersonline@gmail.com</a>.</p>
+                                    <p>This draft covers current account, educational game, and worksheet-generator functionality. It does not yet cover future community features such as public posts, comments, likes, direct messages, or user-shared resource uploads. This policy should be updated before those features launch.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPrivacy2">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacySection2" aria-expanded="false" aria-controls="privacySection2">
+                                    2. Personal information we collect
+                                </button>
+                            </h2>
+                            <div id="privacySection2" class="accordion-collapse collapse" aria-labelledby="headingPrivacy2" data-bs-parent="#privacyAccordion">
+                                <div class="accordion-body">
+                                    <p><strong>Account information:</strong> email address, username, display name, and account identifier.</p>
+                                    <p><strong>Profile information:</strong> information a user chooses to add to a profile, including teacher-related profile details where enabled, and an optional profile image. Profile images are stored using Supabase Storage.</p>
+                                    <p><strong>Account and preference information:</strong> saved settings and preferences, such as theme settings and other user preferences.</p>
+                                    <p><strong>Date-of-birth check:</strong> during account registration, users enter their date of birth so the Website can calculate whether they meet the minimum age requirement of 14. The Website uses the date of birth for this eligibility check and does not save the date of birth as an account record.</p>
+                                    <p><strong>Worksheet-generator content:</strong> text and other information users enter into the worksheet generator is sent to our Flask application server so that we can generate the requested worksheet. Where a user requests translation, only the specific text selected for translation is sent from our Flask server to Google Translate through the deep-translator Python package. The complete worksheet is not sent to Google Translate for this purpose. The generated worksheet is returned to the user for download and is not saved as a persistent worksheet record by Teachers Online. Information may nevertheless be present temporarily in server processing or technical logs, depending on the systems involved.</p>
+                                    <p><strong>Technical and usage information:</strong> the Website uses a Flask session cookie for session-related functionality, such as maintaining a signed-in session and remembering relevant preferences. The application may also generate technical records through its hosting, security, or application infrastructure, such as IP address, browser/device information, access times, and error logs. The exact information and retention periods depend on the relevant provider settings.</p>
+                                    <p><strong>Authentication information:</strong> passwords and authentication tokens are handled through Supabase Auth. Teachers Online does not store users' plaintext passwords in its own application database.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPrivacy3">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacySection3" aria-expanded="false" aria-controls="privacySection3">
+                                    3. Why we use personal information
+                                </button>
+                            </h2>
+                            <div id="privacySection3" class="accordion-collapse collapse" aria-labelledby="headingPrivacy3" data-bs-parent="#privacyAccordion">
+                                <div class="accordion-body">
+                                    <p>We use personal information to create, verify, and manage accounts; check the minimum registration age; authenticate users and help secure accounts; provide profile, preference, educational game, and worksheet-generator functionality; process worksheet content on our Flask application server and translate specific text requested by the user; send essential account communications such as verification and password-reset emails; respond to support requests; maintain, troubleshoot, protect, and improve the Website; detect and prevent fraud, abuse, and security incidents; and comply with legal obligations.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPrivacy4">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacySection4" aria-expanded="false" aria-controls="privacySection4">
+                                    4. Legal basis and choice
+                                </button>
+                            </h2>
+                            <div id="privacySection4" class="accordion-collapse collapse" aria-labelledby="headingPrivacy4" data-bs-parent="#privacyAccordion">
+                                <div class="accordion-body">
+                                    <p>We process personal information only where permitted by applicable law. Depending on the circumstances, this may be based on consent, the need to provide a requested service or perform an agreement, compliance with a legal obligation, or another lawful basis available under applicable law.</p>
+                                    <p>Where consent is required, we will request it before processing the relevant information. Optional information should not be required where it is unnecessary for the requested service.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPrivacy5">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacySection5" aria-expanded="false" aria-controls="privacySection5">
+                                    5. How long we keep information
+                                </button>
+                            </h2>
+                            <div id="privacySection5" class="accordion-collapse collapse" aria-labelledby="headingPrivacy5" data-bs-parent="#privacyAccordion">
+                                <div class="accordion-body">
+                                    <p>We keep personal information only for as long as reasonably necessary for the purposes described in this policy, unless a longer period is required or permitted by law.</p>
+                                    <p>Account information is generally retained while the account remains active. When a user deletes their account, Teachers Online deletes the user's profile and associated database records. Some information may remain temporarily in backups, security logs, or service-provider systems until their normal deletion cycles are completed, or may be retained where required by law.</p>
+                                    <p>The date of birth entered during registration is used to calculate age eligibility and is not saved by Teachers Online as an account record. Worksheet content is processed to generate the requested worksheet and is not saved by Teachers Online as a persistent worksheet record. Temporary processing, technical logs, backups, or records held by service providers may nevertheless be subject to their own retention cycles.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPrivacy6">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacySection6" aria-expanded="false" aria-controls="privacySection6">
+                                    6. Service providers and processing entrusted to others
+                                </button>
+                            </h2>
+                            <div id="privacySection6" class="accordion-collapse collapse" aria-labelledby="headingPrivacy6" data-bs-parent="#privacyAccordion">
+                                <div class="accordion-body">
+                                    <p>We use service providers to operate parts of the Website. Based on the current setup and information confirmed so far, these include:</p>
+                                    <ul>
+                                        <li><strong>Supabase</strong> — database, user authentication, and storage for profile images. The Supabase project region is configured as Northeast Asia (Seoul), Republic of Korea.</li>
+                                        <li><strong>Resend</strong> — delivery of transactional emails, currently including account verification and password-reset emails. Open Tracking and Click Tracking have not been enabled, based on the settings checked.</li>
+                                        <li><strong>Render</strong> — hosting of the Flask application. The Render service region is configured as Oregon (US West).</li>
+                                        <li><strong>Cloudflare</strong> — domain registration and DNS-only services.</li>
+                                        <li><strong>Google Translate</strong> — translation of the specific text a user asks to translate. The Flask application uses the GoogleTranslator class through the deep-translator Python package; it is not configured as a Google Cloud Translation API integration.</li>
+                                    </ul>
+                                    <p>The exact information handled by each provider depends on the services and settings enabled. For worksheet translation, only the specific text selected for translation is sent to Google Translate, rather than the entire worksheet. We will use appropriate contractual, technical, and organisational safeguards where required.</p>
+                                    <p>Some service providers may store or process information outside the Republic of Korea, or may access information from another country for support or service operation. Render is configured in Oregon, United States. Resend's Data Processing Addendum states that its primary processing operations are in the United States. Supabase's project region is configured in Seoul, Republic of Korea; this does not by itself establish the location of every subprocessor, backup, or support operation.</p>
+                                    <p>Before publication, identify and disclose international transfers as required by applicable law, including the destination country, recipient, purpose, information transferred, transfer method and timing, retention period, and applicable legal basis or safeguards.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPrivacy7">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacySection7" aria-expanded="false" aria-controls="privacySection7">
+                                    7. International transfers of personal information
+                                </button>
+                            </h2>
+                            <div id="privacySection7" class="accordion-collapse collapse" aria-labelledby="headingPrivacy7" data-bs-parent="#privacyAccordion">
+                                <div class="accordion-body">
+                                    <p>Personal information may be processed outside the Republic of Korea by service providers as described in Section 6. The countries, recipients, categories of information, purposes, transfer methods, retention periods, and legal grounds must be accurately identified and disclosed where required by applicable law. The Website will not rely solely on a provider's main project region to conclude that all processing remains in that country.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered align-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Country / location</th>
+                                                    <th scope="col">Provider and purpose</th>
+                                                    <th scope="col">Information and transfer method</th>
+                                                    <th scope="col">Retention and legal basis</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>United States</td>
+                                                    <td>Render — hosting the Teachers Online Flask application.</td>
+                                                    <td>Account-related information, profile information, website requests and technical information needed to operate the application. Transferred through website connections and application communications over the internet.</td>
+                                                    <td>Retained as needed to host and operate the Website. Exact hosting-log and backup retention periods require confirmation. Proposed basis: PIPA Article 28-8(1)(3)(a), where processing is necessary to provide the contracted service and the required disclosures are made.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>United States</td>
+                                                    <td>Resend / Plus Five Five, Inc. — transactional account-verification and password-reset emails.</td>
+                                                    <td>Email addresses, email contents and delivery-related metadata. Transferred when Teachers Online sends an email through Resend's email service.</td>
+                                                    <td>Resend's DPA states that customer data is deleted within 90 days after account termination. It does not establish the retention period for every individual email log. Proposed basis: Article 28-8(1)(3)(a).</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>United States and other global server locations</td>
+                                                    <td>Google LLC — Google Translate, accessed through the GoogleTranslator class in deep-translator.</td>
+                                                    <td>Only the text a user specifically requests to translate, together with technical request information. Transferred when the user requests a translation.</td>
+                                                    <td>Google's consumer privacy information says data may be processed on servers outside the user's country. A specific retention period for this particular translation method has not been confirmed. The legal basis for this optional service needs particular review.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Singapore</td>
+                                                    <td>Supabase Pte. Ltd. — primary data-processing entity for Supabase services.</td>
+                                                    <td>Account and profile information, authentication-related information, profile pictures and related database information, as applicable to the service. Processing is associated with the operation of the Supabase platform.</td>
+                                                    <td>Account data is retained while needed to provide the service, subject to deletion and provider backup cycles. Exact retention periods for all provider systems need confirmation. Proposed basis: Article 28-8(1)(3)(a).</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>United States</td>
+                                                    <td>Supabase, Inc. — technical support and operational services for Supabase.</td>
+                                                    <td>Relevant account or technical information where access is necessary for support or platform operations. Supabase says information flows to its US affiliate only when necessary for support or operations.</td>
+                                                    <td>Exact retention periods and access circumstances should be confirmed with Supabase. Proposed basis: Article 28-8(1)(3)(a), subject to legal review.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <h3 class="h5 mt-4">Additional information about international processing</h3>
+                                    <p>The locations listed above reflect the service regions and provider information currently identified by Teachers Online. Some providers use additional subprocessors or may provide technical support from other countries. The exact countries involved may depend on the provider's services, infrastructure, and support arrangements.</p>
+                                    <p>Teachers Online does not represent that all personal information remains in the Republic of Korea merely because its primary Supabase project is located in Seoul. Where an overseas transfer is necessary, Teachers Online will disclose the relevant information and use the transfer arrangements and safeguards required by applicable law.</p>
+                                    <p>Provider and subprocessor arrangements may change. Teachers Online will review this information and update this Privacy Policy when material changes affect the countries, recipients, purposes, information categories, or retention periods involved in international processing.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPrivacy8">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacySection8" aria-expanded="false" aria-controls="privacySection8">
+                                    8. Cookies and similar technologies
+                                </button>
+                            </h2>
+                            <div id="privacySection8" class="accordion-collapse collapse" aria-labelledby="headingPrivacy8" data-bs-parent="#privacyAccordion">
+                                <div class="accordion-body">
+                                    <p>The Website uses a Flask session cookie for session-related functionality, including maintaining a signed-in session and relevant preferences. No Google Analytics has been installed, and Resend Open Tracking and Click Tracking are not enabled based on the settings checked. The Website's application code review identified the Flask session cookie; the use of any additional cookies or technologies through hosting, DNS, proxy, security, or embedded third-party services remains subject to verification.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPrivacy9">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacySection9" aria-expanded="false" aria-controls="privacySection9">
+                                    9. Children's personal information and minimum age
+                                </button>
+                            </h2>
+                            <div id="privacySection9" class="accordion-collapse collapse" aria-labelledby="headingPrivacy9" data-bs-parent="#privacyAccordion">
+                                <div class="accordion-body">
+                                    <p>Account registration and features requiring an account are available only to people who are at least 14 years old. During registration, a user must enter a date of birth and confirm that the information is accurate. The Website calculates whether the user meets the minimum age requirement and does not save the date of birth as an account record. Users under 14 are not permitted to create an account, including with parental or legal-representative assistance.</p>
+                                    <p>Some publicly available educational features, such as games that do not require an account, may be accessible to younger users where permitted by applicable law. Parents, guardians, and teachers should provide appropriate supervision when children use those features.</p>
+                                    <p>If we become aware that an account has been created by someone under 14, we may restrict or close the account and take appropriate steps to delete personal information, subject to applicable legal requirements.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPrivacy10">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacySection10" aria-expanded="false" aria-controls="privacySection10">
+                                    10. When information may be disclosed
+                                </button>
+                            </h2>
+                            <div id="privacySection10" class="accordion-collapse collapse" aria-labelledby="headingPrivacy10" data-bs-parent="#privacyAccordion">
+                                <div class="accordion-body">
+                                    <p>We do not disclose personal information to unrelated third parties for their own independent marketing purposes unless we have a lawful basis and provide any notice or obtain any consent required by law.</p>
+                                    <p>We may disclose information to the service providers described in this policy where necessary to operate the Website, where the user asks us to do so, where required by law or lawful order, or where reasonably necessary to protect the rights, safety, and security of users, Teachers Online, or others.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPrivacy11">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacySection11" aria-expanded="false" aria-controls="privacySection11">
+                                    11. How we protect personal information
+                                </button>
+                            </h2>
+                            <div id="privacySection11" class="accordion-collapse collapse" aria-labelledby="headingPrivacy11" data-bs-parent="#privacyAccordion">
+                                <div class="accordion-body">
+                                    <p>We take reasonable technical and organisational measures designed to protect personal information against loss, unauthorised access, disclosure, alteration, or destruction. Measures may include access controls, authentication safeguards, secure connections, and limiting access to people and providers who need the information for their work.</p>
+                                    <p>No website or electronic storage or transmission method can be guaranteed completely secure. We will respond to suspected security incidents in accordance with applicable law and our incident-response procedures.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPrivacy12">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacySection12" aria-expanded="false" aria-controls="privacySection12">
+                                    12. Your rights and how to exercise them
+                                </button>
+                            </h2>
+                            <div id="privacySection12" class="accordion-collapse collapse" aria-labelledby="headingPrivacy12" data-bs-parent="#privacyAccordion">
+                                <div class="accordion-body">
+                                    <p>Subject to applicable law, users may request access to their personal information, correction of inaccurate information, deletion, suspension of processing, or withdrawal of consent where processing is based on consent. Users may also exercise rights through a legal representative where permitted by law.</p>
+                                    <p>To make a privacy request, contact us using Section 15. Describe the request and provide enough information for us to verify the relevant account. We may ask for additional information where reasonably necessary to confirm identity and protect against unauthorised requests.</p>
+                                    <p>We will respond within the time required by applicable law. Some information may need to be retained where the law requires it or another lawful exception applies.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPrivacy13">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacySection13" aria-expanded="false" aria-controls="privacySection13">
+                                    13. Account deletion
+                                </button>
+                            </h2>
+                            <div id="privacySection13" class="accordion-collapse collapse" aria-labelledby="headingPrivacy13" data-bs-parent="#privacyAccordion">
+                                <div class="accordion-body">
+                                    <p>Users can delete their account through the Website's account-deletion functionality. When an account is deleted, Teachers Online deletes the user's profile and associated database records. Some copies may remain temporarily in backups, technical logs, or provider systems until normal deletion cycles are completed, or may be retained where required by law.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPrivacy14">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacySection14" aria-expanded="false" aria-controls="privacySection14">
+                                    14. Changes to this Privacy Policy
+                                </button>
+                            </h2>
+                            <div id="privacySection14" class="accordion-collapse collapse" aria-labelledby="headingPrivacy14" data-bs-parent="#privacyAccordion">
+                                <div class="accordion-body">
+                                    <p>We may update this Privacy Policy when our services, data practices, or legal obligations change. The latest version will be published on the Website with its effective date.</p>
+                                    <p>If a change materially affects users' rights or how their personal information is processed, we will provide additional notice or obtain consent where required by applicable law.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPrivacy15">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacySection15" aria-expanded="false" aria-controls="privacySection15">
+                                    15. Contact and privacy complaints
+                                </button>
+                            </h2>
+                            <div id="privacySection15" class="accordion-collapse collapse" aria-labelledby="headingPrivacy15" data-bs-parent="#privacyAccordion">
+                                <div class="accordion-body">
+                                    <p>For questions, requests, or complaints relating to personal information, contact:</p>
+                                    <address class="mb-3">
+                                        Website: <a href="https://www.teachersonline.app">https://www.teachersonline.app</a><br>
+                                        Email: <a href="mailto:officialteachersonline@gmail.com">officialteachersonline@gmail.com</a><br>
+                                        Privacy contact / responsible person: Kayla Brummer<br>
+                                        Business / operator: Kayla Brummer
+                                    </address>
+                                    <p>Users in the Republic of Korea may also contact the Personal Information Protection Commission or other competent Korean privacy authorities through their official channels.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPrivacy16">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacySection16" aria-expanded="false" aria-controls="privacySection16">
+                                    16. Current scope and future features
+                                </button>
+                            </h2>
+                            <div id="privacySection16" class="accordion-collapse collapse" aria-labelledby="headingPrivacy16" data-bs-parent="#privacyAccordion">
+                                <div class="accordion-body">
+                                    <p>This Version 1.1 policy is intended for current account, educational game, and worksheet-generator functionality. It does not describe a teacher community, public posts, comments, likes, direct messages, or user-uploaded resource library because those features are not currently part of the Website's service scope.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

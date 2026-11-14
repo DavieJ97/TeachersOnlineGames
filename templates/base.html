@@ -9,7 +9,7 @@
 
     <script>
         (() => {
-            const savedTheme = {{ session.get('theme', 'system') | tojson }};
+            const savedTheme = {{ current_theme | tojson }};
             const useDarkTheme = savedTheme === "dark" || (
                 savedTheme === "system" &&
                 window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -68,7 +68,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-light"
-    data-theme="{{ session.get('theme', 'system') }}">
+    data-theme="{{ current_theme }}">
 
     <!-- Navigation -->
     {% include "components/navbar.html" %}

@@ -107,7 +107,10 @@
                             <div class="accordion-body">
 
                                 No account is currently required to
-                                start playing the available games.
+                                open and play the available games.
+                                A signed-in account is required to create
+                                or load lesson packs and to use the
+                                Worksheet Generator.
 
                             </div>
 
@@ -263,12 +266,10 @@
 
                             <div class="accordion-body">
 
-                                The games are designed to be adaptable
-                                to different lessons.
-
-                                You can create lesson packs using
-                                your own questions, vocabulary,
-                                grammar, and other lesson content.
+                                The games can be adapted to different
+                                lessons. For games with a lesson editor,
+                                sign in to create a lesson pack using
+                                your own questions and lesson content.
 
                             </div>
 
@@ -385,13 +386,12 @@
 
                             <div class="accordion-body">
 
-                                Yes. Games that support lesson packs
-                                provide a <strong>Create Lesson Pack</strong>
-                                option.
-
-                                This allows you to prepare content
-                                specifically for your class and
-                                lesson.
+                                Yes. Sign in to your account, then
+                                choose <strong>Create Lesson Pack</strong>
+                                on a game that supports lesson packs.
+                                The editor lets you prepare content for
+                                your class and download the finished
+                                pack as a ZIP file.
 
                             </div>
 
@@ -421,14 +421,125 @@
 
                             <div class="accordion-body">
 
-                                Yes. Once you have created a lesson
-                                pack, you can load it again when you
-                                want to use the same lesson content.
+                                Yes. Keep the ZIP file you downloaded.
+                                When you want to reuse it, sign in,
+                                open that game's lesson editor, and
+                                upload the saved pack. Lesson packs are
+                                not stored in your online account.
 
                             </div>
 
                         </div>
 
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================= -->
+            <!-- ACCOUNTS AND PRIVACY -->
+            <!-- ========================================= -->
+
+            <section class="faq-section mb-5">
+
+                <h2 class="faq-section-title">
+                    🔐 Accounts, Worksheets, and Privacy
+                </h2>
+
+                <div class="accordion" id="accountFaq">
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#account1">
+                                What do I need an account for?
+                            </button>
+                        </h2>
+                        <div id="account1"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#accountFaq">
+                            <div class="accordion-body">
+                                You can play the available games without
+                                an account. You must create an account and
+                                sign in to create or load lesson packs or
+                                use the Worksheet Generator. Account
+                                registration also lets you manage your
+                                profile and preferences.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#account2">
+                                How do I create an account?
+                            </button>
+                        </h2>
+                        <div id="account2"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#accountFaq">
+                            <div class="accordion-body">
+                                Choose <a href="{{ url_for('sign_up') }}">Sign Up</a>,
+                                enter the requested account details, confirm
+                                your date of birth, and agree to the
+                                <a href="{{ url_for('terms') }}">Terms and Conditions</a>.
+                                You must be at least 14 to register. Depending
+                                on the account verification settings, you may
+                                need to confirm your email before logging in.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#accountWorksheet">
+                                What can I do with the Worksheet Generator?
+                            </button>
+                        </h2>
+                        <div id="accountWorksheet"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#accountFaq">
+                            <div class="accordion-body">
+                                After signing in, you can build a worksheet
+                                with sections such as unscramble, fill in
+                                the blanks, translation, and word search,
+                                then export it for use in class. The
+                                <a href="{{ url_for('worksheet_generator') }}">Worksheet Generator</a>
+                                is available from the site navigation.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#account3">
+                                Where can I read about privacy and cookies?
+                            </button>
+                        </h2>
+                        <div id="account3"
+                             class="accordion-collapse collapse"
+                             data-bs-parent="#accountFaq">
+                            <div class="accordion-body">
+                                Read our <a href="{{ url_for('policies') }}">Privacy Policy</a>
+                                and <a href="{{ url_for('cookies') }}">Cookie Policy</a>.
+                                The site uses a session cookie for functions
+                                such as keeping you signed in. Cookie behavior
+                                and options are explained in the Cookie Policy.
+                            </div>
+                        </div>
                     </div>
 
                 </div>

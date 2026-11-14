@@ -99,6 +99,41 @@
 							</div>
 						</div>
 
+						<div class="form-check mt-4">
+							<input class="form-check-input"
+								   type="checkbox"
+								   id="accept_terms"
+								   name="accept_terms"
+								   value="yes"
+								   required>
+							<label class="form-check-label" for="accept_terms">
+								I agree to the <a href="{{ url_for('terms') }}">Terms and Conditions</a>.
+							</label>
+						</div>
+
+						<div class="mt-3">
+							<label for="date_of_birth" class="form-label">Date of birth</label>
+							<input type="date"
+								   class="form-control"
+								   id="date_of_birth"
+								   name="date_of_birth"
+								   max="{{ today }}"
+								   autocomplete="bday"
+								   required>
+						</div>
+
+						<div class="form-check mt-3">
+							<input class="form-check-input"
+								   type="checkbox"
+								   id="confirm_age_truthful"
+								   name="confirm_age_truthful"
+								   value="yes"
+								   required>
+							<label class="form-check-label" for="confirm_age_truthful">
+								I confirm that the date of birth I provided is accurate and truthful.
+							</label>
+						</div>
+
 						<button type="submit" class="btn btn-brand w-100 mt-4">
 							Create account
 							<i class="bi bi-arrow-right ms-2" aria-hidden="true"></i>

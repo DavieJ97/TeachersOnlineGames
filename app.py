@@ -13,7 +13,7 @@ import resend
 import os
 import hmac
 import secrets
-from datetime import datetime
+from datetime import date, datetime
 from urllib.parse import urlsplit
 import zipfile
 from markupsafe import escape
@@ -28,8 +28,18 @@ from generators.translate import TranslationSection
 from generators.word_search import WordSearchSection
 
 app = Flask(__name__)
+secret_key = os.environ.get("FLASK_SECRET_KEY", "").strip()
+if len(secret_key.encode("utf-8")) < 32:
+    raise RuntimeError(
+        "FLASK_SECRET_KEY must be configured with at least 32 bytes of random data."
+    )
 
-app.secret_key = os.environ.get("FLASK_SECRET_KEY") or os.urandom(32)
+app.config.update(
+    SECRET_KEY=secret_key,
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE="Lax",
+)
 
 resend.api_key = os.environ.get("RESEND_API_KEY")
 
@@ -43,6 +53,63 @@ def inject_current_year():
     return {
         "current_year": datetime.now().year
     }
+
+
+@app.context_processor
+def inject_current_user():
+    user_id = session.get("user_id")
+    current_user = None
+    current_theme = "system"
+    if user_id:
+        try:
+            rows = (
+                create_profile_client().table("profiles")
+                .select("email,display_name,avatar_url")
+                .eq("id", user_id)
+                .limit(1)
+                .execute()
+                .data
+            )
+            current_user = rows[0] if rows else {
+                "email": "",
+                "display_name": "Your account",
+                "avatar_url": "",
+            }
+        except Exception:
+            app.logger.info("Could not load the current user's navbar profile.")
+            current_user = {
+                "email": "",
+                "display_name": "Your account",
+                "avatar_url": "",
+            }
+        try:
+            rows = (
+                create_profile_client().table("user_preferences")
+                .select("theme")
+                .eq("user_id", user_id)
+                .limit(1)
+                .execute()
+                .data
+            )
+            if rows and rows[0].get("theme") in {"light", "dark", "system"}:
+                current_theme = rows[0]["theme"]
+        except Exception:
+            app.logger.info("Could not load the current user's theme preference.")
+    return {"current_user": current_user, "current_theme": current_theme}
+
+
+@app.before_request
+def migrate_legacy_session():
+    # Old signed cookies may still contain the former personal-data user object.
+    legacy_user = session.get("user")
+    if isinstance(legacy_user, dict) and legacy_user.get("id"):
+        csrf_token = session.get("_settings_csrf_token")
+        session.clear()
+        session["user_id"] = legacy_user["id"]
+        if isinstance(csrf_token, str) and csrf_token:
+            session["_settings_csrf_token"] = csrf_token
+    elif "user" in session:
+        session.pop("user", None)
 
 
 def create_auth_client():
@@ -73,34 +140,9 @@ def is_safe_redirect_target(target):
     )
 
 
-def set_logged_in_user(user):
-    metadata = getattr(user, "user_metadata", None) or {}
-    logged_in_user = {
-        "id": user.id,
-        "email": user.email,
-        "display_name": metadata.get("display_name") or user.email,
-        "avatar_url": metadata.get("avatar_url") or ""
-    }
-
-    try:
-        profile_rows = (
-            create_profile_client().table("profiles")
-            .select("display_name,avatar_url")
-            .eq("id", user.id)
-            .limit(1)
-            .execute()
-            .data
-        )
-        if profile_rows:
-            logged_in_user["display_name"] = (
-                profile_rows[0].get("display_name")
-                or logged_in_user["display_name"]
-            )
-            logged_in_user["avatar_url"] = profile_rows[0].get("avatar_url") or ""
-    except Exception as error:
-        app.logger.info("Could not load profile image during login: %s", error)
-
-    session["user"] = logged_in_user
+def set_authenticated_user(user):
+    session.clear()
+    session["user_id"] = user.id
 
 
 @app.route("/")
@@ -116,6 +158,18 @@ def games():
 def faq():
     return render_template("faq.html")
 
+@app.route("/terms")
+def terms():
+    return render_template("terms.html")
+
+@app.route("/policies")
+def policies():
+    return render_template("policies.html")
+
+@app.route("/cookies")
+def cookies():
+    return render_template("cookies.html")
+
 @app.route("/community")
 def community():
     return render_template("community.html")
@@ -128,6 +182,37 @@ def sign_up():
         email = request.form.get("email", "").strip()
         password = request.form.get("password", "")
         confirm_password = request.form.get("confirm_password", "")
+        date_of_birth_value = request.form.get("date_of_birth", "")
+
+        if request.form.get("accept_terms") != "yes":
+            flash("You must agree to the Terms and Conditions to create an account.", "danger")
+            return redirect(url_for("sign_up"))
+
+        if not date_of_birth_value:
+            flash("Please enter your date of birth.", "danger")
+            return redirect(url_for("sign_up"))
+
+        try:
+            date_of_birth = date.fromisoformat(date_of_birth_value)
+        except ValueError:
+            flash("Please enter a valid date of birth.", "danger")
+            return redirect(url_for("sign_up"))
+
+        if request.form.get("confirm_age_truthful") != "yes":
+            flash("Please confirm that your date of birth is accurate and truthful.", "danger")
+            return redirect(url_for("sign_up"))
+
+        today = date.today()
+        if date_of_birth > today:
+            flash("Please enter a valid date of birth.", "danger")
+            return redirect(url_for("sign_up"))
+
+        age = today.year - date_of_birth.year
+        if (today.month, today.day) < (date_of_birth.month, date_of_birth.day):
+            age -= 1
+        if age < 14:
+            flash("You must be at least 14 years old to create an account.", "danger")
+            return redirect(url_for("sign_up"))
 
         if not display_name or not username or not email or not password:
             flash("Please complete all required fields.", "danger")
@@ -158,7 +243,7 @@ def sign_up():
             })
 
             if response.session:
-                set_logged_in_user(response.user)
+                set_authenticated_user(response.user)
                 flash("Your account has been created.", "success")
                 return redirect(url_for("index"))
 
@@ -175,7 +260,7 @@ def sign_up():
             )
             return redirect(url_for("sign_up"))
 
-    return render_template("sign_up.html")
+    return render_template("sign_up.html", today=date.today().isoformat())
 
 
 @app.route("/email-confirmation")
@@ -207,7 +292,7 @@ def login():
                 "email": email,
                 "password": password
             })
-            set_logged_in_user(response.user)
+            set_authenticated_user(response.user)
             flash("You are now logged in.", "success")
             if is_safe_redirect_target(next_url):
                 return redirect(next_url)
@@ -283,21 +368,20 @@ def api_reset_password():
 
 @app.route("/logout", methods=["POST"])
 def logout():
-    session.pop("user", None)
+    session.clear()
     flash("You are now logged out.", "success")
     return redirect(url_for("index"))
 
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
-    logged_in_user = session.get("user")
-    if not logged_in_user:
+    user_id = session.get("user_id")
+    if not user_id:
         flash("Please log in to view your profile.", "warning")
         return redirect(url_for("login"))
 
-    user_id = logged_in_user["id"]
     profile_data = {
-        "email": logged_in_user.get("email", ""),
-        "display_name": logged_in_user.get("display_name", ""),
+        "email": "",
+        "display_name": "",
         "username": "",
         "avatar_url": "",
         "bio": "",
@@ -360,13 +444,14 @@ def profile():
 
             current_profile_rows = (
                 profile_client.table("profiles")
-                .select("avatar_url")
+                .select("email,avatar_url")
                 .eq("id", user_id)
                 .limit(1)
                 .execute()
                 .data
             )
             avatar_url = current_profile_rows[0].get("avatar_url", "") if current_profile_rows else ""
+            email = current_profile_rows[0].get("email", "") if current_profile_rows else ""
             avatar_file = request.files.get("profile_picture")
 
             if avatar_file and avatar_file.filename:
@@ -395,7 +480,7 @@ def profile():
 
             profile_client.table("profiles").upsert({
                 "id": user_id,
-                "email": logged_in_user.get("email", ""),
+                "email": email,
                 "display_name": display_name,
                 "username": username,
                 "avatar_url": avatar_url,
@@ -413,9 +498,6 @@ def profile():
                 "specializations": specializations
             }, on_conflict="user_id").execute()
 
-            logged_in_user["display_name"] = display_name
-            logged_in_user["avatar_url"] = avatar_url
-            session["user"] = logged_in_user
             flash("Your profile has been saved.", "success")
             return redirect(url_for("profile"))
 
@@ -429,11 +511,6 @@ def profile():
         )
         if profile_rows:
             profile_data.update(profile_rows[0])
-            logged_in_user["display_name"] = (
-                profile_data.get("display_name") or logged_in_user["display_name"]
-            )
-            logged_in_user["avatar_url"] = profile_data.get("avatar_url") or ""
-            session["user"] = logged_in_user
 
         teacher_rows = (
             profile_client.table("teacher_profiles")
@@ -494,17 +571,16 @@ def profile():
 
 @app.route("/settings", methods=["GET", "POST"])
 def settings():
-    logged_in_user = session.get("user")
-    if not logged_in_user:
+    user_id = session.get("user_id")
+    if not user_id:
         flash("Please log in to manage your settings.", "warning")
         return redirect(url_for("login"))
 
-    user_id = logged_in_user["id"]
     account = {
-        "email": logged_in_user.get("email", ""),
-        "display_name": logged_in_user.get("display_name", ""),
+        "email": "",
+        "display_name": "",
         "username": "",
-        "avatar_url": logged_in_user.get("avatar_url", ""),
+        "avatar_url": "",
         "bio": "",
         "is_public": False,
         "subjects": [],
@@ -547,7 +623,6 @@ def settings():
                     "user_id": user_id,
                     **preferences
                 }, on_conflict="user_id").execute()
-                session["theme"] = theme
                 flash("Your preferences have been saved.", "success")
 
             elif action == "public_profile":
@@ -564,8 +639,19 @@ def settings():
                     raise ValueError("Enter your current password to continue.")
 
                 auth_client = create_auth_client()
+                email_rows = (
+                    create_profile_client().table("profiles")
+                    .select("email")
+                    .eq("id", user_id)
+                    .limit(1)
+                    .execute()
+                    .data
+                )
+                current_email = email_rows[0].get("email", "") if email_rows else ""
+                if not current_email:
+                    raise ValueError("Your account could not be verified. Please try again.")
                 verified_user = auth_client.auth.sign_in_with_password({
-                    "email": logged_in_user["email"],
+                    "email": current_email,
                     "password": current_password
                 }).user
                 if verified_user.id != user_id:
@@ -644,8 +730,6 @@ def settings():
         )
         if preference_rows:
             preferences.update(preference_rows[0])
-        session["theme"] = preferences["theme"]
-
         subscription_rows = (
             profile_client.table("subscriptions")
             .select("status,started_at,expires_at,plan_id")
@@ -809,7 +893,7 @@ def connect_four():
 
 @app.route("/games/review_questions/<game_name>")
 def review_questions(game_name):
-    if not session.get("user"):
+    if not session.get("user_id"):
         flash("Please log in or sign up to create a lesson pack.", "warning")
         return redirect(url_for("login"))
 
@@ -820,7 +904,7 @@ def review_questions(game_name):
 
 @app.route("/games/speaking_questions/<game_name>")
 def speaking_questions(game_name):
-    if not session.get("user"):
+    if not session.get("user_id"):
         flash("Please log in or sign up to create a lesson pack.", "warning")
         return redirect(url_for("login"))
 
@@ -831,7 +915,7 @@ def speaking_questions(game_name):
 
 @app.route("/worksheets")
 def worksheet_generator():
-    if not session.get("user"):
+    if not session.get("user_id"):
         flash("Please log in or sign up to use the Worksheet Generator.", "warning")
         return redirect(url_for("login"))
 

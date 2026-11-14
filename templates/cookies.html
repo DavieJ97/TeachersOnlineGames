@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Cookie Policy | Teachers Online{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container text-center">
+        <h1>Cookie Policy</h1>
+        <p class="lead">How Teachers Online uses cookies and similar technologies.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="alert alert-info" role="note">
+                    This policy describes cookie use identified in the current Teachers Online application. Hosting, security, and other service providers may use additional technologies that depend on their configuration.
+                </div>
+
+                <article>
+                    <div class="d-flex justify-content-end mb-3">
+                        <a class="btn btn-outline-primary"
+                           href="{{ url_for('static', filename='documents/Teachers_Online_Cookie_Policy_v1.pdf') }}"
+                           download>
+                            <i class="bi bi-download me-2" aria-hidden="true"></i>
+                            Download Cookie Policy (PDF)
+                        </a>
+                    </div>
+                    <div class="accordion" id="cookiesAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingCookies1">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#cookiesSection1" aria-expanded="true" aria-controls="cookiesSection1">
+                                    1. What cookies are
+                                </button>
+                            </h2>
+                            <div id="cookiesSection1" class="accordion-collapse collapse show" aria-labelledby="headingCookies1" data-bs-parent="#cookiesAccordion">
+                                <div class="accordion-body">
+                                    <p>Cookies are small pieces of data that a website can store in your browser. This policy explains the cookies and related technologies used when you visit or use Teachers Online.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingCookies2">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cookiesSection2" aria-expanded="false" aria-controls="cookiesSection2">
+                                    2. Essential session cookie
+                                </button>
+                            </h2>
+                            <div id="cookiesSection2" class="accordion-collapse collapse" aria-labelledby="headingCookies2" data-bs-parent="#cookiesAccordion">
+                                <div class="accordion-body">
+                                    <p>Teachers Online uses a Flask session cookie for essential website functions. It can maintain a signed-in session and support features such as security checks and temporary messages. The cookie may contain session values such as an account identifier or a security token.</p>
+                                    <p>The session cookie is configured with the <code>Secure</code>, <code>HttpOnly</code>, and <code>SameSite=Lax</code> attributes. Flask signs the session data to help detect changes; signing does not encrypt it.</p>
+                                    <p>The application does not set a permanent session lifetime, so the cookie is intended to expire when the browser session ends. Browser behavior such as restoring a previous session can affect when session cookies are removed.</p>
+                                    <p>A cookie is not necessarily sent to every visitor. The browser receives or updates it when the application changes session data, for example when signing in, storing a temporary notice, or creating a settings security token.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingCookies3">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cookiesSection3" aria-expanded="false" aria-controls="cookiesSection3">
+                                    3. Analytics, advertising, and third-party resources
+                                </button>
+                            </h2>
+                            <div id="cookiesSection3" class="accordion-collapse collapse" aria-labelledby="headingCookies3" data-bs-parent="#cookiesAccordion">
+                                <div class="accordion-body">
+                                    <p>The current application code does not include Google Analytics or an advertising cookie system. Resend email open and click tracking are also reported as disabled in the settings reviewed for the Privacy Policy.</p>
+                                    <p>Some pages load resources such as fonts, stylesheets, and JavaScript libraries from third-party services, including Google Fonts and content delivery networks. Loading these resources can send technical information, such as your IP address and browser request details, to the provider. The application code review has not confirmed whether those providers or hosting and security services use additional cookies or similar technologies in connection with your visit.</p>
+                                    <p>For details about personal information and service providers, read our <a href="{{ url_for('policies') }}">Privacy Policy</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingCookies4">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cookiesSection4" aria-expanded="false" aria-controls="cookiesSection4">
+                                    4. Your cookie choices
+                                </button>
+                            </h2>
+                            <div id="cookiesSection4" class="accordion-collapse collapse" aria-labelledby="headingCookies4" data-bs-parent="#cookiesAccordion">
+                                <div class="accordion-body">
+                                    <p>You can use your browser settings to view, delete, or block cookies. If you block session cookies, sign-in and some features that rely on session security or temporary messages may not work correctly.</p>
+                                    <p>Teachers Online does not currently provide an on-site cookie preference or consent banner.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingCookies5">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cookiesSection5" aria-expanded="false" aria-controls="cookiesSection5">
+                                    5. Changes to this Cookie Policy
+                                </button>
+                            </h2>
+                            <div id="cookiesSection5" class="accordion-collapse collapse" aria-labelledby="headingCookies5" data-bs-parent="#cookiesAccordion">
+                                <div class="accordion-body">
+                                    <p>We may update this page when our cookie use, services, or legal obligations change. The latest version will be published here.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingCookies6">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cookiesSection6" aria-expanded="false" aria-controls="cookiesSection6">
+                                    6. Contact
+                                </button>
+                            </h2>
+                            <div id="cookiesSection6" class="accordion-collapse collapse" aria-labelledby="headingCookies6" data-bs-parent="#cookiesAccordion">
+                                <div class="accordion-body">
+                                    <p>If you have questions about cookies or privacy, contact <a href="mailto:officialteachersonline@gmail.com">officialteachersonline@gmail.com</a>. For more information about personal information, see the <a href="{{ url_for('policies') }}">Privacy Policy</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
