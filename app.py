@@ -170,6 +170,20 @@ def policies():
 def cookies():
     return render_template("cookies.html")
 
+@app.route("/sitemap.xml")
+def sitemap():
+    return send_file(
+        os.path.join(app.root_path, "sitemap.xml"),
+        mimetype="application/xml"
+    )
+
+@app.route("/robots.txt")
+def robots():
+    return send_file(
+        os.path.join(app.root_path, "robots.txt"),
+        mimetype="text/plain"
+    )
+
 @app.route("/community")
 def community():
     return render_template("community.html")

@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /sign-up
+Disallow: /logout
+Disallow: /profile
+Disallow: /settings
+Disallow: /worksheets
+Disallow: /games/review_questions/
+Disallow: /games/speaking_questions/
+Disallow: /api/
+Disallow: /export
+Disallow: /reset-password
+Disallow: /email-confirmation
+
+Sitemap: https://www.teachersonline.app/sitemap.xml
